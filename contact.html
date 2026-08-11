@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Reach Lejwana | polished@lejwana.com</title>
+  <meta name="description" content="Email polished@lejwana.com, book a 20-minute introduction or 45-minute working session, or send a trade enquiry. We reply within one working day.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="wordmark" href="index.html" aria-label="Lejwana home">
+        <span class="wordmark__gem" aria-hidden="true"></span>
+        <span class="wordmark__text">Lejwana</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav__burger" aria-expanded="false" aria-controls="nav-list">
+          <span class="u-visually-hidden">Menu</span>
+          <span class="nav__burger-line" aria-hidden="true"></span>
+          <span class="nav__burger-line" aria-hidden="true"></span>
+          <span class="nav__burger-line" aria-hidden="true"></span>
+        </button>
+        <ul class="nav__list" id="nav-list">
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__toggle" aria-expanded="false" aria-controls="services-menu">Services</button>
+            <ul class="nav__dropdown" id="services-menu">
+              <li><a class="nav__dropdown-link" href="brokerage.html">Brokerage</a></li>
+              <li><a class="nav__dropdown-link" href="dealing.html">Dealing</a></li>
+              <li><a class="nav__dropdown-link" href="advisory.html">Advisory</a></li>
+            </ul>
+          </li>
+          <li><a class="nav__link" href="the-network.html">The Network</a></li>
+          <li><a class="nav__link" href="insight.html">Insight</a></li>
+          <li><a class="nav__link" href="about.html">About</a></li>
+          <li><a class="nav__link nav__link--active" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero hero--page">
+      <div class="container">
+        <span class="eyebrow">Contact</span>
+        <h1>Reach us.</h1>
+        <p class="hero__subheading">We reply within one working day.</p>
+      </div>
+    </section>
+
+    <!-- Two channels -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-channels">
+          <div class="channel">
+            <h2 class="channel__title">Email</h2>
+            <p><a class="channel__email" href="mailto:polished@lejwana.com">polished@lejwana.com</a></p>
+            <button class="channel__copy-button" type="button" data-email="polished@lejwana.com">Copy email address</button>
+          </div>
+          <div class="channel">
+            <h2 class="channel__title">Book a call</h2>
+            <ul class="channel__durations">
+              <li>20-minute introduction</li>
+              <li>45-minute working session</li>
+            </ul>
+            <!-- Cal.com loads on request so the page stays fast.
+                 [CONFIRM: Cal.com booking link — placeholder "lejwana/intro" used] -->
+            <button class="button" type="button" data-cal-link="lejwana/intro" data-cal-target="#cal-container">Open the booking calendar</button>
+            <div class="cal-embed" id="cal-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enquiry form -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <hr class="provenance-rule">
+        <h2 class="section__title">Send an enquiry</h2>
+        <!-- Front-end only. Wire action to the mail handler before launch. -->
+        <form class="form" novalidate>
+          <div class="form__row">
+            <div class="form__field">
+              <label class="form__label" for="field-name">Name</label>
+              <input class="form__input" type="text" id="field-name" name="name" autocomplete="name" required>
+              <p class="form__error">Add your name.</p>
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="field-company">Company</label>
+              <input class="form__input" type="text" id="field-company" name="company" autocomplete="organization" required>
+              <p class="form__error">Add your company.</p>
+            </div>
+          </div>
+          <div class="form__field">
+            <label class="form__label" for="field-email">Email</label>
+            <input class="form__input" type="email" id="field-email" name="email" autocomplete="email" required>
+            <p class="form__error">Add an email address we can reply to.</p>
+          </div>
+          <div class="form__field">
+            <label class="form__label" for="field-enquiry">Enquiry</label>
+            <select class="form__select" id="field-enquiry" name="enquiry" required>
+              <option value="">Choose one</option>
+              <option value="brokerage">Brokerage</option>
+              <option value="dealing">Dealing</option>
+              <option value="advisory">Advisory</option>
+              <option value="general">General</option>
+            </select>
+            <p class="form__error">Choose an enquiry type.</p>
+          </div>
+          <div class="form__field">
+            <label class="form__label" for="field-message">Message</label>
+            <textarea class="form__textarea" id="field-message" name="message" required></textarea>
+            <p class="form__error">Tell us what you need.</p>
+          </div>
+          <button class="button" type="submit">Send enquiry</button>
+          <p class="form__success" role="status">Received. We will reply within one working day.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Locations -->
+    <section class="section section--sky">
+      <div class="container">
+        <hr class="provenance-rule">
+        <h2 class="section__title">Where to find us</h2>
+        <div class="location-cards">
+          <div class="location-card">
+            <h3 class="location-card__title">Gaborone</h3>
+            <p>Lejwana's primary Southern African location.</p>
+            <!-- [CONFIRM: Gaborone address details] -->
+          </div>
+          <div class="location-card">
+            <h3 class="location-card__title">London Diamond Bourse</h3>
+            <p>By appointment.</p>
+          </div>
+        </div>
+        <p class="membership-line" style="margin-top: 2.5rem;">Members of the London Diamond Bourse and the World Federation of Diamond Bourses.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer site-footer--flush">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <a class="wordmark site-footer__wordmark" href="index.html" aria-label="Lejwana home">
+            <span class="wordmark__gem" aria-hidden="true"></span>
+            <span class="wordmark__text">Lejwana</span>
+          </a>
+          <address class="site-footer__address">
+            Gaborone, Botswana<br>
+            <!-- [CONFIRM: full Gaborone street address] -->
+            London Diamond Bourse, by appointment
+          </address>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Services</h2>
+          <ul class="site-footer__list">
+            <li><a class="site-footer__link" href="brokerage.html">Brokerage</a></li>
+            <li><a class="site-footer__link" href="dealing.html">Dealing</a></li>
+            <li><a class="site-footer__link" href="advisory.html">Advisory</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Contact</h2>
+          <ul class="site-footer__list">
+            <li><a class="site-footer__link" href="mailto:polished@lejwana.com">polished@lejwana.com</a></li>
+            <li><a class="site-footer__link" href="contact.html">Book a call</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="site-footer__membership">Members of the London Diamond Bourse and the World Federation of Diamond Bourses.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

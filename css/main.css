@@ -1,128 +1,1288 @@
-/*
-|| RESET
-*/
+/* ==========================================================================
+   LEJWANA — main.css
+   Southern African natural polished diamond house
+   Methodology: BEM. One file, labelled sections.
+
+   CONTENTS
+   01. Tokens
+   02. Reset & base
+   03. Utilities (container, provenance rule, eyebrow)
+   04. Header & navigation
+   05. Hero
+   06. Buttons & links
+   07. Capabilities band
+   08. Cards (service, sky, country tiles, locations)
+   09. Insight (grid, cards, article)
+   10. Page sections (prose, values, team, credentials, engagement)
+   11. Forms & contact
+   12. Footer
+   13. Responsive
+   14. Accessibility & motion
+   ========================================================================== */
+
+
+/* ==========================================================================
+   01. Tokens
+   ========================================================================== */
+
+:root {
+  /* Palette — per brief. Max three palette colours per screen. */
+  --colour-alpine: #FFFFFF;   /* Base — main background            */
+  --colour-sapphire: #1E3A5F; /* Ink — headings, buttons, dark hero */
+  --colour-botswana: #75AADB; /* Accent — links, active states      */
+  --colour-sky: #E8F0F7;      /* Ground — soft backgrounds, cards   */
+  --colour-olive: #6B7C4F;    /* Signature — benefits, Insight      */
+  --colour-gold: #B08D57;     /* Mark — eyebrows, dividers, gem     */
+  --colour-charcoal: #1A1A1A; /* Text — body copy                   */
+
+  /* Type */
+  --font-heading: 'Lora', Georgia, serif;
+  --font-body: 'Work Sans', -apple-system, 'Segoe UI', sans-serif;
+
+  --size-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --size-h2: clamp(1.5rem, 3vw, 2.125rem);
+  --size-h3: 1.25rem;
+  --size-body: 1.0625rem;
+  --size-small: 0.875rem;
+  --size-eyebrow: 0.8125rem;
+
+  --leading-body: 1.65;
+  --leading-heading: 1.2;
+
+  --tracking-eyebrow: 0.14em;
+  --tracking-wordmark: 0.28em;
+
+  /* Layout */
+  --width-site: 1140px;
+  --width-reading: 680px;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6.5rem;
+}
+
+
+/* ==========================================================================
+   02. Reset & base
+   ========================================================================== */
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-body {
   margin: 0;
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  -webkit-font-smoothing: antialiased;
 }
 
-img,
-picture,
-video {
-  display: block;
-  max-width: 100%;
-  height: auto;
+html {
+  scroll-behavior: smooth;
 }
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
-h1,
-h2,
-h3,
-h4,
-p {
-  margin: 0;
-  overflow-wrap: break-word;
-}
-
-/*
-|| TOKENS — mirror of docs/DESIGN.md. Change there first.
-*/
-
-:root {
-  --colour-ink: #111111;
-  --colour-bg: #ffffff;
-  --colour-accent: #f44e2e;
-
-  --font-display: georgia, serif;
-  --font-body: system-ui, sans-serif;
-
-  --space-s: 0.75rem;
-  --space-m: 1.5rem;
-  --space-l: 3rem;
-  --space-xl: 6rem;
-
-  --measure: 65ch;
-}
-
-/*
-|| BASE
-*/
 
 body {
   font-family: var(--font-body);
-  color: var(--colour-ink);
-  background: var(--colour-bg);
-  line-height: 1.5;
+  font-weight: 300;
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  color: var(--colour-charcoal);
+  background: var(--colour-alpine);
+  -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  line-height: 1.1;
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  line-height: var(--leading-heading);
+  color: var(--colour-sapphire);
 }
 
-:focus-visible {
-  outline: 2px solid var(--colour-accent);
-  outline-offset: 2px;
+h1 { font-size: var(--size-h1); }
+h2 { font-size: var(--size-h2); }
+h3 { font-size: var(--size-h3); }
+
+p + p {
+  margin-top: var(--space-2);
 }
 
-/*
-|| UTILITIES
-*/
+img {
+  max-width: 100%;
+  display: block;
+}
 
-.visually-hidden {
+a {
+  color: var(--colour-sapphire);
+}
+
+
+/* ==========================================================================
+   03. Utilities
+   ========================================================================== */
+
+.container {
+  max-width: var(--width-site);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+.container--reading {
+  max-width: var(--width-reading);
+}
+
+/* Eyebrow — Work Sans caps, tracked. Gold on light, gold on dark. */
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--size-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+  margin-bottom: var(--space-2);
+}
+
+/* Provenance rule — the signature device.
+   Hairline with a small rotated-square gem mark, echoing the wordmark. */
+.provenance-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 0;
+  margin: 0 0 var(--space-4);
+}
+
+.provenance-rule::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: var(--colour-gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.provenance-rule::after {
+  content: '';
+  height: 1px;
+  flex-grow: 1;
+  background: linear-gradient(to right, var(--colour-gold), transparent 70%);
+  max-width: 160px;
+}
+
+.provenance-rule--centred {
+  justify-content: center;
+}
+
+.provenance-rule--centred::after {
+  max-width: 80px;
+}
+
+/* Section rhythm */
+.section {
+  padding-block: var(--space-6);
+}
+
+.section--sky {
+  background: var(--colour-sky);
+}
+
+.section__title {
+  margin-bottom: var(--space-2);
+}
+
+.section__intro {
+  max-width: var(--width-reading);
+  margin-bottom: var(--space-4);
+}
+
+/* Visually hidden — for accessible labels */
+.u-visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
-  margin: -1px;
-  padding: 0;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
-  border: 0;
 }
 
-/* Reveal-on-scroll: static by default, animated only when JS opts in
-   and the user hasn't asked for reduced motion. */
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal {
-    opacity: 0;
-    translate: 0 1.5rem;
-    transition: opacity 0.6s ease, translate 0.6s ease;
-  }
 
-  .js .reveal.is-visible {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
-/*
-|| SITEWIDE
-*/
+/* ==========================================================================
+   04. Header & navigation
+   ========================================================================== */
 
 .site-header {
-  padding: var(--space-m);
+  background: var(--colour-alpine);
+  border-bottom: 1px solid var(--colour-sky);
 }
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 5rem;
+  gap: var(--space-3);
+}
+
+/* Wordmark — wide-tracked sans, sapphire, gold gem mark */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.wordmark__gem {
+  width: 10px;
+  height: 10px;
+  background: var(--colour-gold);
+  transform: rotate(45deg);
+}
+
+.wordmark__text {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: var(--tracking-wordmark);
+  text-transform: uppercase;
+  color: var(--colour-sapphire);
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+
+.nav__link {
+  font-weight: 400;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  color: var(--colour-sapphire);
+  padding-block: 0.5rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav__link:hover {
+  border-bottom-color: var(--colour-botswana);
+}
+
+.nav__link--active {
+  border-bottom-color: var(--colour-botswana);
+}
+
+/* Services dropdown */
+.nav__item--dropdown {
+  position: relative;
+}
+
+.nav__toggle {
+  font: inherit;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: var(--colour-sapphire);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.nav__toggle:hover,
+.nav__toggle[aria-expanded="true"] {
+  border-bottom-color: var(--colour-botswana);
+}
+
+.nav__toggle::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 0.45rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+}
+
+.nav__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 11rem;
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-sky);
+  box-shadow: 0 10px 30px rgba(30, 58, 95, 0.08);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  display: none;
+  z-index: 20;
+}
+
+.nav__dropdown--open {
+  display: block;
+}
+
+.nav__dropdown-link {
+  display: block;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--colour-sapphire);
+}
+
+.nav__dropdown-link:hover {
+  background: var(--colour-sky);
+}
+
+/* Mobile toggle */
+.nav__burger {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.nav__burger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--colour-sapphire);
+  margin-block: 5px;
+}
+
+
+/* ==========================================================================
+   05. Hero
+   ========================================================================== */
+
+.hero {
+  padding-block: var(--space-6);
+}
+
+.hero__secondary {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--colour-sapphire);
+  margin-top: var(--space-2);
+}
+
+.hero__body {
+  max-width: 42rem;
+  margin-top: var(--space-3);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Dark stone variant — sapphire ground, per brief hero direction */
+.hero--dark {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 10%, rgba(117, 170, 219, 0.12), transparent),
+    var(--colour-sapphire);
+  color: var(--colour-alpine);
+}
+
+.hero--dark .hero__title,
+.hero--dark .hero__secondary {
+  color: var(--colour-alpine);
+}
+
+.hero--dark .hero__body {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Sub-page hero — light, quieter */
+.hero--page {
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--colour-sky);
+}
+
+.hero__subheading {
+  font-family: var(--font-heading);
+  font-size: 1.3125rem;
+  color: var(--colour-sapphire);
+  margin-top: var(--space-2);
+}
+
+
+/* ==========================================================================
+   06. Buttons & links
+   ========================================================================== */
+
+.button {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.85rem 1.9rem;
+  border: 1px solid var(--colour-sapphire);
+  background: var(--colour-sapphire);
+  color: var(--colour-alpine);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #16304f;
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--colour-sapphire);
+}
+
+.button--ghost:hover {
+  background: var(--colour-sky);
+}
+
+.button--on-dark {
+  background: var(--colour-alpine);
+  border-color: var(--colour-alpine);
+  color: var(--colour-sapphire);
+}
+
+.button--on-dark:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.button--ghost-on-dark {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--colour-alpine);
+}
+
+.button--ghost-on-dark:hover {
+  border-color: var(--colour-alpine);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Text link with arrow */
+.text-link {
+  font-weight: 400;
+  color: var(--colour-sapphire);
+  text-decoration: none;
+  border-bottom: 1px solid var(--colour-botswana);
+  padding-bottom: 1px;
+}
+
+.text-link:hover {
+  color: var(--colour-botswana);
+}
+
+
+/* ==========================================================================
+   07. Capabilities band
+   ========================================================================== */
+
+.capabilities {
+  padding-block: var(--space-6);
+}
+
+.capabilities__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.capability__label {
+  display: block;
+  font-weight: 500;
+  font-size: var(--size-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+  margin-bottom: var(--space-2);
+}
+
+.capability__statement {
+  margin-bottom: var(--space-2);
+}
+
+.capability__benefit {
+  font-weight: 500;
+  color: var(--colour-olive);
+}
+
+
+/* ==========================================================================
+   08. Cards
+   ========================================================================== */
+
+/* Service cards */
+.service-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.service-card {
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-sky);
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.service-card__name {
+  font-size: 1.375rem;
+}
+
+.service-card__link {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Sky proposition card */
+.proposition {
+  background: var(--colour-sky);
+  padding: var(--space-4);
+}
+
+.proposition__points {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+
+.proposition__point-title {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: var(--colour-sapphire);
+  margin-bottom: var(--space-1);
+}
+
+/* Country tiles */
+.country-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.country-tile {
+  background: var(--colour-sky);
+  padding: var(--space-3);
+  min-height: 11rem;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.country-tile:hover .country-tile__name {
+  color: var(--colour-botswana);
+}
+
+.country-tile__role {
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+  margin-bottom: var(--space-3);
+}
+
+.country-tile__name {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: var(--colour-sapphire);
+}
+
+.country-tile__line {
+  font-size: var(--size-small);
+  margin-top: var(--space-1);
+  color: var(--colour-charcoal);
+}
+
+/* Location cards */
+.location-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.location-card {
+  background: var(--colour-sky);
+  padding: var(--space-4) var(--space-3);
+}
+
+.location-card__title {
+  margin-bottom: var(--space-1);
+}
+
+
+/* ==========================================================================
+   09. Insight
+   ========================================================================== */
+
+/* Featured article */
+.insight-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--colour-sapphire);
+  color: var(--colour-alpine);
+  text-decoration: none;
+  margin-bottom: var(--space-5);
+}
+
+.insight-featured__panel {
+  padding: var(--space-5) var(--space-4);
+}
+
+.insight-featured__category {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-alpine);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.3rem 0.7rem;
+  margin-bottom: var(--space-3);
+}
+
+.insight-featured__title {
+  color: var(--colour-alpine);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+}
+
+.insight-featured__standfirst {
+  margin-top: var(--space-2);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.insight-featured__meta {
+  margin-top: var(--space-3);
+  font-size: var(--size-small);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.insight-featured__ground {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 45%, rgba(117, 170, 219, 0.18), transparent),
+    #16304f;
+  min-height: 280px;
+}
+
+/* Grid + cards */
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4) var(--space-3);
+}
+
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  border-top: 1px solid var(--colour-sky);
+  padding-top: var(--space-3);
+}
+
+.insight-card__category {
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-olive);
+  margin-bottom: var(--space-1);
+}
+
+.insight-card__title {
+  font-size: 1.25rem;
+}
+
+.insight-card:hover .insight-card__title {
+  color: var(--colour-olive);
+}
+
+.insight-card__standfirst {
+  margin-top: var(--space-1);
+  color: var(--colour-charcoal);
+  font-size: 0.9375rem;
+}
+
+.insight-card__meta {
+  margin-top: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--colour-olive);
+}
+
+/* Category filter */
+.insight-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-5);
+}
+
+.insight-filter__button {
+  font: inherit;
+  font-weight: 400;
+  font-size: var(--size-small);
+  color: var(--colour-charcoal);
+  background: none;
+  border: 1px solid var(--colour-sky);
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+}
+
+.insight-filter__button:hover {
+  border-color: var(--colour-olive);
+}
+
+.insight-filter__button--active {
+  background: var(--colour-olive);
+  border-color: var(--colour-olive);
+  color: var(--colour-alpine);
+}
+
+/* Article page — narrow reading column, olive accents */
+.article {
+  padding-block: var(--space-5) var(--space-6);
+}
+
+.article__header {
+  max-width: var(--width-reading);
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+}
+
+.article__category {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-olive);
+  border: 1px solid var(--colour-olive);
+  padding: 0.3rem 0.7rem;
+  margin-bottom: var(--space-2);
+}
+
+.article__meta {
+  margin-top: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--colour-olive);
+}
+
+.article__body {
+  max-width: var(--width-reading);
+  margin-inline: auto;
+}
+
+.article__body h2 {
+  font-size: 1.5rem;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.article__body p {
+  margin-bottom: var(--space-2);
+}
+
+/* Olive quote rule */
+.article__quote {
+  border-left: 3px solid var(--colour-olive);
+  padding-left: var(--space-3);
+  margin-block: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--colour-sapphire);
+}
+
+.article__closing {
+  max-width: var(--width-reading);
+  margin-inline: auto;
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--colour-sky);
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  color: var(--colour-sapphire);
+}
+
+.related {
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--colour-sky);
+}
+
+.related__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+
+/* ==========================================================================
+   10. Page sections
+   ========================================================================== */
+
+/* Prose sections on service pages */
+.prose-section + .prose-section {
+  margin-top: var(--space-4);
+}
+
+.prose-section__title {
+  margin-bottom: var(--space-2);
+}
+
+.prose-section__list {
+  padding-left: 1.2rem;
+  margin-top: var(--space-2);
+}
+
+.prose-section__list li + li {
+  margin-top: 0.4rem;
+}
+
+/* Values */
+.values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.value__title {
+  margin-bottom: var(--space-1);
+}
+
+/* Team roles */
+.team {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.team-card {
+  border-top: 2px solid var(--colour-gold);
+  padding-top: var(--space-2);
+}
+
+.team-card__role {
+  margin-bottom: var(--space-1);
+}
+
+.team-card__list {
+  list-style: none;
+  padding: 0;
+}
+
+.team-card__list li + li {
+  margin-top: 0.3rem;
+}
+
+.team__note {
+  margin-top: var(--space-4);
+  font-family: var(--font-heading);
+  color: var(--colour-sapphire);
+}
+
+/* Credentials strip */
+.credentials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  list-style: none;
+  padding: 0;
+}
+
+.credentials__item {
+  font-weight: 500;
+  font-size: var(--size-small);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--colour-sapphire);
+}
+
+/* Engagement models */
+.engagement {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.engagement__item {
+  background: var(--colour-sky);
+  padding: var(--space-3);
+}
+
+.engagement__title {
+  margin-bottom: var(--space-1);
+}
+
+/* Membership line — olive, per brief */
+.membership-line {
+  color: var(--colour-olive);
+  font-size: var(--size-small);
+}
+
+/* CTA band */
+.cta-band {
+  background: var(--colour-sapphire);
+  color: var(--colour-alpine);
+  padding-block: var(--space-5);
+  text-align: center;
+}
+
+.cta-band__title {
+  color: var(--colour-alpine);
+  margin-bottom: var(--space-3);
+}
+
+
+/* ==========================================================================
+   11. Forms & contact
+   ========================================================================== */
+
+.contact-channels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.channel {
+  background: var(--colour-sky);
+  padding: var(--space-4) var(--space-3);
+}
+
+.channel__title {
+  margin-bottom: var(--space-2);
+}
+
+.channel__email {
+  font-size: 1.125rem;
+  font-weight: 400;
+  word-break: break-all;
+}
+
+.channel__copy-button {
+  font: inherit;
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--colour-sapphire);
+  background: none;
+  border: 1px solid var(--colour-sapphire);
+  padding: 0.4rem 0.9rem;
+  margin-top: var(--space-2);
+  cursor: pointer;
+}
+
+.channel__copy-button:hover {
+  background: var(--colour-alpine);
+}
+
+.channel__durations {
+  list-style: none;
+  padding: 0;
+  margin-block: var(--space-2);
+}
+
+.channel__durations li + li {
+  margin-top: 0.3rem;
+}
+
+/* Cal.com lazy container */
+.cal-embed {
+  margin-top: var(--space-2);
+}
+
+.cal-embed__frame {
+  width: 100%;
+  min-height: 560px;
+  border: 1px solid var(--colour-sky);
+  background: var(--colour-alpine);
+}
+
+/* Enquiry form */
+.form {
+  max-width: var(--width-reading);
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.form__field {
+  margin-bottom: var(--space-3);
+}
+
+.form__label {
+  display: block;
+  font-weight: 500;
+  font-size: var(--size-small);
+  color: var(--colour-sapphire);
+  margin-bottom: 0.4rem;
+}
+
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  font: inherit;
+  font-weight: 300;
+  color: var(--colour-charcoal);
+  background: var(--colour-alpine);
+  border: 1px solid #c6d4e2;
+  padding: 0.7rem 0.9rem;
+}
+
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  outline: 2px solid var(--colour-botswana);
+  outline-offset: 1px;
+  border-color: var(--colour-botswana);
+}
+
+.form__textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.form__error {
+  display: none;
+  font-size: var(--size-small);
+  color: #9b3535;
+  margin-top: 0.35rem;
+}
+
+.form__field--invalid .form__error {
+  display: block;
+}
+
+.form__field--invalid .form__input,
+.form__field--invalid .form__select,
+.form__field--invalid .form__textarea {
+  border-color: #9b3535;
+}
+
+.form__success {
+  display: none;
+  background: var(--colour-sky);
+  padding: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.form__success--visible {
+  display: block;
+}
+
+
+/* ==========================================================================
+   12. Footer
+   ========================================================================== */
 
 .site-footer {
-  padding: var(--space-l) var(--space-m);
+  background: var(--colour-sapphire);
+  color: rgba(255, 255, 255, 0.85);
+  padding-block: var(--space-5) var(--space-4);
+  margin-top: var(--space-6);
 }
 
-/* Page sections follow below, one labelled block each, in page order. */
+.site-footer--flush {
+  margin-top: 0;
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.site-footer__wordmark .wordmark__text {
+  color: var(--colour-alpine);
+}
+
+.site-footer__heading {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--size-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+  margin-bottom: var(--space-2);
+}
+
+.site-footer__list {
+  list-style: none;
+  padding: 0;
+}
+
+.site-footer__list li + li {
+  margin-top: 0.4rem;
+}
+
+.site-footer__link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9375rem;
+}
+
+.site-footer__link:hover {
+  color: var(--colour-alpine);
+  text-decoration: underline;
+}
+
+.site-footer__address {
+  font-style: normal;
+  font-size: 0.9375rem;
+  margin-top: var(--space-2);
+}
+
+.site-footer__membership {
+  color: #a8b88a; /* Olive lifted for contrast on sapphire */
+  font-size: var(--size-small);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: var(--space-3);
+}
+
+
+/* ==========================================================================
+   13. Responsive
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .capabilities__grid,
+  .service-cards,
+  .values,
+  .team,
+  .insight-grid,
+  .engagement {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .country-tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .insight-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-featured__ground {
+    min-height: 160px;
+    order: -1;
+  }
+
+  .site-footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
+
+@media (max-width: 700px) {
+  .country-tiles,
+  .contact-channels,
+  .location-cards,
+  .related__grid,
+  .proposition__points,
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Mobile navigation */
+  .nav__burger {
+    display: block;
+  }
+
+  .nav__list {
+    display: none;
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--colour-alpine);
+    border-bottom: 1px solid var(--colour-sky);
+    padding: var(--space-2) var(--space-3) var(--space-3);
+    z-index: 30;
+  }
+
+  .nav__list--open {
+    display: flex;
+  }
+
+  .nav__link,
+  .nav__toggle {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--colour-sky);
+  }
+
+  .nav__dropdown {
+    position: static;
+    transform: none;
+    display: block;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .nav__dropdown-link {
+    padding: 0.6rem 0 0.6rem 1.25rem;
+    border-bottom: 1px solid var(--colour-sky);
+  }
+
+  .site-header {
+    position: relative;
+  }
+}
+
+
+/* ==========================================================================
+   14. Accessibility & motion
+   ========================================================================== */
+
+:focus-visible {
+  outline: 2px solid var(--colour-botswana);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--colour-sapphire);
+  color: var(--colour-alpine);
+  padding: 0.75rem 1.25rem;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
