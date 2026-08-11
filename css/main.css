@@ -12,12 +12,14 @@
    06. Buttons & links
    07. Capabilities band
    08. Cards (service, sky, country tiles, locations)
-   09. Insight (grid, cards, article)
-   10. Page sections (prose, values, team, credentials, engagement)
-   11. Forms & contact
-   12. Footer
-   13. Responsive
-   14. Accessibility & motion
+   09. Network map & value-chain rail
+   10. Network table & country panels
+   11. Insight (grid, cards, article)
+   12. Page sections (prose, values, team, credentials, engagement)
+   13. Forms & contact
+   14. Footer
+   15. Responsive
+   16. Accessibility & motion
    ========================================================================== */
 
 
@@ -34,6 +36,12 @@
   --colour-olive: #6B7C4F;    /* Signature — benefits, Insight      */
   --colour-gold: #B08D57;     /* Mark — eyebrows, dividers, gem     */
   --colour-charcoal: #1A1A1A; /* Text — body copy                   */
+  --colour-muted: #6B6B6B;    /* Meta — captions, map labels        */
+
+  /* Logo — sampled from the supplied wordmark PNG. Approximate until the
+     vector arrives; re-sample then. */
+  --colour-navy: #16295A;     /* Wordmark letterforms               */
+  --colour-ice: #A8CCE8;      /* Wordmark diamond, network nodes    */
 
   /* Type */
   --font-heading: 'Lora', Georgia, serif;
@@ -222,28 +230,39 @@ a {
   gap: var(--space-3);
 }
 
-/* Wordmark — wide-tracked sans, sapphire, gold gem mark */
+/* Wordmark — matches the supplied logo: wide-tracked high-contrast serif in
+   navy, with the ice diamond above the J. CSS lockup until the vector lands. */
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
   text-decoration: none;
 }
 
-.wordmark__gem {
-  width: 10px;
-  height: 10px;
-  background: var(--colour-gold);
-  transform: rotate(45deg);
-}
-
 .wordmark__text {
-  font-family: var(--font-body);
+  font-family: 'Cormorant Garamond', var(--font-heading), serif;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: 1.4rem;
+  line-height: 1;
   letter-spacing: var(--tracking-wordmark);
   text-transform: uppercase;
-  color: var(--colour-sapphire);
+  color: var(--colour-navy);
+}
+
+.wordmark__j {
+  position: relative;
+}
+
+/* Centred on the glyph, not the glyph-plus-tracking box, hence the half-track
+   correction. */
+.wordmark__j::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - (var(--tracking-wordmark) / 2));
+  top: -0.52em;
+  width: 0.26em;
+  height: 0.26em;
+  background: var(--colour-ice);
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .nav__list {
@@ -399,6 +418,13 @@ a {
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* Light ground alternative to --dark for the home hero. Swap the class on the
+   hero section to compare; the map inherits either ground from tokens. */
+.hero--light {
+  background: linear-gradient(180deg, #F4F6F8, var(--colour-alpine));
+  border-bottom: 1px solid var(--colour-sky);
+}
+
 /* Sub-page hero — light, quieter */
 .hero--page {
   padding-block: var(--space-5);
@@ -494,6 +520,15 @@ a {
   gap: var(--space-5);
 }
 
+/* Columns are flex so the benefit line pins to the bottom and the three
+   pillars end level, rather than ragging out at different depths. */
+.capability {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--colour-sky);
+  padding-top: var(--space-3);
+}
+
 .capability__label {
   display: block;
   font-weight: 500;
@@ -504,13 +539,25 @@ a {
   margin-bottom: var(--space-2);
 }
 
+.capability__gem {
+  display: block;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  background: var(--colour-botswana);
+  transform: rotate(45deg);
+  margin-bottom: var(--space-3);
+}
+
 .capability__statement {
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .capability__benefit {
   font-weight: 500;
   color: var(--colour-olive);
+  border-left: 2px solid var(--colour-olive);
+  padding-left: var(--space-2);
+  margin-top: auto;
 }
 
 
@@ -607,6 +654,41 @@ a {
   color: var(--colour-charcoal);
 }
 
+/* Gateway: the only tile given visual weight, matching the map's gateway node.
+   The hierarchy is the message. */
+.country-tile--gateway {
+  background: var(--colour-sapphire);
+  position: relative;
+}
+
+.country-tile--gateway .country-tile__name,
+.country-tile--gateway .country-tile__line {
+  color: var(--colour-alpine);
+}
+
+/* Ice, not gold: gold on sapphire is 3.7:1 and fails AA for label text. */
+.country-tile--gateway .country-tile__role {
+  color: var(--colour-ice);
+}
+
+.country-tile--gateway .country-tile__line {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.country-tile--gateway .country-tile__gem {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--colour-ice);
+  transform: rotate(45deg);
+}
+
+.country-tile--gateway:hover .country-tile__name {
+  color: var(--colour-ice);
+}
+
 /* Location cards */
 .location-cards {
   display: grid;
@@ -625,7 +707,296 @@ a {
 
 
 /* ==========================================================================
-   09. Insight
+   09. Network map & value-chain rail
+   ========================================================================== */
+
+/* Geometry is generated from public boundary data and pasted in as static
+   paths — see docs/DESIGN.md. Colour comes from tokens so the one component
+   serves both the dark and light hero grounds. */
+.network-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.network-map__country {
+  fill: rgba(30, 58, 95, 0.05);
+  stroke: rgba(30, 58, 95, 0.32);
+  stroke-width: 0.7;
+  stroke-linejoin: round;
+}
+
+.network-map__country--adjacent {
+  fill: none;
+  stroke: rgba(30, 58, 95, 0.2);
+}
+
+.network-map__link {
+  fill: none;
+  stroke: var(--colour-botswana);
+  stroke-width: 0.55;
+  opacity: 0.55;
+}
+
+.network-map__link--adjacent {
+  stroke-dasharray: 2 2;
+  opacity: 0.3;
+}
+
+.network-map__gem {
+  fill: var(--colour-botswana);
+}
+
+.network-map__label {
+  fill: var(--colour-muted);
+  font-family: var(--font-body);
+  font-size: 6px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Gateway: the only node given full weight. The hierarchy is the message. */
+.network-map__node--gateway .network-map__gem {
+  fill: var(--colour-sapphire);
+}
+
+.network-map__node--gateway .network-map__label {
+  fill: var(--colour-sapphire);
+  font-size: 6.8px;
+}
+
+/* Adjacent market: present, but outside the core network. */
+.network-map__node--adjacent .network-map__gem,
+.network-map__node--adjacent .network-map__label {
+  opacity: 0.5;
+}
+
+.network-map__node--adjacent .network-map__label {
+  font-size: 4.3px;
+}
+
+/* On the sapphire ground the same component inverts. */
+.hero--dark .network-map__country {
+  fill: rgba(255, 255, 255, 0.07);
+  stroke: rgba(255, 255, 255, 0.5);
+}
+
+.hero--dark .network-map__country--adjacent {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.22);
+}
+
+.hero--dark .network-map__link {
+  stroke: var(--colour-ice);
+}
+
+.hero--dark .network-map__gem {
+  fill: var(--colour-ice);
+}
+
+.hero--dark .network-map__label {
+  fill: rgba(255, 255, 255, 0.8);
+}
+
+.hero--dark .network-map__node--gateway .network-map__gem {
+  fill: var(--colour-alpine);
+}
+
+.hero--dark .network-map__node--gateway .network-map__label {
+  fill: var(--colour-alpine);
+}
+
+/* Split hero — copy left, map right */
+.hero__split {
+  display: grid;
+  grid-template-columns: 1fr 0.82fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.hero__map {
+  max-width: 25rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+/* Value-chain rail — where the house sits in the pipeline. Typographic, so it
+   informs without competing with the map. */
+.rail {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border: 1px solid var(--colour-sky);
+  margin-top: var(--space-4);
+}
+
+.rail__stage {
+  padding: var(--space-3) var(--space-2);
+  border-right: 1px solid var(--colour-sky);
+  border-top: 3px solid transparent;
+}
+
+.rail__stage:last-child {
+  border-right: 0;
+}
+
+.rail__stage--here {
+  border-top-color: var(--colour-olive);
+  background: var(--colour-alpine);
+}
+
+.rail__name {
+  display: block;
+  font-size: var(--size-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+  margin-bottom: var(--space-1);
+}
+
+.rail__stage--here .rail__name {
+  color: var(--colour-olive);
+}
+
+.rail__detail {
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
+.rail__stage--here .rail__detail {
+  color: var(--colour-olive);
+}
+
+
+/* ==========================================================================
+   10. Network table & country panels
+   ========================================================================== */
+
+/* Map beside the table on wide screens: the same five countries, read two ways. */
+.network-figure {
+  display: grid;
+  grid-template-columns: 0.34fr 1fr;
+  gap: var(--space-4);
+  align-items: center;
+  margin-top: var(--space-4);
+}
+
+.network-figure .network-map {
+  max-width: 15rem;
+  margin-inline: auto;
+}
+
+.network-table__scroll {
+  overflow-x: auto;
+}
+
+.network-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 40rem;
+}
+
+.network-table th,
+.network-table td {
+  text-align: left;
+  padding: var(--space-2) var(--space-2);
+  border-bottom: 1px solid var(--colour-sky);
+  vertical-align: top;
+}
+
+.network-table thead th {
+  font-size: var(--size-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+  border-bottom-color: var(--colour-sapphire);
+}
+
+.network-table__country {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  color: var(--colour-sapphire);
+  white-space: nowrap;
+}
+
+.network-table__gem {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  background: var(--colour-botswana);
+  transform: rotate(45deg);
+}
+
+.network-table tbody tr:hover,
+.network-table tbody tr.is-linked {
+  background: var(--colour-sky);
+}
+
+.network-table__row--adjacent td {
+  color: var(--colour-muted);
+}
+
+.network-table__row--adjacent .network-table__gem {
+  opacity: 0.5;
+}
+
+/* Country panels — <details> so they open with JS disabled. */
+.country-panel {
+  border-bottom: 1px solid var(--colour-sky);
+}
+
+.country-panel__summary {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.country-panel__summary::-webkit-details-marker {
+  display: none;
+}
+
+.country-panel__name {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--colour-sapphire);
+}
+
+.country-panel__role {
+  font-size: var(--size-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold);
+}
+
+.country-panel__sign {
+  margin-left: auto;
+  color: var(--colour-botswana);
+}
+
+.country-panel[open] .country-panel__sign {
+  transform: rotate(45deg);
+}
+
+.country-panel__body {
+  padding-bottom: var(--space-3);
+  max-width: var(--width-reading);
+}
+
+.country-panel.is-linked {
+  background: var(--colour-sky);
+}
+
+
+/* ==========================================================================
+   11. Insight
    ========================================================================== */
 
 /* Featured article */
@@ -828,7 +1199,7 @@ a {
 
 
 /* ==========================================================================
-   10. Page sections
+   12. Page sections
    ========================================================================== */
 
 /* Prose sections on service pages */
@@ -945,7 +1316,7 @@ a {
 
 
 /* ==========================================================================
-   11. Forms & contact
+   13. Forms & contact
    ========================================================================== */
 
 .contact-channels {
@@ -1085,7 +1456,7 @@ a {
 
 
 /* ==========================================================================
-   12. Footer
+   14. Footer
    ========================================================================== */
 
 .site-footer {
@@ -1155,7 +1526,7 @@ a {
 
 
 /* ==========================================================================
-   13. Responsive
+   15. Responsive
    ========================================================================== */
 
 @media (max-width: 900px) {
@@ -1182,6 +1553,30 @@ a {
     order: -1;
   }
 
+  /* Map leads on narrow screens — it orients before the copy explains. */
+  .hero__split,
+  .network-figure {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .network-figure .network-map {
+    max-width: 15rem;
+  }
+
+  .hero__map {
+    order: -1;
+    max-width: 15rem;
+  }
+
+  .rail {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .rail__stage:nth-child(3) {
+    border-right: 0;
+  }
+
   .site-footer__grid {
     grid-template-columns: 1fr;
     gap: var(--space-3);
@@ -1196,6 +1591,18 @@ a {
   .proposition__points,
   .form__row {
     grid-template-columns: 1fr;
+  }
+
+  .rail {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rail__stage:nth-child(3) {
+    border-right: 1px solid var(--colour-sky);
+  }
+
+  .rail__stage:nth-child(2n) {
+    border-right: 0;
   }
 
   /* Mobile navigation */
@@ -1252,7 +1659,7 @@ a {
 
 
 /* ==========================================================================
-   14. Accessibility & motion
+   16. Accessibility & motion
    ========================================================================== */
 
 :focus-visible {
@@ -1274,9 +1681,68 @@ a {
   left: 0;
 }
 
+/* Scroll-triggered fade on section entry. Gated behind .js so the content is
+   fully visible when JavaScript is unavailable. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+/* Map entrance: land settles, links draw from the gateway, nodes land last. */
+.js .network-map__land,
+.js .network-map__links,
+.js .network-map__nodes {
+  opacity: 0;
+}
+
+.js .network-map.is-visible .network-map__land {
+  animation: map-fade 400ms ease-out forwards;
+}
+
+.js .network-map.is-visible .network-map__links {
+  opacity: 1;
+}
+
+.js .network-map.is-visible .network-map__link {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: map-draw 700ms ease-out 300ms forwards;
+}
+
+.js .network-map.is-visible .network-map__nodes {
+  animation: map-fade 300ms ease-out 850ms forwards;
+}
+
+@keyframes map-fade {
+  to { opacity: 1; }
+}
+
+@keyframes map-draw {
+  to { stroke-dashoffset: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Everything renders in its final state, immediately. */
+  .js .reveal,
+  .js .network-map__land,
+  .js .network-map__links,
+  .js .network-map__nodes {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .network-map.is-visible .network-map__link {
+    stroke-dashoffset: 0;
   }
 
   *,

@@ -8,10 +8,16 @@
    03. Enquiry form validation
    04. Cal.com lazy embed
    05. Insight category filter
+   06. Scroll reveal + map entrance
+   07. Map / country interlink
    ========================================================================== */
 
 (function () {
   'use strict';
+
+  // Progressive enhancement: without this class the reveal styles never apply,
+  // so content is visible when JavaScript is unavailable.
+  document.documentElement.classList.add('js');
 
   /* ------------------------------------------------------------------
      01. Navigation
@@ -141,6 +147,71 @@
         var match = category === 'all' || card.getAttribute('data-category') === category;
         card.style.display = match ? '' : 'none';
       });
+    });
+  });
+
+  /* ------------------------------------------------------------------
+     06. Scroll reveal + map entrance
+     ------------------------------------------------------------------ */
+  // Deliberately not IntersectionObserver: a fast scroll can carry an element
+  // from below the viewport to above it between two intersection computations,
+  // so it never reports as intersecting and the section stays invisible for
+  // good. A position check on scroll cannot skip an element.
+  var pending = Array.prototype.slice.call(
+    document.querySelectorAll('.reveal, .network-map')
+  );
+  var queued = false;
+
+  function revealPassed() {
+    queued = false;
+    pending = pending.filter(function (target) {
+      if (target.getBoundingClientRect().top > window.innerHeight * 0.9) {
+        return true;
+      }
+      target.classList.add('is-visible');
+      return false;
+    });
+
+    if (!pending.length) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+  }
+
+  function onScroll() {
+    if (queued) { return; }
+    queued = true;
+    window.requestAnimationFrame(revealPassed);
+  }
+
+  if (pending.length) {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    revealPassed();
+  }
+
+  /* ------------------------------------------------------------------
+     07. Map / country interlink
+     Hovering or focusing a map node highlights the matching table row and
+     panel, and the reverse. Country is matched on the data-country value.
+     ------------------------------------------------------------------ */
+  var linkables = document.querySelectorAll('[data-country]');
+
+  function setLinked(country, on) {
+    linkables.forEach(function (el) {
+      if (el.getAttribute('data-country') === country) {
+        el.classList.toggle('is-linked', on);
+      }
+    });
+  }
+
+  linkables.forEach(function (el) {
+    var country = el.getAttribute('data-country');
+    ['mouseenter', 'focusin'].forEach(function (type) {
+      el.addEventListener(type, function () { setLinked(country, true); });
+    });
+    ['mouseleave', 'focusout'].forEach(function (type) {
+      el.addEventListener(type, function () { setLinked(country, false); });
     });
   });
 })();
