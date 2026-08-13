@@ -44,6 +44,10 @@
   --ground-olive: #EEF3E0;
   --ground-gold: #FBF2E4;
 
+  /* Paper — the About cards' ground in about.jpg. Off-white rather than sky,
+     so a card reads as raised against the page without taking a tint. */
+  --ground-paper: #FBFBFB;
+
   /* Gold and Botswana Blue are brand marks, not text colours: on white they
      measure 3.09:1 and 2.46:1, both under AA. Each gets a text-weight variant,
      same hue and saturation, darkened until it clears 4.5:1 on white AND on
@@ -94,6 +98,11 @@
   /* Layout */
   --width-site: 1140px;
   --width-reading: 680px;
+
+  /* Distance from the viewport edge to the container's text edge. Lets a
+     full-bleed band keep its copy aligned with the rest of the page. Resolves
+     against the element it is used on, so use it on full-width sections only. */
+  --bleed-inset: max(var(--space-3), (100% - var(--width-site)) / 2 + var(--space-3));
 
   --space-1: 0.5rem;
   --space-2: 1rem;
@@ -212,6 +221,14 @@ a {
   flex-grow: 1;
   background: linear-gradient(to right, var(--colour-gold), transparent 70%);
   max-width: 160px;
+}
+
+.provenance-rule--on-dark::before {
+  background: var(--colour-gold-light);
+}
+
+.provenance-rule--on-dark::after {
+  background: linear-gradient(to right, var(--colour-gold-light), transparent 70%);
 }
 
 .provenance-rule--centred {
@@ -1436,63 +1453,204 @@ a {
   margin-top: 0.4rem;
 }
 
-/* Values */
-.values {
+/* About hero — photograph with the lead notched into its lower left.
+   The white ground bleeds to the viewport edge while the copy keeps the
+   container's inset, so it lines up with every other page. */
+/* The photograph carries its own left gradient, but it runs out under the
+   title: the pit wall there measures 2.21:1 against white. The scrim extends
+   it across the copy and clears by 70%, so the picture keeps its right half. */
+.about-hero {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: minmax(0, 61%) minmax(0, 1fr);
+  align-content: end;
+  min-height: 43.75rem;
+  background:
+    linear-gradient(
+      to right,
+      rgba(30, 58, 95, 0.95) 0%,
+      rgba(30, 58, 95, 0.88) 40%,
+      rgba(30, 58, 95, 0.35) 70%,
+      rgba(30, 58, 95, 0) 100%
+    ),
+    url("../images/about-hero.jpg") center / cover no-repeat;
 }
 
-.value__title {
-  margin-bottom: var(--space-1);
+.about-hero .eyebrow,
+.about-hero__title {
+  grid-column: 1 / -1;
+  padding-inline-start: var(--bleed-inset);
+  color: var(--colour-alpine);
 }
 
-/* Team roles */
-.team {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
+.about-hero .eyebrow {
+  color: var(--colour-gold-light);
+  padding-top: var(--space-5);
+  margin-bottom: 0;
 }
 
-.team-card {
-  border-top: 2px solid var(--colour-gold);
-  padding-top: var(--space-2);
+.about-hero__title {
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-bottom: var(--space-5);
 }
 
-.team-card__role {
-  margin-bottom: var(--space-1);
-}
-
-.team-card__list {
-  list-style: none;
-  padding: 0;
-}
-
-.team-card__list li + li {
-  margin-top: 0.3rem;
-}
-
-.team__note {
-  margin-top: var(--space-4);
+.about-hero__lead {
+  grid-column: 1;
+  background: var(--colour-alpine);
   font-family: var(--font-heading);
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--colour-sapphire);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--bleed-inset);
+}
+
+/* Mission & Approach — the collage bleeds off the left edge, cards to the right */
+.approach {
+  display: grid;
+  grid-template-columns: minmax(0, 35%) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-5);
+  padding-block: var(--space-6);
+}
+
+.approach__media {
+  width: 100%;
+  height: auto;
+}
+
+.approach__body {
+  padding-inline-end: var(--bleed-inset);
+  max-width: 44rem;
+}
+
+.approach-card {
+  background: var(--ground-paper);
+  border: 1px solid var(--colour-sky);
+  padding: var(--space-3);
+  position: relative;
+  overflow: hidden;
+}
+
+.approach-card + .approach-card {
+  margin-top: var(--space-3);
+}
+
+.approach-card__title {
+  margin-bottom: var(--space-1);
+}
+
+.approach-card p {
+  font-size: var(--size-small);
+}
+
+/* The comp sets a lattice into the card's bottom-right corner. */
+.approach-card::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 137px;
+  height: 25px;
+  background: url("../images/small-diamond-pattern.svg") no-repeat;
+  opacity: 0.5;
+}
+
+/* Values — name against detail, divided by hairlines */
+.values {
+  margin-top: var(--space-4);
+}
+
+.values__row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-4);
+  border-top: 1px solid var(--colour-charcoal);
+  padding-block: var(--space-3);
+}
+
+.values__row:last-child {
+  border-bottom: 1px solid var(--colour-charcoal);
+}
+
+.values__name {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
   color: var(--colour-sapphire);
 }
 
-/* Credentials strip */
+.values__detail {
+  margin: 0;
+  font-size: var(--size-small);
+}
+
+/* Team — prose on a photograph, held to a reading measure so the copy stays
+   on the gradient's dark end rather than running into the picture. */
+.team-band {
+  --focus-ring: var(--colour-ice);
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--space-6);
+  color: var(--colour-alpine);
+  background:
+    linear-gradient(to right, rgba(30, 58, 95, 0.97) 45%, rgba(30, 58, 95, 0.62)),
+    url("../images/our-team.jpg") right center / cover no-repeat;
+}
+
+.team-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("../images/diamonds.svg");
+  opacity: 0.1;
+}
+
+.team-band__title {
+  color: var(--colour-alpine);
+  margin-bottom: var(--space-3);
+}
+
+.team-band__prose {
+  max-width: var(--width-reading);
+}
+
+.team-band__prose p + p {
+  margin-top: var(--space-2);
+}
+
+/* Credentials strip — closes the team band on the same ground */
+.credentials-strip {
+  background: var(--colour-sapphire);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-block: var(--space-3);
+}
+
 .credentials {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: var(--space-2) var(--space-4);
   list-style: none;
   padding: 0;
 }
 
 .credentials__item {
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
   font-size: var(--size-small);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--colour-sapphire);
+  color: var(--colour-alpine);
+}
+
+.credentials__item + .credentials__item::before {
+  content: '';
+  width: 0.4375rem;
+  height: 0.4375rem;
+  background: var(--colour-ice);
+  transform: rotate(45deg);
 }
 
 /* Engagement models */
@@ -1749,12 +1907,30 @@ a {
 
 @media (max-width: 900px) {
   .capabilities__grid,
-  .values,
-  .team,
+  .values__row,
   .insight-grid,
   .engagement {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+  }
+
+  /* About: the hero's white panel takes the full width and the collage moves
+     above the cards, since neither survives a half-width column. */
+  .about-hero,
+  .approach {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    min-height: 32rem;
+  }
+
+  .approach__media {
+    max-width: 26rem;
+  }
+
+  .values__row {
+    gap: var(--space-2);
   }
 
   .country-tiles {
@@ -1858,6 +2034,17 @@ a {
   /* Smaller stage image, so the pill leaves the copy a readable measure. */
   .rail {
     --rail-avatar: 5.5rem;
+  }
+
+  /* Credentials stack rather than wrap: the diamond separator belongs between
+     two items on a line, not at the start of a new one. */
+  .credentials {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .credentials__item + .credentials__item::before {
+    display: none;
   }
 
   /* Mobile navigation */
