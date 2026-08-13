@@ -1757,9 +1757,14 @@ a {
 }
 
 /* CTA band */
+/* A soft sweep rather than a flat fill, lightening towards the centre where
+   the title sits. --mesh-rise is already the hero's "sapphire, lifted" token
+   (§7a) — reused here rather than a new hex, so the two dark grounds read as
+   the same family. White text and the ice focus ring both stay well clear of
+   AA at every stop; mesh-rise is barely lighter than sapphire. */
 .cta-band {
   --focus-ring: var(--colour-ice);
-  background: var(--colour-sapphire);
+  background: linear-gradient(120deg, var(--colour-sapphire) 0%, var(--mesh-rise) 50%, var(--colour-sapphire) 100%);
   color: var(--colour-alpine);
   padding-block: var(--space-5);
   text-align: center;
