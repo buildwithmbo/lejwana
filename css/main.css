@@ -38,10 +38,28 @@
   --colour-charcoal: #1A1A1A; /* Text — body copy                   */
   --colour-muted: #6B6B6B;    /* Meta — captions, map labels        */
 
+  /* Grounds derived from the signature and mark, so the service rows can
+     alternate three tints without adding a fourth and fifth palette colour.
+     --colour-sky is the third; these two sit at the same lightness. */
+  --ground-olive: #EEF3E0;
+  --ground-gold: #FBF2E4;
+
+  /* Gold at line weight — hairline borders and the value-chain spine, where
+     full --colour-gold reads as a rule rather than a frame. */
+  --colour-gold-line: #CDB78E;
+
   /* Logo — sampled from the supplied wordmark PNG. Approximate until the
      vector arrives; re-sample then. */
   --colour-navy: #16295A;     /* Wordmark letterforms               */
   --colour-ice: #A8CCE8;      /* Wordmark diamond, network nodes    */
+
+  /* Hero mesh — sampled from images/mesh.png, the approved comp. Ground tints
+     only: they appear behind the home hero and nowhere else, so they do not
+     count against the three-palette-colours-per-screen rule. The ramp runs
+     from --colour-sapphire, which is the comp's flat left third. */
+  --mesh-rise: #285079;
+  --mesh-crest: #3B79AA;
+  --mesh-edge: #226796;
 
   /* Type */
   --font-heading: 'Lora', Georgia, serif;
@@ -135,6 +153,13 @@ a {
 
 .container--reading {
   max-width: var(--width-reading);
+}
+
+/* Uncapped: the hero runs the full viewport, held off the edge by a gutter
+   that scales down to the base container's on narrow screens. */
+.container--wide {
+  max-width: none;
+  padding-inline: clamp(var(--space-3), 4vw, var(--space-5));
 }
 
 /* Eyebrow — Work Sans caps, tracked. Gold on light, gold on dark. */
@@ -401,12 +426,33 @@ a {
   margin-top: var(--space-4);
 }
 
-/* Dark stone variant — sapphire ground, per brief hero direction */
+/* Dark stone variant — the mesh ground from the comp. Flat sapphire for the
+   left third, rising to the crest under the map, then deepening at the edge.
+   Built as a gradient rather than shipping mesh.png: the hero's height changes
+   with the copy and the viewport, and a raster would have to stretch. */
 .hero--dark {
-  background:
-    radial-gradient(ellipse 80% 60% at 70% 10%, rgba(117, 170, 219, 0.12), transparent),
-    var(--colour-sapphire);
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(
+    to right,
+    var(--colour-sapphire) 0%,
+    var(--colour-sapphire) 28%,
+    var(--mesh-rise) 50%,
+    var(--mesh-crest) 75%,
+    var(--mesh-edge) 100%
+  );
   color: var(--colour-alpine);
+}
+
+/* The comp's diamond lattice, tiled from the supplied artwork. Its own layer
+   so the 10% applies to the pattern and not to everything in the hero. */
+.hero--dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("../images/diamonds.svg");
+  opacity: 0.1;
 }
 
 .hero--dark .hero__title,
@@ -416,13 +462,6 @@ a {
 
 .hero--dark .hero__body {
   color: rgba(255, 255, 255, 0.85);
-}
-
-/* Light ground alternative to --dark for the home hero. Swap the class on the
-   hero section to compare; the map inherits either ground from tokens. */
-.hero--light {
-  background: linear-gradient(180deg, #F4F6F8, var(--colour-alpine));
-  border-bottom: 1px solid var(--colour-sky);
 }
 
 /* Sub-page hero — light, quieter */
@@ -520,13 +559,14 @@ a {
   gap: var(--space-5);
 }
 
-/* Columns are flex so the benefit line pins to the bottom and the three
-   pillars end level, rather than ragging out at different depths. */
+/* Cards are flex so the benefit line pins to the bottom and the three pillars
+   end level, rather than ragging out under icons of different heights. */
 .capability {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--colour-sky);
-  padding-top: var(--space-3);
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-sky);
+  padding: var(--space-4) var(--space-3);
 }
 
 .capability__label {
@@ -548,8 +588,12 @@ a {
   margin-bottom: var(--space-3);
 }
 
-.capability__statement {
-  margin-bottom: var(--space-3);
+/* Left-aligned to the card's text edge, as in the comp — not centred. Heights
+   differ across the three, which is why the benefit line is pinned instead. */
+.capability__icon {
+  width: 8.75rem;
+  height: auto;
+  margin-bottom: var(--space-4);
 }
 
 .capability__benefit {
@@ -565,29 +609,63 @@ a {
    08. Cards
    ========================================================================== */
 
-/* Service cards */
+/* Service cards — full-width rows that alternate image and ground, so the three
+   services read as a sequence rather than three competing columns. */
 .service-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
 }
 
 .service-card {
-  background: var(--colour-alpine);
-  border: 1px solid var(--colour-sky);
-  padding: var(--space-4) var(--space-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  --service-image: 24rem;
+
+  display: grid;
+  grid-template-columns: var(--service-image) 1fr;
+  grid-template-rows: auto auto 1fr;
+  min-height: 19.5rem; /* the image's natural height — it sets the row */
+  column-gap: var(--space-4);
+  padding-block: var(--space-4);
+  padding-inline: 0 var(--space-4);
+}
+
+.service-card__image {
+  grid-row: 1 / -1;
+  align-self: stretch;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-block: calc(var(--space-4) * -1); /* image ignores the row's padding */
 }
 
 .service-card__name {
   font-size: 1.375rem;
+  margin-bottom: var(--space-2);
 }
 
 .service-card__link {
-  margin-top: auto;
-  align-self: flex-start;
+  align-self: end;
+  justify-self: start;
+}
+
+.service-card:nth-child(1) {
+  background: var(--ground-olive);
+}
+
+.service-card:nth-child(2) {
+  background: var(--ground-gold);
+}
+
+.service-card:nth-child(3) {
+  background: var(--colour-sky);
+}
+
+/* Image and ground swap sides down the sequence. */
+.service-card:nth-child(even) {
+  grid-template-columns: 1fr var(--service-image);
+  padding-inline: var(--space-4) 0;
+}
+
+.service-card:nth-child(even) .service-card__image {
+  grid-column: 2;
 }
 
 /* Sky proposition card */
@@ -712,7 +790,7 @@ a {
 
 /* Geometry is generated from public boundary data and pasted in as static
    paths — see docs/DESIGN.md. Colour comes from tokens so the one component
-   serves both the dark and light hero grounds. */
+   serves the dark home hero and the light Network page. */
 .network-map {
   width: 100%;
   height: auto;
@@ -777,15 +855,24 @@ a {
   font-size: 4.3px;
 }
 
-/* On the sapphire ground the same component inverts. */
+/* On the sapphire ground the same component inverts. Strokes are weighted for
+   the mesh crest, which is the lightest ground the map ever sits on: 0.7 keeps
+   the outlines at 3.16:1 there, where 0.5 fell to 2.35:1. */
 .hero--dark .network-map__country {
   fill: rgba(255, 255, 255, 0.07);
-  stroke: rgba(255, 255, 255, 0.5);
+  stroke: rgba(255, 255, 255, 0.7);
 }
 
 .hero--dark .network-map__country--adjacent {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.22);
+  stroke: rgba(255, 255, 255, 0.38);
+}
+
+/* Lesotho stays subordinate through half-scale and a lighter weight, but not
+   through an opacity the crest would swallow. */
+.hero--dark .network-map__node--adjacent .network-map__gem,
+.hero--dark .network-map__node--adjacent .network-map__label {
+  opacity: 0.7;
 }
 
 .hero--dark .network-map__link {
@@ -822,28 +909,112 @@ a {
   width: 100%;
 }
 
-/* Value-chain rail — where the house sits in the pipeline. Typographic, so it
-   informs without competing with the map. */
+/* Value-chain rail — where the house sits in the pipeline. Six stages alternate
+   either side of a spine, so the sequence reads as a descent and the polished
+   stage can be marked out without breaking a row of equals. */
 .rail {
+  --rail-avatar: 7.375rem;              /* the stage images' natural size */
+  --rail-card: calc(var(--rail-avatar) + var(--space-2) * 2);
+  --rail-gutter: 6rem;
+
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  border: 1px solid var(--colour-sky);
-  margin-top: var(--space-4);
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--rail-gutter);
+  row-gap: var(--space-4);
+  position: relative;
+  margin-top: var(--space-5);
+  padding: 0;
+  list-style: none;
+  counter-reset: rail-stage;
+}
+
+/* The spine stops at the first and last connector rather than running the full
+   height, so the sequence has a start and an end. */
+.rail::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: calc(var(--rail-card) / 2);
+  bottom: calc(var(--rail-card) / 2);
+  width: 1px;
+  background: var(--colour-gold-line);
 }
 
 .rail__stage {
-  padding: var(--space-3) var(--space-2);
-  border-right: 1px solid var(--colour-sky);
-  border-top: 3px solid transparent;
+  display: grid;
+  align-content: center;
+  min-height: var(--rail-card);
+  padding: var(--space-2) var(--space-3);
+  padding-left: calc(var(--rail-avatar) + var(--space-2) + var(--space-3));
+  position: relative;
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-gold-line);
+  border-radius: 999px 0 0 999px;
+  counter-increment: rail-stage;
 }
 
-.rail__stage:last-child {
-  border-right: 0;
+/* Each card sits half a step below the one before it. */
+.rail__stage:nth-child(1) { grid-row: 1 / span 2; grid-column: 1; }
+.rail__stage:nth-child(2) { grid-row: 2 / span 2; grid-column: 2; }
+.rail__stage:nth-child(3) { grid-row: 3 / span 2; grid-column: 1; }
+.rail__stage:nth-child(4) { grid-row: 4 / span 2; grid-column: 2; }
+.rail__stage:nth-child(5) { grid-row: 5 / span 2; grid-column: 1; }
+.rail__stage:nth-child(6) { grid-row: 6 / span 2; grid-column: 2; }
+
+/* Connector to the spine, and its node where the two meet. */
+.rail__stage::before,
+.rail__stage::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+}
+
+.rail__stage::before {
+  height: 1px;
+  width: calc(var(--rail-gutter) / 2);
+  background: var(--colour-gold-line);
+}
+
+.rail__stage::after {
+  width: 7px;
+  height: 7px;
+  background: var(--colour-botswana);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.rail__stage:nth-child(odd)::before {
+  left: 100%;
+}
+
+.rail__stage:nth-child(odd)::after {
+  left: calc(100% + var(--rail-gutter) / 2);
+}
+
+.rail__stage:nth-child(even)::before {
+  right: 100%;
+}
+
+.rail__stage:nth-child(even)::after {
+  right: calc(100% + var(--rail-gutter) / 2);
+  transform: translate(50%, -50%) rotate(45deg);
 }
 
 .rail__stage--here {
-  border-top-color: var(--colour-olive);
-  background: var(--colour-alpine);
+  background: var(--colour-sapphire);
+  border-color: var(--colour-sapphire);
+}
+
+/* Pinned rather than placed in the grid, so a long detail line wraps under the
+   name instead of beside the image. */
+.rail__image {
+  position: absolute;
+  left: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--rail-avatar);
+  height: var(--rail-avatar);
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .rail__name {
@@ -856,8 +1027,18 @@ a {
   margin-bottom: var(--space-1);
 }
 
+/* Stage number and the rule tying it to the name, drawn rather than marked up —
+   the ordered list already carries the sequence. The rule is a background sized
+   into the number's right padding, since a pseudo-element can't sit mid-line. */
+.rail__name::before {
+  content: counter(rail-stage, decimal-leading-zero);
+  padding-right: 3.25rem;
+  margin-right: var(--space-1);
+  background: linear-gradient(currentColor, currentColor) no-repeat right center / 2.1875rem 1px;
+}
+
 .rail__stage--here .rail__name {
-  color: var(--colour-olive);
+  color: var(--colour-botswana);
 }
 
 .rail__detail {
@@ -866,7 +1047,7 @@ a {
 }
 
 .rail__stage--here .rail__detail {
-  color: var(--colour-olive);
+  color: var(--colour-alpine);
 }
 
 
@@ -1531,7 +1712,6 @@ a {
 
 @media (max-width: 900px) {
   .capabilities__grid,
-  .service-cards,
   .values,
   .team,
   .insight-grid,
@@ -1560,6 +1740,19 @@ a {
     gap: var(--space-4);
   }
 
+  /* Stacked hero: the ramp turns vertical so the crest still sits behind the
+     map, and the copy below it keeps the dark ground its contrast depends on.
+     Sapphire lands by 38% — the map ends at 36% and the gold eyebrow starts at
+     41%, and gold needs the darkest ground available to it. */
+  .hero--dark {
+    background: linear-gradient(
+      to bottom,
+      var(--mesh-crest) 0%,
+      var(--mesh-rise) 20%,
+      var(--colour-sapphire) 38%
+    );
+  }
+
   .network-figure .network-map {
     max-width: 15rem;
   }
@@ -1569,12 +1762,44 @@ a {
     max-width: 15rem;
   }
 
+  /* One column: the spine and its connectors have nothing left to bridge. */
   .rail {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    row-gap: var(--space-3);
   }
 
-  .rail__stage:nth-child(3) {
-    border-right: 0;
+  .rail::before,
+  .rail__stage::before,
+  .rail__stage::after {
+    content: none;
+  }
+
+  .rail__stage:nth-child(n) {
+    grid-row: auto;
+    grid-column: 1;
+  }
+
+  /* Image over copy — a 24rem image column leaves the text nowhere to go. */
+  .service-card,
+  .service-card:nth-child(even) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    padding-inline: var(--space-3);
+  }
+
+  .service-card__image,
+  .service-card:nth-child(even) .service-card__image {
+    grid-row: 1;
+    grid-column: 1;
+    height: 14rem;
+    width: calc(100% + var(--space-3) * 2); /* back out of the row's padding */
+    max-width: none;                        /* …past the base img cap */
+    margin-block: calc(var(--space-4) * -1) var(--space-3);
+    margin-inline: calc(var(--space-3) * -1);
+  }
+
+  .service-card__link {
+    margin-top: var(--space-3);
   }
 
   .site-footer__grid {
@@ -1593,16 +1818,9 @@ a {
     grid-template-columns: 1fr;
   }
 
+  /* Smaller stage image, so the pill leaves the copy a readable measure. */
   .rail {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .rail__stage:nth-child(3) {
-    border-right: 1px solid var(--colour-sky);
-  }
-
-  .rail__stage:nth-child(2n) {
-    border-right: 0;
+    --rail-avatar: 5.5rem;
   }
 
   /* Mobile navigation */

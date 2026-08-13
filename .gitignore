@@ -6,3 +6,11 @@ scripts/
 screenshots/
 *.md
 .DS_Store
+
+# Design comps — reference for the build, never part of the deployable output.
+# Listed one by one so a new image has to be a decision, not an accident.
+images/mesh.png
+images/capabilities.png
+images/services.png
+images/sky.png
+images/diamond-pattern.svg

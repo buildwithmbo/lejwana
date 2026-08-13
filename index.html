@@ -49,7 +49,7 @@
     <!-- Hero: copy left, network map right. The map is the orientation device —
          it states the regional argument the copy makes. -->
     <section class="hero hero--dark">
-      <div class="container hero__split">
+      <div class="container container--wide hero__split">
         <div>
         <span class="eyebrow">Natural Polished Diamonds &middot; Southern Africa</span>
         <h1 class="hero__title">Connecting you to Southern Africa's emerging natural polished diamond industry.</h1>
@@ -114,21 +114,21 @@
           <div class="capability">
             <span class="capability__label">Local presence and expertise</span>
             <span class="capability__gem" aria-hidden="true"></span>
-            <p class="capability__statement">A presence in each Southern African diamond hub, built on direct relationships with the region's cutting and polishing works. Founded and run by a certified diamond polisher and valuator.</p>
+            <img class="capability__icon" src="images/local.svg" width="141" height="152" alt="" aria-hidden="true">
             <p class="capability__benefit">Buyers reach the right goods, correctly assessed, without needing their own presence in the region.</p>
           </div>
 
           <div class="capability">
             <span class="capability__label">Clearing and logistics</span>
             <span class="capability__gem" aria-hidden="true"></span>
-            <p class="capability__statement">Secure shipping, insurance, customs clearance and Kimberley Process documentation. Every stone ships with a GIA report, laser inscription, country-of-origin paperwork and iTraceiT verification.</p>
+            <img class="capability__icon" src="images/clearing.svg" width="141" height="122" alt="" aria-hidden="true">
             <p class="capability__benefit">Buyers receive the exact goods they bought, fully documented and provenance-verified.</p>
           </div>
 
           <div class="capability">
             <span class="capability__label">Advisory and market access</span>
             <span class="capability__gem" aria-hidden="true"></span>
-            <p class="capability__statement">Rough-to-polished optimisation, polished value and supply-chain structure. London Diamond Bourse membership connects Southern African supply directly to the UK and European trade.</p>
+            <img class="capability__icon" src="images/advisory.svg" width="141" height="119" alt="" aria-hidden="true">
             <p class="capability__benefit">Buyers and producers reach the right market with goods priced and positioned to sell.</p>
           </div>
 
@@ -142,28 +142,37 @@
         <hr class="provenance-rule">
         <h2 class="section__title" id="rail-title">Where we sit</h2>
         <p class="section__intro">Six stages from mine to finger. Lejwana operates at the polished stage.</p>
-        <ol class="rail">
+        <!-- [CONFIRM: second detail line for each of the six stages — sky.png shows one
+             per stage ("Extraction from earth's deepest sources", "Our focus" on
+             polished); CONTENT.md has only the line rendered below] -->
+        <ol class="rail" role="list">
           <li class="rail__stage">
+            <img class="rail__image" src="images/Mine.jpg" width="118" height="118" alt="Open-pit mine terraces cut into a hillside">
             <span class="rail__name">Mine</span>
             <span class="rail__detail">Debswana, Catoca, Cullinan, Namdeb</span>
           </li>
           <li class="rail__stage">
+            <img class="rail__image" src="images/Sort.jpg" width="118" height="118" alt="A sorter examining a rough diamond through a loupe">
             <span class="rail__name">Sort</span>
             <span class="rail__detail">Valuation, grading, selection</span>
           </li>
           <li class="rail__stage">
+            <img class="rail__image" src="images/Cut.jpg" width="118" height="118" alt="A brilliant-cut diamond catching the light">
             <span class="rail__name">Cut</span>
             <span class="rail__detail">Gaborone, Antwerp, Surat</span>
           </li>
           <li class="rail__stage rail__stage--here" aria-current="true">
+            <img class="rail__image" src="images/Polished.jpg" width="118" height="118" alt="Polished diamonds gathered on a sorting tray">
             <span class="rail__name">Polished</span>
             <span class="rail__detail">Where Lejwana operates</span>
           </li>
           <li class="rail__stage">
+            <img class="rail__image" src="images/Trade.jpg" width="118" height="118" alt="A dealer handling stones in parcel papers">
             <span class="rail__name">Trade</span>
             <span class="rail__detail">London Diamond Bourse</span>
           </li>
           <li class="rail__stage">
+            <img class="rail__image" src="images/Finger.jpg" width="118" height="118" alt="A diamond ring worn on a hand">
             <span class="rail__name">Finger</span>
             <span class="rail__detail">Buyer, wearer</span>
           </li>
@@ -179,18 +188,21 @@
         <p class="section__intro">Three ways to work with the house. Each stands on the same regional network and the same documentation standard.</p>
         <div class="service-cards">
           <article class="service-card">
+            <img class="service-card__image" src="images/Brokerage.jpg" width="384" height="312" alt="" aria-hidden="true">
             <h3 class="service-card__name">Brokerage</h3>
-            <p>You brief us on the goods you need. We source them in the region, assess them and attend the sale on your behalf.</p>
+            <p class="service-card__copy">You brief us on the goods you need. We source them in the region, assess them and attend the sale on your behalf.</p>
             <a class="text-link service-card__link" href="brokerage.html">About brokerage</a>
           </article>
           <article class="service-card">
+            <img class="service-card__image" src="images/Dealing.jpg" width="384" height="312" alt="" aria-hidden="true">
             <h3 class="service-card__name">Dealing</h3>
-            <p>Natural polished diamonds from four producing countries. Documented from origin, every stone GIA graded.</p>
+            <p class="service-card__copy">Natural polished diamonds from four producing countries. Documented from origin, every stone GIA graded.</p>
             <a class="text-link service-card__link" href="dealing.html">About dealing</a>
           </article>
           <article class="service-card">
+            <img class="service-card__image" src="images/Advisory.jpg" width="384" height="312" alt="" aria-hidden="true">
             <h3 class="service-card__name">Advisory</h3>
-            <p>Rough-to-polished economics and first-hand Southern African market intelligence, on retainer or by project.</p>
+            <p class="service-card__copy">Rough-to-polished economics and first-hand Southern African market intelligence, on retainer or by project.</p>
             <a class="text-link service-card__link" href="advisory.html">About advisory</a>
           </article>
         </div>
