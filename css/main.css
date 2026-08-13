@@ -44,9 +44,22 @@
   --ground-olive: #EEF3E0;
   --ground-gold: #FBF2E4;
 
-  /* Gold at line weight — hairline borders and the value-chain spine, where
-     full --colour-gold reads as a rule rather than a frame. */
-  --colour-gold-line: #CDB78E;
+  /* Gold and Botswana Blue are brand marks, not text colours: on white they
+     measure 3.09:1 and 2.46:1, both under AA. Each gets a text-weight variant,
+     same hue and saturation, darkened until it clears 4.5:1 on white AND on
+     --colour-sky. Ink for type and UI, the brand hex for gems and rules. */
+  --colour-gold-ink: #84683E;      /* 5.21:1 white · 4.52:1 sky           */
+  --colour-botswana-ink: #2D70AE;  /* 5.20:1 white · 4.51:1 sky           */
+  --colour-olive-ink: #627249;     /* 5.22:1 white · 4.53:1 sky           */
+
+  /* The same problem inverted: on sapphire, gold has to lighten, not darken.
+     Doubles as the hairline weight for borders and the value-chain spine,
+     where full --colour-gold reads as a rule rather than a frame. */
+  --colour-gold-light: #CDB78E;    /* 5.89:1 on sapphire                  */
+
+  /* Focus ring. Re-declared on dark grounds further down, so one selector
+     serves both — a ring that passes on white cannot also pass on sapphire. */
+  --focus-ring: var(--colour-botswana-ink);
 
   /* Logo — sampled from the supplied wordmark PNG. Approximate until the
      vector arrives; re-sample then. */
@@ -162,7 +175,7 @@ a {
   padding-inline: clamp(var(--space-3), 4vw, var(--space-5));
 }
 
-/* Eyebrow — Work Sans caps, tracked. Gold on light, gold on dark. */
+/* Eyebrow — Work Sans caps, tracked. Gold ink on light, gold light on dark. */
 .eyebrow {
   display: block;
   font-family: var(--font-body);
@@ -170,7 +183,7 @@ a {
   font-size: var(--size-eyebrow);
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-ink);
   margin-bottom: var(--space-2);
 }
 
@@ -308,11 +321,11 @@ a {
 }
 
 .nav__link:hover {
-  border-bottom-color: var(--colour-botswana);
+  border-bottom-color: var(--colour-botswana-ink);
 }
 
 .nav__link--active {
-  border-bottom-color: var(--colour-botswana);
+  border-bottom-color: var(--colour-botswana-ink);
 }
 
 /* Services dropdown */
@@ -334,7 +347,7 @@ a {
 
 .nav__toggle:hover,
 .nav__toggle[aria-expanded="true"] {
-  border-bottom-color: var(--colour-botswana);
+  border-bottom-color: var(--colour-botswana-ink);
 }
 
 .nav__toggle::after {
@@ -431,6 +444,7 @@ a {
    Built as a gradient rather than shipping mesh.png: the hero's height changes
    with the copy and the viewport, and a raster would have to stretch. */
 .hero--dark {
+  --focus-ring: var(--colour-ice);
   position: relative;
   isolation: isolate;
   background: linear-gradient(
@@ -458,6 +472,12 @@ a {
 .hero--dark .hero__title,
 .hero--dark .hero__secondary {
   color: var(--colour-alpine);
+}
+
+/* Gold lightens on this ground. It sits on the gradient's flat sapphire left
+   third, never on the crest. */
+.hero--dark .eyebrow {
+  color: var(--colour-gold-light);
 }
 
 .hero--dark .hero__body {
@@ -536,12 +556,12 @@ a {
   font-weight: 400;
   color: var(--colour-sapphire);
   text-decoration: none;
-  border-bottom: 1px solid var(--colour-botswana);
+  border-bottom: 1px solid var(--colour-botswana-ink);
   padding-bottom: 1px;
 }
 
 .text-link:hover {
-  color: var(--colour-botswana);
+  color: var(--colour-botswana-ink);
 }
 
 
@@ -575,7 +595,7 @@ a {
   font-size: var(--size-eyebrow);
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-ink);
   margin-bottom: var(--space-2);
 }
 
@@ -598,7 +618,7 @@ a {
 
 .capability__benefit {
   font-weight: 500;
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
   border-left: 2px solid var(--colour-olive);
   padding-left: var(--space-2);
   margin-top: auto;
@@ -707,7 +727,7 @@ a {
 }
 
 .country-tile:hover .country-tile__name {
-  color: var(--colour-botswana);
+  color: var(--colour-botswana-ink);
 }
 
 .country-tile__role {
@@ -715,7 +735,7 @@ a {
   font-size: 0.75rem;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-ink);
   margin-bottom: var(--space-3);
 }
 
@@ -845,9 +865,10 @@ a {
   font-size: 6.8px;
 }
 
-/* Adjacent market: present, but outside the core network. */
-.network-map__node--adjacent .network-map__gem,
-.network-map__node--adjacent .network-map__label {
+/* Adjacent market: present, but outside the core network. The gem dims; the
+   label does not — Maseru at 50% measured 2.05:1 on white. Half-scale type and
+   the lighter outline carry the subordination instead. */
+.network-map__node--adjacent .network-map__gem {
   opacity: 0.5;
 }
 
@@ -857,9 +878,12 @@ a {
 
 /* On the sapphire ground the same component inverts. Strokes are weighted for
    the mesh crest, which is the lightest ground the map ever sits on: 0.7 keeps
-   the outlines at 3.16:1 there, where 0.5 fell to 2.35:1. */
+   the outlines at 3.16:1 there, where 0.5 fell to 2.35:1.
+   The countries carry no fill here. The labels sit inside them, and a 7% white
+   body lifted the crest to #4982B0, where even solid white type reached only
+   4.10:1. Unfilled, the ground stays --mesh-crest and the labels clear AA. */
 .hero--dark .network-map__country {
-  fill: rgba(255, 255, 255, 0.07);
+  fill: none;
   stroke: rgba(255, 255, 255, 0.7);
 }
 
@@ -870,8 +894,7 @@ a {
 
 /* Lesotho stays subordinate through half-scale and a lighter weight, but not
    through an opacity the crest would swallow. */
-.hero--dark .network-map__node--adjacent .network-map__gem,
-.hero--dark .network-map__node--adjacent .network-map__label {
+.hero--dark .network-map__node--adjacent .network-map__gem {
   opacity: 0.7;
 }
 
@@ -879,12 +902,24 @@ a {
   stroke: var(--colour-ice);
 }
 
+/* Ice measures 2.77:1 on the crest, under the 3:1 floor for a graphic that
+   carries meaning. Left as the logo's blue: every node is named by a label
+   that now passes AA, and both fixes — outlining the gem or darkening the
+   crest — change a visual the client approved. See DESIGN.md §13. */
 .hero--dark .network-map__gem {
   fill: var(--colour-ice);
 }
 
+/* Solid, not 80%: on the crest, 80% white composites to 3.61:1. Even solid
+   white only reaches 4.67:1 there, so the diamond lattice crossing behind a
+   glyph is enough to drop it under AA. The halo gives every label its own
+   ground — drawn under the fill, so the letterforms stay their true weight. */
 .hero--dark .network-map__label {
-  fill: rgba(255, 255, 255, 0.8);
+  fill: var(--colour-alpine);
+  stroke: var(--colour-sapphire);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
 }
 
 .hero--dark .network-map__node--gateway .network-map__gem {
@@ -937,7 +972,7 @@ a {
   top: calc(var(--rail-card) / 2);
   bottom: calc(var(--rail-card) / 2);
   width: 1px;
-  background: var(--colour-gold-line);
+  background: var(--colour-gold-light);
 }
 
 .rail__stage {
@@ -948,7 +983,7 @@ a {
   padding-left: calc(var(--rail-avatar) + var(--space-2) + var(--space-3));
   position: relative;
   background: var(--colour-alpine);
-  border: 1px solid var(--colour-gold-line);
+  border: 1px solid var(--colour-gold-light);
   border-radius: 999px 0 0 999px;
   counter-increment: rail-stage;
 }
@@ -972,7 +1007,7 @@ a {
 .rail__stage::before {
   height: 1px;
   width: calc(var(--rail-gutter) / 2);
-  background: var(--colour-gold-line);
+  background: var(--colour-gold-light);
 }
 
 .rail__stage::after {
@@ -1023,7 +1058,7 @@ a {
   font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-ink);
   margin-bottom: var(--space-1);
 }
 
@@ -1092,7 +1127,7 @@ a {
   font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-ink);
   border-bottom-color: var(--colour-sapphire);
 }
 
@@ -1154,12 +1189,12 @@ a {
   font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-ink);
 }
 
 .country-panel__sign {
   margin-left: auto;
-  color: var(--colour-botswana);
+  color: var(--colour-botswana-ink);
 }
 
 .country-panel[open] .country-panel__sign {
@@ -1249,7 +1284,7 @@ a {
   font-size: 0.75rem;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
   margin-bottom: var(--space-1);
 }
 
@@ -1258,7 +1293,7 @@ a {
 }
 
 .insight-card:hover .insight-card__title {
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
 }
 
 .insight-card__standfirst {
@@ -1270,7 +1305,7 @@ a {
 .insight-card__meta {
   margin-top: var(--space-2);
   font-size: var(--size-small);
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
 }
 
 /* Category filter */
@@ -1319,7 +1354,7 @@ a {
   font-size: 0.75rem;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
   border: 1px solid var(--colour-olive);
   padding: 0.3rem 0.7rem;
   margin-bottom: var(--space-2);
@@ -1328,7 +1363,7 @@ a {
 .article__meta {
   margin-top: var(--space-2);
   font-size: var(--size-small);
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
 }
 
 .article__body {
@@ -1478,12 +1513,13 @@ a {
 
 /* Membership line — olive, per brief */
 .membership-line {
-  color: var(--colour-olive);
+  color: var(--colour-olive-ink);
   font-size: var(--size-small);
 }
 
 /* CTA band */
 .cta-band {
+  --focus-ring: var(--colour-ice);
   background: var(--colour-sapphire);
   color: var(--colour-alpine);
   padding-block: var(--space-5);
@@ -1597,9 +1633,9 @@ a {
 .form__input:focus,
 .form__select:focus,
 .form__textarea:focus {
-  outline: 2px solid var(--colour-botswana);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 1px;
-  border-color: var(--colour-botswana);
+  border-color: var(--colour-botswana-ink);
 }
 
 .form__textarea {
@@ -1641,6 +1677,7 @@ a {
    ========================================================================== */
 
 .site-footer {
+  --focus-ring: var(--colour-ice);
   background: var(--colour-sapphire);
   color: rgba(255, 255, 255, 0.85);
   padding-block: var(--space-5) var(--space-4);
@@ -1668,7 +1705,7 @@ a {
   font-size: var(--size-eyebrow);
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-gold);
+  color: var(--colour-gold-light);
   margin-bottom: var(--space-2);
 }
 
@@ -1881,7 +1918,7 @@ a {
    ========================================================================== */
 
 :focus-visible {
-  outline: 2px solid var(--colour-botswana);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
