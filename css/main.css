@@ -104,12 +104,19 @@
      against the element it is used on, so use it on full-width sections only. */
   --bleed-inset: max(var(--space-3), (100% - var(--width-site)) / 2 + var(--space-3));
 
+  /* The three largest steps are fluid. At their fixed values a .section put
+     104px above and below its content, so two stacked sections opened 208px
+     of dead space on a 390px screen — most of a phone viewport, scrolled
+     past with nothing in it. Each clamp holds its original value from
+     ~1150px up, so desktop is unchanged and the scale only tightens where
+     the viewport can't afford it. The small steps stay fixed: they set type
+     and component rhythm, which shouldn't move with the viewport. */
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
-  --space-4: 2.5rem;
-  --space-5: 4rem;
-  --space-6: 6.5rem;
+  --space-4: clamp(1.75rem, 3.5vw, 2.5rem);
+  --space-5: clamp(2.25rem, 5.5vw, 4rem);
+  --space-6: clamp(3rem, 8vw, 6.5rem);
 }
 
 
