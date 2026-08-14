@@ -15,7 +15,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <div class="container site-header__inner">
+    <div class="container container--wide site-header__inner">
       <a class="wordmark" href="index.html" aria-label="Lejwana home">
         <span class="wordmark__text">Le<span class="wordmark__j">j</span>wana</span>
       </a>
@@ -54,6 +54,17 @@
       </div>
     </section>
 
+    <!-- Upcoming events — [SAMPLE: placeholder listing, replace with a real event] -->
+    <aside class="events-band" aria-labelledby="events-band-label">
+      <div class="container events-band__inner">
+        <h2 class="events-band__label" id="events-band-label">Upcoming events</h2>
+        <a class="events-band__event" href="insight/southern-african-polished-forum.html">
+          <span class="events-band__title">Southern African Polished Forum 2026</span>
+          <span class="events-band__meta"><time datetime="2026-10-14">14&ndash;16 October 2026</time> &middot; Gaborone, Botswana</span>
+        </a>
+      </div>
+    </aside>
+
     <section class="section">
       <div class="container">
 
@@ -78,10 +89,17 @@
           <button class="insight-filter__button" data-category="on-provenance" aria-pressed="false">On Provenance</button>
           <button class="insight-filter__button" data-category="rough-and-polished" aria-pressed="false">Rough and Polished</button>
           <button class="insight-filter__button" data-category="journeys" aria-pressed="false">Journeys</button>
+          <button class="insight-filter__button" data-category="events" aria-pressed="false">Events</button>
         </div>
 
         <!-- Article grid -->
         <div class="insight-grid">
+          <a class="insight-card" href="insight/southern-african-polished-forum.html" data-category="events">
+            <span class="insight-card__category">Events</span>
+            <h3 class="insight-card__title">Southern African Polished Forum 2026, Gaborone</h3>
+            <p class="insight-card__standfirst">Three days on beneficiation, polished trading and where the region's manufacturing capacity is heading. Lejwana will be on the floor.</p>
+            <span class="insight-card__meta">14&ndash;16 October 2026</span>
+          </a>
           <a class="insight-card" href="insight/southern-africas-polished-moment.html" data-category="the-region">
             <span class="insight-card__category">The Region</span>
             <h3 class="insight-card__title">Southern Africa's polished moment: why the region is more than rough</h3>
@@ -125,7 +143,7 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
+    <div class="container container--wide">
       <div class="site-footer__grid">
         <div>
           <a class="wordmark site-footer__wordmark" href="index.html" aria-label="Lejwana home">
