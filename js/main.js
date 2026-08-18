@@ -10,6 +10,7 @@
    05. Insight category filter
    06. Scroll reveal + map entrance
    07. Map / country interlink
+   08. Footer copyright year
    ========================================================================== */
 
 (function () {
@@ -214,4 +215,12 @@
       el.addEventListener(type, function () { setLinked(country, false); });
     });
   });
+
+  /* ------------------------------------------------------------------
+     08. Footer copyright year
+     ------------------------------------------------------------------ */
+  var yearEl = document.querySelector('.js-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 })();

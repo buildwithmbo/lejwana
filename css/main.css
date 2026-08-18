@@ -2179,6 +2179,12 @@ a {
   padding-top: var(--space-3);
 }
 
+.site-footer__copyright {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--size-small);
+  margin-top: var(--space-1);
+}
+
 
 /* ==========================================================================
    15. Responsive
