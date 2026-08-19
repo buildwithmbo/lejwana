@@ -780,15 +780,6 @@ a {
   color: var(--colour-botswana-ink);
 }
 
-.country-tile__role {
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--colour-gold-ink);
-  margin-bottom: var(--space-3);
-}
-
 .country-tile__name {
   font-family: var(--font-heading);
   font-size: 1.375rem;
@@ -812,11 +803,6 @@ a {
 .country-tile--gateway .country-tile__name,
 .country-tile--gateway .country-tile__line {
   color: var(--colour-alpine);
-}
-
-/* Ice, not gold: gold on sapphire is 3.7:1 and fails AA for label text. */
-.country-tile--gateway .country-tile__role {
-  color: var(--colour-ice);
 }
 
 .country-tile--gateway .country-tile__line {
