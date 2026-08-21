@@ -65,10 +65,12 @@
      serves both — a ring that passes on white cannot also pass on sapphire. */
   --focus-ring: var(--colour-botswana-ink);
 
-  /* Logo — sampled from the supplied wordmark PNG. Approximate until the
-     vector arrives; re-sample then. */
+  /* Logo — sampled from the supplied wordmark PNG. The vector
+     (images/lejwana-logo.svg) confirms --colour-navy exactly; its gem is
+     #80AAD7, slightly deeper than --colour-ice, which other components share,
+     so the token stays as sampled. */
   --colour-navy: #16295A;     /* Wordmark letterforms               */
-  --colour-ice: #A8CCE8;      /* Wordmark diamond, network nodes    */
+  --colour-ice: #A8CCE8;      /* Network nodes, dark-ground accents */
 
   /* Hero mesh — sampled from images/mesh.png, the approved comp. Ground tints
      only: they appear behind the home hero and nowhere else, so they do not
@@ -93,7 +95,6 @@
   --leading-heading: 1.2;
 
   --tracking-eyebrow: 0.14em;
-  --tracking-wordmark: 0.28em;
 
   /* Layout */
   --width-site: 1140px;
@@ -290,6 +291,23 @@ a {
   white-space: nowrap;
 }
 
+/* services proposition bg */
+.bg {
+    background-color: var(--mesh-rise);
+      background-image: url("../images/small-diamond-pattern.svg");
+    }
+.network-bg {
+    background-image: url("../images/network.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.network-sub {
+    background: var(--colour-sky);
+      padding: var(--space-4);
+}
+
+
 
 /* ==========================================================================
    04. Header & navigation
@@ -308,39 +326,13 @@ a {
   gap: var(--space-3);
 }
 
-/* Wordmark — matches the supplied logo: wide-tracked high-contrast serif in
-   navy, with the ice diamond above the J. CSS lockup until the vector lands. */
+/* Wordmark link — both instances are images/lejwana-logo.svg (navy) in the
+   header and lejwana-logo-light.svg (white) in the footer; this rule just
+   centres them on their shared baseline row. */
 .wordmark {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-}
-
-.wordmark__text {
-  font-family: 'Cormorant Garamond', var(--font-heading), serif;
-  font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 1;
-  letter-spacing: var(--tracking-wordmark);
-  text-transform: uppercase;
-  color: var(--colour-navy);
-}
-
-.wordmark__j {
-  position: relative;
-}
-
-/* Centred on the glyph, not the glyph-plus-tracking box, hence the half-track
-   correction. */
-.wordmark__j::before {
-  content: "";
-  position: absolute;
-  left: calc(50% - (var(--tracking-wordmark) / 2));
-  top: -0.52em;
-  width: 0.26em;
-  height: 0.26em;
-  background: var(--colour-ice);
-  transform: translateX(-50%) rotate(45deg);
 }
 
 .nav__list {
@@ -774,6 +766,7 @@ a {
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  border: solid 1px var(--colour-alpine);
 }
 
 .country-tile:hover .country-tile__name {
@@ -833,6 +826,7 @@ a {
 .location-card {
   background: var(--colour-sky);
   padding: var(--space-4) var(--space-3);
+  border: 1px solid var(--colour-alpine);
 }
 
 .location-card__title {
@@ -1772,11 +1766,8 @@ a {
   gap: var(--space-4);
   border-top: 1px solid var(--colour-sky);
   padding-block: var(--space-3);
-  background-color: var(--ground-paper);
-}
-
-.values__row:last-child {
-  border-bottom: 1px solid var(--colour-sky);
+  background-color: var(--colour-sky);
+  border: 1px solid var(--colour-alpine);
 }
 
 .values__name {
@@ -1792,8 +1783,9 @@ a {
   font-size: var(--size-small);
 }
 
-/* Team — prose on a photograph, held to a reading measure so the copy stays
-   on the gradient's dark end rather than running into the picture. */
+/* Team — director portraits and prose on a photograph, held to a reading
+   measure so the copy stays on the gradient's dark end rather than running
+   into the picture. */
 .team-band {
   --focus-ring: var(--colour-ice);
   position: relative;
@@ -1803,15 +1795,6 @@ a {
   background:
     linear-gradient(to right, rgba(30, 58, 95, 0.97) 45%, rgba(30, 58, 95, 0.62)),
     url("../images/our-team.jpg") right center / cover no-repeat;
-}
-
-.team-band::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: url("../images/diamonds.svg");
-  opacity: 0.1;
 }
 
 .team-band__title {
@@ -1828,9 +1811,25 @@ a {
 }
 
 .team-director {
+  /* Portrait renders below its 138px natural size, so it stays crisp on
+     high-density screens. */
+  --director-portrait: 5.5rem;
+  display: grid;
+  grid-template-columns: var(--director-portrait) 1fr;
+  column-gap: var(--space-3);
   margin-top: var(--space-3);
   padding-top: var(--space-2);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Same circular treatment as the home rail's images. */
+.team-director__photo {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: var(--director-portrait);
+  height: var(--director-portrait);
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .team-director__name {
@@ -1901,6 +1900,7 @@ a {
 .engagement__item {
   background: var(--colour-sky);
   padding: var(--space-3);
+  border: solid 1px var(--colour-alpine);
 }
 
 .engagement__title {
@@ -2106,10 +2106,6 @@ a {
   grid-template-columns: 2fr 1fr 1fr;
   gap: var(--space-4);
   margin-bottom: var(--space-4);
-}
-
-.site-footer__wordmark .wordmark__text {
-  color: var(--colour-alpine);
 }
 
 .site-footer__heading {
