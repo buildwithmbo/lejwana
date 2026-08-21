@@ -1881,19 +1881,26 @@ a {
   margin-top: var(--space-1);
 }
 
-/* Credentials strip — closes the team band on the same ground */
+/* Credentials strip — closes the team band on the same ground. Full-bleed:
+   the five credentials overrun the site container's width, so they run between
+   slim viewport edges rather than inside a container, keeping the row on one
+   line at desktop sizes. */
 .credentials-strip {
   background: var(--colour-sapphire);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-block: var(--space-3);
+  padding-inline: var(--space-3);
 }
 
 .credentials {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--space-2) var(--space-4);
+  /* Column gap held to --space-3: at --space-4 the five items overrun the
+     inset-to-inset width by a few pixels and orphan one item onto a second
+     line at common desktop widths. */
+  gap: var(--space-2) var(--space-3);
   list-style: none;
   padding: 0;
 }
