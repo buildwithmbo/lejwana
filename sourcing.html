@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Reach Lejwana | polished@lejwana.com</title>
-  <meta name="description" content="Email polished@lejwana.com, book a 20-minute introduction or 45-minute working session, or send a trade enquiry. We reply within one working day.">
+  <title>Sourcing | Natural Polished Diamonds from Southern Africa | Lejwana</title>
+  <meta name="description" content="Send the specification. We work the network, view the goods, and report back with what fits. Sourced to your specification across Botswana, Angola, South Africa and Namibia.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
           <li><a class="nav__link" href="the-network.html">The Network</a></li>
           <li><a class="nav__link" href="insight.html">Insight</a></li>
           <li><a class="nav__link" href="about.html">About</a></li>
-          <li><a class="nav__link nav__link--active" href="contact.html">Contact</a></li>
+          <li><a class="nav__link" href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -48,33 +48,32 @@
     <!-- Hero -->
     <section class="hero hero--page">
       <div class="container">
-        <span class="eyebrow">Contact</span>
-        <h1>Send us a specification.</h1>
-        <p class="hero__subheading">Tell us the goods you need. The enquiry goes to sourcing, trading or advisory.</p>
+        <span class="eyebrow">Services &middot; Sourcing</span>
+        <h1>Sourced to your specification.</h1>
+        <p class="hero__subheading">Send the specification. We work the network, view the goods, and report back with what fits.</p>
       </div>
     </section>
 
-    <!-- Two channels -->
-    <section class="section bg">
-      <div class="container">
-        <div class="contact-channels">
-          <div class="channel">
-            <h2 class="channel__title">Email</h2>
-            <p><a class="channel__email" href="mailto:polished@lejwana.com">polished@lejwana.com</a></p>
-            <button class="channel__copy-button" type="button" data-email="polished@lejwana.com">Copy email address</button>
-          </div>
-          <div class="channel">
-            <h2 class="channel__title">Book a call</h2>
-            <ul class="channel__durations">
-              <li>20-minute introduction</li>
-              <li>45-minute working session</li>
-            </ul>
-            <!-- Cal.com loads on request so the page stays fast.
-                 [CONFIRM: Cal.com booking link — placeholder "lejwana/intro" used] -->
-            <button class="button" type="button" data-cal-link="lejwana/intro" data-cal-target="#cal-container">Open the booking calendar</button>
-            <div class="cal-embed" id="cal-container"></div>
-          </div>
+    <!-- Process steps -->
+    <section class="section">
+      <div class="container container--reading">
+        <hr class="provenance-rule">
+        <div class="prose-section">
+          <h2 class="prose-section__title">The specification</h2>
+          <p>Shape, weight, colour, clarity, cut, fluorescence, certification, budget, timing and any provenance requirement. Fancy colour and matched layouts are handled on the same basis.</p>
         </div>
+
+        <div class="prose-section">
+          <h2 class="prose-section__title">Working the network</h2>
+          <p>We go to the cutting and polishing partners and dealers we hold relationships with across Botswana, Angola, South Africa and Namibia. Goods are viewed on the ground before anything is put to you.</p>
+        </div>
+
+        <div class="prose-section">
+          <h2 class="prose-section__title">What comes back</h2>
+          <p>What fits the specification, what it prices at against the list, and what certification and provenance records sit behind it. Where a parcel is close but not exact, we say where it differs and what that means for price.</p>
+        </div>
+
+        <p class="prose-section" style="margin-top: var(--space-3);"><a class="text-link" href="contact.html">Submit your specification &rarr;</a></p>
       </div>
     </section>
 
@@ -136,71 +135,13 @@
       </div>
     </section>
 
-    <!-- Enquiry form
-    <section class="section">
+    <!-- CTA -->
+    <section class="cta-band">
       <div class="container">
-        <hr class="provenance-rule">
-        <h2 class="section__title">Send an enquiry</h2>
-        <!-- Front-end only. Wire action to the mail handler before launch.
-        <form class="form" novalidate>
-          <div class="form__row">
-            <div class="form__field">
-              <label class="form__label" for="field-name">Name</label>
-              <input class="form__input" type="text" id="field-name" name="name" autocomplete="name" required>
-              <p class="form__error">Add your name.</p>
-            </div>
-            <div class="form__field">
-              <label class="form__label" for="field-company">Company</label>
-              <input class="form__input" type="text" id="field-company" name="company" autocomplete="organization" required>
-              <p class="form__error">Add your company.</p>
-            </div>
-          </div>
-          <div class="form__field">
-            <label class="form__label" for="field-email">Email</label>
-            <input class="form__input" type="email" id="field-email" name="email" autocomplete="email" required>
-            <p class="form__error">Add an email address we can reply to.</p>
-          </div>
-          <div class="form__field">
-            <label class="form__label" for="field-enquiry">Enquiry</label>
-            <select class="form__select" id="field-enquiry" name="enquiry" required>
-              <option value="">Choose one</option>
-              <option value="brokerage">Brokerage</option>
-              <option value="trading">Trading</option>
-              <option value="advisory">Advisory</option>
-              <option value="general">General</option>
-            </select>
-            <p class="form__error">Choose an enquiry type.</p>
-          </div>
-          <div class="form__field">
-            <label class="form__label" for="field-message">Message</label>
-            <textarea class="form__textarea" id="field-message" name="message" required></textarea>
-            <p class="form__error">Tell us what you need.</p>
-          </div>
-          <button class="button" type="submit">Send enquiry</button>
-          <p class="form__success" role="status">Received. We will reply within one working day.</p>
-        </form>
+        <h2 class="cta-band__title">Submit your specification.</h2>
+        <a class="button button--on-dark" href="contact.html">Contact us</a>
       </div>
-    </section> -->
-
-    <!-- Locations
-    <section class="section section--sky">
-      <div class="container">
-        <hr class="provenance-rule">
-        <h2 class="section__title">Where to find us</h2>
-        <div class="location-cards">
-          <div class="location-card">
-            <h3 class="location-card__title">Gaborone</h3>
-            <p>Lejwana's primary Southern African location.</p>
-            <!-- [CONFIRM: Gaborone address details]
-          </div>
-          <div class="location-card">
-            <h3 class="location-card__title">London Diamond Bourse</h3>
-            <p>By appointment.</p>
-          </div>
-        </div>
-        <p class="membership-line" style="margin-top: 2.5rem;">Members of the London Diamond Bourse and the World Federation of Diamond Bourses.</p>
-      </div>
-    </section> -->
+    </section>
   </main>
 
   <footer class="site-footer site-footer--flush">

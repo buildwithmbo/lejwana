@@ -471,6 +471,11 @@ a {
   margin-top: var(--space-4);
 }
 
+.hero__highlight {
+font-style: italic;
+color: var(--colour-ice)
+}
+
 /* Dark stone variant — the mesh ground from the comp. Flat sapphire for the
    left third, rising to the crest under the map, then deepening at the edge.
    Built as a gradient rather than shipping mesh.png: the hero's height changes
@@ -1152,6 +1157,10 @@ a {
   padding: var(--space-2) var(--space-2);
   border-bottom: 1px solid var(--colour-sky);
   vertical-align: top;
+}
+
+.network-table td:first-child {
+  font-weight: 700;
 }
 
 .network-table thead th {
@@ -1973,6 +1982,11 @@ a {
 .cta-band__title {
   color: var(--colour-alpine);
   margin-bottom: var(--space-3);
+}
+
+.cta-band__body {
+    width: var(--width-reading);
+    margin: var(--space-3) auto;
 }
 
 
