@@ -15,7 +15,7 @@
    09. Network map & value-chain rail
    10. Network table & country panels
    11. Insight (grid, cards, article)
-   12. Page sections (prose, values, team, credentials, engagement)
+   12. Page sections (prose, mandate, team, engagement)
    13. Forms & contact
    14. Footer
    15. Responsive
@@ -60,6 +60,11 @@
      Doubles as the hairline weight for borders and the value-chain spine,
      where full --colour-gold reads as a rule rather than a frame. */
   --colour-gold-light: #CDB78E;    /* 5.89:1 on sapphire                  */
+
+  /* Ice as type on the hero. The gem hex measures 4.09:1 where the mesh rises
+     under the copy column; lightened at the same hue and saturation until it
+     clears AA on the lightest ground that column reaches, #385E84. */
+  --colour-ice-light: #C7DEF0;     /* 4.88:1 on the rise · 8.29:1 sapphire */
 
   /* Focus ring. Re-declared on dark grounds further down, so one selector
      serves both — a ring that passes on white cannot also pass on sapphire. */
@@ -281,6 +286,25 @@ a {
   margin-bottom: var(--space-4);
 }
 
+/* Multi-paragraph intro — the same measure as .section__intro, for copy that
+   arrives as more than one paragraph. */
+.section__prose {
+  max-width: var(--width-reading);
+  margin-bottom: var(--space-4);
+}
+
+.section__prose p + p {
+  margin-top: var(--space-2);
+}
+
+/* Serif tagline under a section title — the hero subheading's recipe. */
+.section__subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.3125rem;
+  color: var(--colour-sapphire);
+  margin-bottom: var(--space-3);
+}
+
 /* Visually hidden — for accessible labels */
 .u-visually-hidden {
   position: absolute;
@@ -472,8 +496,8 @@ a {
 }
 
 .hero__highlight {
-font-style: italic;
-color: var(--colour-ice)
+  color: var(--colour-ice-light);
+  font-style: italic;
 }
 
 /* Dark stone variant — the mesh ground from the comp. Flat sapphire for the
@@ -534,6 +558,50 @@ color: var(--colour-ice)
   margin-top: var(--space-2);
 }
 
+/* Masthead — The Southern Cut opens as a publication, not a page: name,
+   proposition, standfirst. Documentary ground (the client's aerial pit
+   photograph) under the team band's sapphire ramp, so the site's dark
+   photographic grounds read as one family. */
+.masthead {
+  --focus-ring: var(--colour-ice);
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--space-6);
+  color: var(--colour-alpine);
+  background:
+    linear-gradient(to right, rgba(30, 58, 95, 0.97) 45%, rgba(30, 58, 95, 0.82)),
+    url("../images/Mine.jpg") right center / cover no-repeat;
+}
+
+.masthead__name {
+  color: var(--colour-alpine);
+}
+
+.masthead__line {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.3125rem;
+  color: var(--colour-ice-light);
+  margin-top: var(--space-2);
+}
+
+.masthead__standfirst {
+  max-width: var(--width-reading);
+  margin-top: var(--space-3);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.masthead__standfirst p + p {
+  margin-top: var(--space-2);
+}
+
+.masthead__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
 
 /* ==========================================================================
    06. Buttons & links
@@ -561,6 +629,13 @@ color: var(--colour-ice)
 .button--ghost {
   background: transparent;
   color: var(--colour-sapphire);
+}
+
+/* External-link marker: visible arrow, spoken as text where the alternative
+   syntax is supported. */
+.link-external::after {
+  content: " \2197" / " (opens in new tab)";
+  font-size: 0.8em;
 }
 
 .button--ghost:hover {
@@ -654,7 +729,7 @@ color: var(--colour-ice)
 }
 
 .capability__benefit {
-  font-weight: 500;
+  font-weight: 300;
   color: var(--colour-olive-ink);
   border-left: 2px solid var(--colour-olive);
   padding-left: var(--space-2);
@@ -757,68 +832,75 @@ color: var(--colour-ice)
   transform: translateY(-2px) rotate(45deg);
 }
 
-/* Country tiles */
-.country-tiles {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-3);
+/* Country tabs — the SADC desk, one country at a time. Without JS the tab row
+   stays hidden and the panels stack as plain sections. */
+.country-tabs {
+  margin-top: var(--space-2);
 }
 
-.country-tile {
-  background: var(--colour-sky);
-  padding: var(--space-3);
-  min-height: 11rem;
+.country-tabs__list {
   display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  border: solid 1px var(--colour-alpine);
+  flex-wrap: wrap;
+  gap: 0 var(--space-4);
+  border-bottom: 1px solid var(--colour-sky);
 }
 
-.country-tile:hover .country-tile__name {
+/* The explicit flex display beats the UA's [hidden] rule, so restate it: the
+   tab row must not render before JS takes over the panels. */
+.country-tabs__list[hidden] {
+  display: none;
+}
+
+.country-tabs__tab {
+  font: inherit;
+  font-size: var(--size-small);
+  font-weight: 500;
+  color: var(--colour-charcoal);
+  background: none;
+  border: none;
+  /* The active rule sits on the list's hairline, not above it. */
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.6rem 0;
+  cursor: pointer;
+}
+
+.country-tabs__tab:hover {
   color: var(--colour-botswana-ink);
 }
 
-.country-tile__name {
+.country-tabs__tab[aria-selected="true"] {
+  color: var(--colour-sapphire);
+  border-bottom-color: var(--colour-botswana-ink);
+}
+
+/* The tile treatment, carried over: the open panel is the tile the grid had. */
+.country-tabs__panel {
+  background: var(--colour-sky);
+  border: 1px solid var(--colour-alpine);
+  padding: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.country-tabs__name {
   font-family: var(--font-heading);
   font-size: 1.375rem;
   font-weight: 500;
   color: var(--colour-sapphire);
+  margin-bottom: var(--space-1);
 }
 
-.country-tile__line {
-  font-size: var(--size-small);
-  margin-top: var(--space-1);
-  color: var(--colour-charcoal);
+.country-tabs__orgs {
+  display: block;
+  font-size: var(--size-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold-ink);
+  margin-bottom: var(--space-2);
 }
 
-/* Gateway: the only tile given visual weight, matching the map's gateway node.
-   The hierarchy is the message. */
-.country-tile--gateway {
-  background: var(--colour-sapphire);
-  position: relative;
-}
-
-.country-tile--gateway .country-tile__name,
-.country-tile--gateway .country-tile__line {
-  color: var(--colour-alpine);
-}
-
-.country-tile--gateway .country-tile__line {
-  color: rgba(255, 255, 255, 0.82);
-}
-
-.country-tile--gateway .country-tile__gem {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  width: 0.5rem;
-  height: 0.5rem;
-  background: var(--colour-ice);
-  transform: rotate(45deg);
-}
-
-.country-tile--gateway:hover .country-tile__name {
-  color: var(--colour-ice);
+.country-tabs__panel p {
+  max-width: var(--width-reading);
 }
 
 /* Location cards */
@@ -1337,16 +1419,7 @@ color: var(--colour-ice)
   text-transform: uppercase;
   color: var(--colour-olive-ink);
   margin-bottom: var(--space-1);
-}
-
-.insight-card__category::before {
-  content: '';
-  display: inline-block;
-  width: 0.3125rem;
-  height: 0.3125rem;
-  margin-right: 0.4rem;
-  background: var(--colour-olive-ink);
-  transform: translateY(-1px) rotate(45deg);
+  text-align: left;
 }
 
 .insight-card__title {
@@ -1369,129 +1442,96 @@ color: var(--colour-ice)
   color: var(--colour-olive-ink);
 }
 
-/* Category filter */
-.insight-filter {
+/* Topic index — the hub's coverage map. Not links yet: the archive pages
+   behind them are unbuilt, so the pills carry no interactive affordance. */
+.topics {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1);
-  margin-bottom: var(--space-5);
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: 0;
+  list-style: none;
 }
 
-.insight-filter__button {
-  font: inherit;
-  font-weight: 400;
-  font-size: var(--size-small);
-  color: var(--colour-charcoal);
-  background: none;
-  border: 1px solid var(--colour-sky);
+.topics__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--colour-sapphire);
+  background: var(--colour-alpine);
   padding: 0.45rem 1rem;
-  cursor: pointer;
+  font-size: var(--size-small);
+  color: var(--colour-sapphire);
+  text-align: center;
 }
 
-.insight-filter__button:hover {
-  border-color: var(--colour-olive);
-}
-
-.insight-filter__button--active {
-  background: var(--colour-olive);
-  border-color: var(--colour-olive);
-  color: var(--colour-alpine);
-}
-
-/* Events — a sky band between the hero and the articles, carrying the same
-   ink lattice as every other light band on the site. */
-.events-band {
-  position: relative;
-  isolation: isolate;
-  background: var(--colour-sky);
-  padding-block: var(--space-3);
-}
-
-.events-band::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: url("../images/diamonds-ink.svg");
-  opacity: 0.12;
-}
-
-.events-band__inner {
+/* Now in the trade — three time-sensitive signals. Gold carries the
+   time-anchored register here as it does on the mandate rail; olive stays
+   editorial. */
+.signals {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: var(--space-2) var(--space-4);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
 }
 
-.events-band__label {
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--colour-olive-ink);
+.signal {
+  position: relative;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--colour-gold-light);
 }
 
-.events-band__label::before {
+.signal::before {
   content: '';
-  display: inline-block;
+  position: absolute;
+  top: -0.25rem;
+  left: 0;
   width: 0.4375rem;
   height: 0.4375rem;
-  margin-right: 0.5rem;
   background: var(--colour-gold);
-  transform: translateY(-1px) rotate(45deg);
+  transform: rotate(45deg);
 }
 
-.events-band__list {
-  list-style: none;
-  padding: 0;
+.signal__title {
+  font-size: var(--size-h3);
 }
 
-/* Navy alpha rather than a token: the dark bands' white-alpha hairline trick,
-   inverted for this light ground. */
-.events-band__event + .events-band__event {
-  border-top: 1px solid rgba(22, 41, 90, 0.15);
-}
-
-.events-band__event {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 var(--space-2);
-  padding-block: var(--space-2);
-}
-
-.events-band__title {
-  font-family: var(--font-heading);
-  font-size: 1.1875rem;
-  color: var(--colour-sapphire);
-}
-
-.events-band__link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.events-band__link:hover {
-  color: var(--colour-olive-ink);
-}
-
-.events-band__title::after {
-  content: '\2192';
-  margin-left: 0.4rem;
-}
-
-.events-band__meta {
+.signal__meta {
   font-size: var(--size-small);
-  color: var(--colour-charcoal);
+  color: var(--colour-gold-ink);
+  margin-top: 0.25rem;
 }
 
-.events-band__detail {
-  flex-basis: 100%;
-  max-width: var(--width-reading);
-  font-size: var(--size-small);
-  color: var(--colour-charcoal);
+.signal p {
   margin-top: var(--space-1);
+}
+
+.signal .text-link {
+  display: inline-block;
+  margin-top: var(--space-2);
+}
+
+/* Collapsed calendar — JS adds the modifier and unhides the toggle, so the
+   full table stands without JavaScript. */
+.network-table--collapsed tbody tr:nth-child(n + 6) {
+  display: none;
+}
+
+.calendar-toggle {
+  margin-top: var(--space-3);
+}
+
+/* .button's own display beats the UA's [hidden] rule, so restate it: the
+   toggle must not render before JS collapses the table. */
+.calendar-toggle[hidden] {
+  display: none;
+}
+
+.calendar-note {
+  max-width: var(--width-reading);
+  margin-top: var(--space-3);
+  font-size: var(--size-small);
+  color: var(--colour-muted);
 }
 
 /* Event details — the practical block an event post carries above its copy */
@@ -1652,21 +1692,25 @@ color: var(--colour-ice)
   margin-top: 0.4rem;
 }
 
-/* Privacy page — plain bullets for legal lists, not the diamond marks */
-.prose-section h3 {
+/* Privacy page — the numbered clauses and their subsections. Scoped to the
+   modifier because every other prose section titles itself with a classed h2,
+   which these margins would otherwise override. The subsection drops to the
+   body face so it separates from its clause by more than size. */
+.prose-section--legal h2 {
   font-family: var(--font-heading);
   font-weight: 500;
   margin-top: var(--space-3);
   margin-bottom: var(--space-1);
 }
 
-.prose-section h4 {
+.prose-section--legal h3 {
   font-family: var(--font-body);
   font-weight: 500;
   margin-top: var(--space-2);
   margin-bottom: var(--space-1);
 }
 
+/* Plain bullets for legal lists, not the diamond marks */
 .prose-section ul {
   list-style: disc;
   padding-left: 1.5rem;
@@ -1704,10 +1748,10 @@ color: var(--colour-ice)
     url("../images/about-hero.jpg") center / cover no-repeat;
 }
 
-.about-hero .eyebrow,
-.about-hero__title {
+/* Inset on the wrapper, not the children, so the title's max-width can cap
+   its measure without fighting the border-box padding. */
+.about-hero__heading {
   padding-inline-start: var(--bleed-inset);
-  color: var(--colour-alpine);
 }
 
 .about-hero .eyebrow {
@@ -1716,11 +1760,12 @@ color: var(--colour-ice)
   margin-bottom: 0;
 }
 
+/* Capped at two lines' measure so the sentence stays over the scrim's dark
+   left half — past ~60% width the photograph shows through under white type. */
 .about-hero__title {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  color: var(--colour-alpine);
+  font-size: var(--size-h1);
+  max-width: 18ch;
   padding-bottom: var(--space-5);
 }
 
@@ -1735,6 +1780,20 @@ color: var(--colour-ice)
   line-height: 1.55;
   color: var(--colour-sapphire);
   padding: var(--space-4) var(--space-4) var(--space-4) var(--bleed-inset);
+}
+
+/* The lead opens in the serif, then steps down to body type: a deck over its
+   supporting copy, so three paragraphs scan rather than stack at one weight. */
+.about-hero__lead p + p {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--leading-body);
+  color: var(--colour-charcoal);
+  margin-top: var(--space-2);
+}
+
+.about-hero__cta {
+  margin-top: var(--space-3);
 }
 
 /* Mission & Approach — the collage bleeds off the left edge, cards to the right */
@@ -1788,32 +1847,66 @@ color: var(--colour-ice)
   opacity: 0.5;
 }
 
-/* Values — name against detail, divided by hairlines */
-.values {
-  margin-top: var(--space-4);
+/* The differentiating line under the expectations table, carried on the
+   olive left rule like the capability benefits. */
+.expect-note {
+  max-width: var(--width-reading);
+  margin-top: var(--space-3);
+  padding-left: var(--space-2);
+  border-left: 2px solid var(--colour-olive);
+  color: var(--colour-olive-ink);
 }
 
-.values__row {
+/* Mandate steps — five stages on one gold hairline, a gem at each start:
+   the provenance rule stretched into a sequence. The numbers are in the copy,
+   so the list's own markers are suppressed rather than doubled. */
+.mandate {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: var(--space-4);
-  border-top: 1px solid var(--colour-sky);
-  padding-block: var(--space-3);
-  background-color: var(--colour-sky);
-  border: 1px solid var(--colour-alpine);
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: var(--space-3);
+  row-gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: 0;
+  list-style: none;
 }
 
-.values__name {
-  padding-inline-start: var(--space-3);
-  font-family: var(--font-heading);
-  font-size: 1.375rem;
-  color: var(--colour-sapphire);
+.mandate__stage {
+  position: relative;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--colour-gold-light);
 }
 
-.values__detail {
-  margin: 0;
-  padding-inline-end: var(--space-3);
+.mandate__stage::before {
+  content: '';
+  position: absolute;
+  top: -0.25rem;
+  left: 0;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  background: var(--colour-gold);
+  transform: rotate(45deg);
+}
+
+.mandate__heading {
+  font-size: var(--size-h3);
+}
+
+.mandate__number {
+  color: var(--colour-gold-ink);
+}
+
+.mandate__stage p {
+  margin-top: var(--space-1);
   font-size: var(--size-small);
+}
+
+.section__cta {
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+.section__cta--start {
+  text-align: left;
 }
 
 /* Team — director portraits and prose on a photograph, held to a reading
@@ -1890,57 +1983,75 @@ color: var(--colour-ice)
   margin-top: var(--space-1);
 }
 
-/* Credentials strip — closes the team band on the same ground. Full-bleed:
-   the five credentials overrun the site container's width, so they run between
-   slim viewport edges rather than inside a container, keeping the row on one
-   line at desktop sizes. */
-.credentials-strip {
-  background: var(--colour-sapphire);
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-block: var(--space-3);
-  padding-inline: var(--space-3);
+/* Full profiles collapse behind a <details> so the band scans at four
+   directors; they open without JS and stay keyboard-operable. */
+.team-director__profile {
+  grid-column: 2;
+  margin-top: var(--space-1);
 }
 
-.credentials {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.team-director__toggle {
+  display: inline-flex;
   align-items: center;
-  /* Column gap held to --space-3: at --space-4 the five items overrun the
-     inset-to-inset width by a few pixels and orphan one item onto a second
-     line at common desktop widths. */
-  gap: var(--space-2) var(--space-3);
+  gap: var(--space-1);
+  cursor: pointer;
   list-style: none;
-  padding: 0;
-}
-
-.credentials__item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
   font-size: var(--size-small);
-  color: var(--colour-alpine);
+  color: var(--colour-ice);
 }
 
-.credentials__item + .credentials__item::before {
+.team-director__toggle::-webkit-details-marker {
+  display: none;
+}
+
+/* An outlined gem that fills when the profile is open — state as colour,
+   per the interaction rules. */
+.team-director__toggle::before {
   content: '';
   width: 0.4375rem;
   height: 0.4375rem;
-  background: var(--colour-ice);
+  border: 1px solid var(--colour-ice);
   transform: rotate(45deg);
 }
 
-/* Engagement models */
+.team-director__profile[open] .team-director__toggle::before {
+  background: var(--colour-ice);
+}
+
+.team-director__profile p {
+  margin-top: var(--space-2);
+}
+
+/* Advisory topics — five disciplines, each carrying a large ghost numeral as
+   a quiet editorial device (ink at low opacity, same recipe as the section
+   lattices) rather than a new illustration set. */
 .engagement {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .engagement__item {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: var(--colour-sky);
-  padding: var(--space-3);
+  padding: var(--space-4) var(--space-3) var(--space-3);
   border: solid 1px var(--colour-alpine);
+}
+
+.engagement__number {
+  position: absolute;
+  z-index: -1;
+  top: -0.75rem;
+  right: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 4.5rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--colour-sapphire);
+  opacity: 0.09;
 }
 
 .engagement__title {
@@ -1985,8 +2096,38 @@ color: var(--colour-ice)
 }
 
 .cta-band__body {
-    width: var(--width-reading);
-    margin: var(--space-3) auto;
+  max-width: var(--width-reading);
+  margin: var(--space-3) auto;
+}
+
+/* The brief's essentials, diamond-separated: the old credentials-strip
+   treatment carried into the closing band. */
+.cta-band__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  max-width: var(--width-reading);
+  margin: var(--space-3) auto;
+  padding: 0;
+  list-style: none;
+}
+
+.cta-band__list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--size-small);
+}
+
+.cta-band__list li + li::before {
+  content: '';
+  flex: none;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  background: var(--colour-ice);
+  transform: rotate(45deg);
 }
 
 
@@ -2118,6 +2259,12 @@ color: var(--colour-ice)
   border-color: #9b3535;
 }
 
+.form__note {
+  margin-top: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
 .form__success {
   display: none;
   background: var(--colour-sky);
@@ -2161,18 +2308,7 @@ color: var(--colour-ice)
   text-transform: uppercase;
   color: var(--colour-gold-light);
   margin-bottom: var(--space-2);
-}
-
-/* Echoes the provenance rule's gem, in miniature, on the one element that
-   appears on every page. */
-.site-footer__heading::before {
-  content: '';
-  display: inline-block;
-  width: 0.3125rem;
-  height: 0.3125rem;
-  margin-right: 0.5rem;
-  background: var(--colour-gold-light);
-  transform: translateY(-1px) rotate(45deg);
+  text-align: left;
 }
 
 .site-footer__list {
@@ -2209,7 +2345,9 @@ color: var(--colour-ice)
 }
 
 .site-footer__copyright {
-  color: rgba(255, 255, 255, 0.5);
+  /* 60% is the floor that clears AA on sapphire (5.24:1); 50% measured 4.14:1.
+     Still a step below the 85% the rest of the footer carries. */
+  color: rgba(255, 255, 255, 0.6);
   font-size: var(--size-small);
   margin-top: var(--space-1);
 }
@@ -2221,11 +2359,17 @@ color: var(--colour-ice)
 
 @media (max-width: 900px) {
   .capabilities__grid,
-  .values__row,
   .insight-grid,
+  .signals,
   .engagement {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+  }
+
+  /* The five stages stack; each keeps its own hairline and gem, so the
+     sequence still reads as one movement. */
+  .mandate {
+    grid-template-columns: 1fr;
   }
 
   /* About: the hero's white panel takes the full width and the collage moves
@@ -2292,20 +2436,6 @@ color: var(--colour-ice)
 
   .approach__body {
     padding-inline-end: 0;
-  }
-
-  .values__row {
-    gap: var(--space-2);
-  }
-
-  /* Stacked, one column each needs both gutters or the block reads lopsided. */
-  .values__name,
-  .values__detail {
-    padding-inline: var(--space-3);
-  }
-
-  .country-tiles {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .insight-featured {
@@ -2393,13 +2523,11 @@ color: var(--colour-ice)
 }
 
 @media (max-width: 700px) {
-  .country-tiles,
   .contact-channels,
   .location-cards,
   .related__grid,
   .proposition__points,
   .form__row,
-  .events-band__inner,
   .event-details {
     grid-template-columns: 1fr;
   }
@@ -2409,14 +2537,14 @@ color: var(--colour-ice)
     --rail-avatar: 5.5rem;
   }
 
-  /* Credentials stack rather than wrap: the diamond separator belongs between
-     two items on a line, not at the start of a new one. */
-  .credentials {
+  /* The essentials stack rather than wrap: the diamond separator belongs
+     between two items on a line, not at the start of a new one. */
+  .cta-band__list {
     flex-direction: column;
     gap: var(--space-1);
   }
 
-  .credentials__item + .credentials__item::before {
+  .cta-band__list li + li::before {
     display: none;
   }
 

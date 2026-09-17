@@ -7,10 +7,11 @@
    02. Copy email
    03. Enquiry form validation
    04. Cal.com lazy embed
-   05. Insight category filter
-   06. Scroll reveal + map entrance
-   07. Map / country interlink
-   08. Footer copyright year
+   05. Verified-dates calendar collapse
+   06. Country tabs (SADC network)
+   07. Scroll reveal + map entrance
+   08. Map / country interlink
+   09. Footer copyright year
    ========================================================================== */
 
 (function () {
@@ -130,29 +131,73 @@
   });
 
   /* ------------------------------------------------------------------
-     05. Insight category filter
+     05. Verified-dates calendar collapse
+     The full calendar renders in the markup; JS trims it to the first
+     five rows and offers the rest behind a toggle. Without JS the button
+     stays hidden and every date is visible.
      ------------------------------------------------------------------ */
-  var filterButtons = document.querySelectorAll('.insight-filter__button');
-  var insightCards = document.querySelectorAll('.insight-grid .insight-card');
+  var datesTable = document.getElementById('dates-table');
+  var datesToggle = document.querySelector('.calendar-toggle');
 
-  filterButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      var category = button.getAttribute('data-category');
+  if (datesTable && datesToggle) {
+    datesTable.classList.add('network-table--collapsed');
+    datesToggle.hidden = false;
 
-      filterButtons.forEach(function (b) {
-        b.classList.toggle('insight-filter__button--active', b === button);
-        b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
-      });
-
-      insightCards.forEach(function (card) {
-        var match = category === 'all' || card.getAttribute('data-category') === category;
-        card.style.display = match ? '' : 'none';
-      });
+    datesToggle.addEventListener('click', function () {
+      var collapsed = datesTable.classList.toggle('network-table--collapsed');
+      datesToggle.textContent = collapsed ? 'View more' : 'View less';
+      datesToggle.setAttribute('aria-expanded', String(!collapsed));
     });
-  });
+  }
 
   /* ------------------------------------------------------------------
-     06. Scroll reveal + map entrance
+     06. Country tabs (SADC network)
+     The panels render stacked in the markup; JS reveals the tab row and
+     shows one country at a time. Arrow keys, Home and End move between
+     tabs, per the ARIA tabs pattern.
+     ------------------------------------------------------------------ */
+  var countryTabList = document.querySelector('.country-tabs__list');
+
+  if (countryTabList) {
+    var countryTabs = Array.prototype.slice.call(
+      countryTabList.querySelectorAll('.country-tabs__tab')
+    );
+
+    var selectCountryTab = function (tab) {
+      countryTabs.forEach(function (t) {
+        var active = t === tab;
+        t.setAttribute('aria-selected', String(active));
+        t.tabIndex = active ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+      });
+    };
+
+    countryTabList.hidden = false;
+    selectCountryTab(countryTabs[0]);
+
+    countryTabs.forEach(function (tab, index) {
+      tab.addEventListener('click', function () {
+        selectCountryTab(tab);
+      });
+
+      tab.addEventListener('keydown', function (event) {
+        var moves = {
+          ArrowLeft: index - 1,
+          ArrowRight: index + 1,
+          Home: 0,
+          End: countryTabs.length - 1
+        };
+        if (!(event.key in moves)) { return; }
+        event.preventDefault();
+        var next = countryTabs[(moves[event.key] + countryTabs.length) % countryTabs.length];
+        selectCountryTab(next);
+        next.focus();
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     07. Scroll reveal + map entrance
      ------------------------------------------------------------------ */
   // Deliberately not IntersectionObserver: a fast scroll can carry an element
   // from below the viewport to above it between two intersection computations,
@@ -192,7 +237,7 @@
   }
 
   /* ------------------------------------------------------------------
-     07. Map / country interlink
+     08. Map / country interlink
      Hovering or focusing a map node highlights the matching table row and
      panel, and the reverse. Country is matched on the data-country value.
      ------------------------------------------------------------------ */
@@ -217,7 +262,7 @@
   });
 
   /* ------------------------------------------------------------------
-     08. Footer copyright year
+     09. Footer copyright year
      ------------------------------------------------------------------ */
   var yearEl = document.querySelector('.js-year');
   if (yearEl) {

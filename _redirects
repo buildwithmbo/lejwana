@@ -1,0 +1,5 @@
+# Insight renamed to The Southern Cut (2026-09-17). Netlify redirect rules;
+# harmless on any other host.
+/insight              /the-southern-cut        301
+/insight.html         /the-southern-cut.html   301
+/insight/*            /the-southern-cut/:splat 301
