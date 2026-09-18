@@ -163,12 +163,20 @@
       countryTabList.querySelectorAll('.country-tabs__tab')
     );
 
+    var countryMapImages = Array.prototype.slice.call(
+      document.querySelectorAll('.network__map-image')
+    );
+
     var selectCountryTab = function (tab) {
       countryTabs.forEach(function (t) {
         var active = t === tab;
         t.setAttribute('aria-selected', String(active));
         t.tabIndex = active ? 0 : -1;
         document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+      });
+      var country = tab.getAttribute('aria-controls').replace('panel-', '');
+      countryMapImages.forEach(function (img) {
+        img.hidden = img.dataset.country !== country;
       });
     };
 

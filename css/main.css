@@ -37,6 +37,7 @@
   --colour-gold: #B08D57;     /* Mark — eyebrows, dividers, gem     */
   --colour-charcoal: #1A1A1A; /* Text — body copy                   */
   --colour-muted: #6B6B6B;    /* Meta — captions, map labels        */
+  --colour-off-white: #FBFBFB; /* Base-2 - backgrounds with icons */
 
   /* Grounds derived from the signature and mark, so the service rows can
      alternate three tints without adding a fourth and fifth palette colour.
@@ -153,7 +154,7 @@ body {
 
 h1, h2, h3 {
   font-family: var(--font-heading);
-  font-weight: 500;
+  font-weight: 400;
   line-height: var(--leading-heading);
   color: var(--colour-sapphire);
 }
@@ -610,8 +611,8 @@ a {
 .button {
   display: inline-block;
   font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.9375rem;
+  font-weight: 400;
+  font-size: 1rem;
   letter-spacing: 0.03em;
   text-decoration: none;
   text-align: center;
@@ -620,6 +621,7 @@ a {
   background: var(--colour-sapphire);
   color: var(--colour-alpine);
   cursor: pointer;
+  border-radius: 0.3125rem;
 }
 
 .button:hover {
@@ -646,6 +648,7 @@ a {
   background: var(--colour-alpine);
   border-color: var(--colour-alpine);
   color: var(--colour-sapphire);
+  border-radius: 0.3125rem;
 }
 
 .button--on-dark:hover {
@@ -656,6 +659,7 @@ a {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.55);
   color: var(--colour-alpine);
+  border-radius: 0.3125rem;
 }
 
 .button--ghost-on-dark:hover {
@@ -681,8 +685,14 @@ a {
    07. Capabilities band
    ========================================================================== */
 
+/* Sand ground in the comp isn't in the palette (see DESIGN.md §7b) — a
+   photograph sits behind the band instead. Cards stay opaque white, so the
+   image needs no scrim for text contrast. */
 .capabilities {
   padding-block: var(--space-6);
+  background: linear-gradient(0deg, rgba(0, 124, 255, 0.3), rgba(0, 171, 255, 0.3)), url("../images/mine-in-africa.jpeg");
+  background-size: cover;
+  background-position: center;
 }
 
 .capabilities__grid {
@@ -699,6 +709,7 @@ a {
   background: var(--colour-alpine);
   border: 1px solid var(--colour-sky);
   padding: var(--space-4) var(--space-3);
+  border-radius: 0.3125rem;
 }
 
 .capability__label {
@@ -832,6 +843,35 @@ a {
   transform: translateY(-2px) rotate(45deg);
 }
 
+/* Network intro — copy beside the country map. The map swaps illustration
+   per selected tab, so its box is a fixed size to stop the swap shifting
+   the layout under the copy. */
+.network__intro {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.network__map {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  height: 15rem;
+}
+
+.network__map-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+.network__map-image[hidden] {
+  display: none;
+}
+
 /* Country tabs — the SADC desk, one country at a time. Without JS the tab row
    stays hidden and the panels stack as plain sections. */
 .country-tabs {
@@ -878,8 +918,10 @@ a {
 .country-tabs__panel {
   background: var(--colour-sky);
   border: 1px solid var(--colour-alpine);
+  border-block-end: 2px solid var(--colour-sapphire);
   padding: var(--space-4);
   margin-top: var(--space-3);
+  border-radius: 0 0 0.3125rem 0.3125rem;
 }
 
 .country-tabs__name {
@@ -1803,6 +1845,7 @@ a {
   align-items: center;
   gap: var(--space-5);
   padding-block: var(--space-6);
+  background-color: var(--colour-off-white);
 }
 
 .approach__media {
@@ -2076,18 +2119,6 @@ a {
   color: var(--colour-alpine);
   padding-block: var(--space-5);
   text-align: center;
-}
-
-/* The provenance rule opens a section; this closes one — the same gem,
-   centred, with no line either side since nothing follows it here. */
-.cta-band::before {
-  content: '';
-  display: block;
-  width: 0.5rem;
-  height: 0.5rem;
-  margin: 0 auto var(--space-3);
-  background: var(--colour-gold-light);
-  transform: rotate(45deg);
 }
 
 .cta-band__title {
@@ -2364,6 +2395,17 @@ a {
   .engagement {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+  }
+
+  .network__intro {
+    grid-template-columns: 1fr;
+  }
+
+  .network__map {
+    width: 100%;
+    height: auto;
+    max-width: 15rem;
+    margin-inline: auto;
   }
 
   /* The five stages stack; each keeps its own hairline and gem, so the
