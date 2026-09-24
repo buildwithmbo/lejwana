@@ -77,13 +77,25 @@
   }
 
   /* ------------------------------------------------------------------
-     03. Enquiry form validation
+     03. Enquiry form (validation + specification pre-fill from Sourcing)
      NOTE: front-end only. Wire `action` to the form handler
      (e.g. server endpoint or form service) before launch.
      ------------------------------------------------------------------ */
   var form = document.querySelector('.form');
 
   if (form) {
+    // Sourcing's specification builder (.spec-builder, a plain method="get"
+    // form) hands its fields to this page as a query string, so they arrive
+    // with JS disabled too. This only mirrors them into the visible fields —
+    // nothing here is required for the data itself to arrive.
+    if (window.location.search) {
+      var specParams = new URLSearchParams(window.location.search);
+      specParams.forEach(function (value, key) {
+        var field = form.elements.namedItem(key);
+        if (field) { field.value = value; }
+      });
+    }
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 

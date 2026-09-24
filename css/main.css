@@ -38,12 +38,14 @@
   --colour-charcoal: #1A1A1A; /* Text — body copy                   */
   --colour-muted: #6B6B6B;    /* Meta — captions, map labels        */
   --colour-off-white: #FBFBFB; /* Base-2 - backgrounds with icons */
+  --colour-off-sky:#F3F7FB;    /* BG - hero backgrounds */
 
   /* Grounds derived from the signature and mark, so the service rows can
      alternate three tints without adding a fourth and fifth palette colour.
      --colour-sky is the third; these two sit at the same lightness. */
-  --ground-olive: #EEF3E0;
-  --ground-gold: #FBF2E4;
+  --ground-olive: #EBEFE9;
+  --ground-gold: #F5EFE7;
+  --ground-icey: #EDF1F6;
 
   /* Paper — the About cards' ground in about.jpg. Off-white rather than sky,
      so a card reads as raised against the page without taking a tint. */
@@ -194,8 +196,22 @@ a {
 /* Uncapped: the hero runs the full viewport, held off the edge by a gutter
    that scales down to the base container's on narrow screens. */
 .container--wide {
-  max-width: none;
+  max-width: 1440px;
   padding-inline: clamp(var(--space-3), 4vw, var(--space-5));
+}
+
+/* Reserved space for a photograph or illustration not yet supplied — an
+   honest empty box rather than a stock image or a broken img tag. Combine
+   with a context class that sets the aspect ratio. */
+.image-slot {
+  display: block;
+  background: var(--colour-off-white);
+  border: 1px solid var(--colour-sky);
+  border-radius: 0.3125rem;
+}
+
+.image-slot--wide {
+  aspect-ratio: 16 / 9;
 }
 
 /* Eyebrow — Work Sans caps, tracked. Gold ink on light, gold light on dark. */
@@ -275,7 +291,7 @@ a {
   inset: 0;
   z-index: -1;
   background-image: url("../images/diamonds-ink.svg");
-  opacity: 0.12;
+  opacity: 0.08;
 }
 
 .section__title {
@@ -559,6 +575,39 @@ a {
   margin-top: var(--space-2);
 }
 
+/* Split sub-page hero — sky ground with a bespoke illustration beside the
+   copy. Carries the same lattice every sky band on the site uses, rather
+   than a second light texture. Sourcing only; other .hero--page pages are
+   untouched. */
+.hero--split {
+  position: relative;
+  isolation: isolate;
+  background: var(--colour-off-sky);
+  border-bottom: none;
+}
+
+.hero--split::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("../images/diamonds-ink.svg");
+  opacity: 0.08;
+}
+
+.hero__figure {
+  max-width: 25rem;
+  margin-inline: auto;
+  width: 100%;
+}
+
+.hero__figure-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.3125rem;
+}
+
 /* Masthead — The Southern Cut opens as a publication, not a page: name,
    proposition, standfirst. Documentary ground (the client's aerial pit
    photograph) under the team band's sapphire ramp, so the site's dark
@@ -798,7 +847,7 @@ a {
 }
 
 .service-card:nth-child(3) {
-  background: var(--colour-sky);
+  background: var(--ground-icey);
 }
 
 /* Image and ground swap sides down the sequence. */
@@ -1334,7 +1383,7 @@ a {
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  padding: var(--space-3) 0;
+  padding: var(--space-3) var(--space-1);
   cursor: pointer;
   list-style: none;
 }
@@ -1367,7 +1416,7 @@ a {
 }
 
 .country-panel__body {
-  padding-bottom: var(--space-3);
+  padding: 0 var(--space-1) var(--space-3);
   max-width: var(--width-reading);
 }
 
@@ -1697,6 +1746,119 @@ a {
 /* ==========================================================================
    12. Page sections
    ========================================================================== */
+
+/* Network — introduction beside the network map. The map is the star (§4 of
+   DESIGN.md), reused here full-size rather than as a small tab companion. */
+.network-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.network-summary__figure {
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--colour-sky);
+  border: 1px solid var(--colour-alpine);
+  border-radius: 0.3125rem;
+}
+
+/* What you get — title and photograph slot beside a numbered route, each
+   step a gem on a shared hairline: the provenance rule turned vertical. */
+.get-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* Framed like Sourcing/Trading's .spec-row__image: sky ground, padding,
+   the same radius — one element does the job of that pattern's panel +
+   image pair, since padding on the img itself reveals the same background. */
+.get-grid__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--colour-sky);
+  border: 1px solid var(--colour-alpine);
+  border-radius: 0.3125rem;
+}
+
+.get-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-alpine);
+  border-radius: 0.3125rem;
+}
+
+.get-list__item {
+  position: relative;
+  padding-left: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-left: 1px solid var(--colour-gold-light);
+}
+
+.get-list__item:last-child {
+  padding-bottom: 0;
+  border-left-color: transparent;
+}
+
+.get-list__gem {
+  position: absolute;
+  top: 0.3125rem;
+  left: -0.21875rem;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-gold);
+  transform: rotate(45deg);
+}
+
+.get-list__heading {
+  font-size: var(--size-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold-ink);
+  margin-bottom: var(--space-1);
+}
+
+/* Sourcing — specification, network and outcome, each a two-up row: prose
+   one side, a tinted panel holding the client's illustration the other.
+   All three panels are image slots; unsupplied ones carry [CONFIRM] in the
+   markup and render as .image-slot until the file arrives. */
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.spec-row + .spec-row {
+  margin-top: var(--space-5);
+}
+
+.spec-row__panel {
+  padding: var(--space-4);
+  background: var(--colour-sky);
+  border: 1px solid var(--colour-alpine);
+  border-radius: 0.3125rem;
+}
+
+.spec-row__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.3125rem;
+}
+
+.spec-cta {
+  margin-top: var(--space-4);
+}
 
 /* Prose sections on service pages */
 .prose-section + .prose-section {
@@ -2065,36 +2227,51 @@ a {
   margin-top: var(--space-2);
 }
 
-/* Advisory topics — five disciplines, each carrying a large ghost numeral as
-   a quiet editorial device (ink at low opacity, same recipe as the section
-   lattices) rather than a new illustration set. */
+/* Advisory topics — five disciplines on a sky band (2-up then 3-up, a 6-col
+   span grid rather than a plain 3-up wrap, so the two broader disciplines
+   read as the lead pair). White cards lifted off the band with the same
+   shadow as the nav dropdown, an icon badge paired with a large pale
+   numeral at the top of each. */
 .engagement {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: var(--space-3);
   margin-top: var(--space-4);
 }
 
-.engagement__item {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--colour-sky);
-  padding: var(--space-4) var(--space-3) var(--space-3);
-  border: solid 1px var(--colour-alpine);
+.engagement__item:nth-child(1),
+.engagement__item:nth-child(2) {
+  grid-column: span 3;
 }
 
-.engagement__number {
-  position: absolute;
-  z-index: -1;
-  top: -0.75rem;
-  right: var(--space-2);
-  font-family: var(--font-heading);
-  font-size: 4.5rem;
-  font-weight: 500;
-  line-height: 1;
+.engagement__item:nth-child(3),
+.engagement__item:nth-child(4),
+.engagement__item:nth-child(5) {
+  grid-column: span 2;
+}
+
+.engagement__item {
+  background: var(--colour-alpine);
+  padding: var(--space-4) var(--space-3) var(--space-3);
+  border-radius: 0.3125rem;
+  box-shadow: 0 10px 30px rgba(30, 58, 95, 0.08);
+}
+
+.engagement__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: var(--space-3);
+  border-radius: 50%;
+  background: var(--colour-sky);
   color: var(--colour-sapphire);
-  opacity: 0.09;
+}
+
+.engagement__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .engagement__title {
@@ -2225,9 +2402,35 @@ a {
   background: var(--colour-alpine);
 }
 
-/* Enquiry form */
-.form {
+/* Enquiry form. .spec-builder (sourcing.html's standalone specification
+   form) shares this treatment but must stay a separate block class — see
+   js/main.js §03, which binds to .form specifically so it doesn't also
+   intercept this form's plain GET handoff to contact.html. White card with
+   the sitewide 0.3125rem radius, same as .capability / .spec-row__panel /
+   .get-list, so the form reads as a component rather than bare fields on
+   the section ground. */
+.form,
+.spec-builder {
   max-width: var(--width-reading);
+  padding: var(--space-4);
+  background: var(--colour-alpine);
+  border: 1px solid var(--colour-sky);
+  border-radius: 0.3125rem;
+}
+
+.form__fieldset {
+  border: none;
+  padding: 0;
+  margin: var(--space-3) 0;
+}
+
+.form__legend {
+  display: block;
+  font-weight: 500;
+  font-size: var(--size-small);
+  color: var(--colour-sapphire);
+  padding: 0;
+  margin-bottom: var(--space-2);
 }
 
 .form__row {
@@ -2397,8 +2600,24 @@ a {
     gap: var(--space-4);
   }
 
-  .network__intro {
+  .engagement__item:nth-child(1),
+  .engagement__item:nth-child(2),
+  .engagement__item:nth-child(3),
+  .engagement__item:nth-child(4),
+  .engagement__item:nth-child(5) {
+    grid-column: span 1;
+  }
+
+  .network__intro,
+  .network-summary,
+  .get-grid,
+  .spec-row {
     grid-template-columns: 1fr;
+  }
+
+  .network-summary__figure {
+    max-width: 22rem;
+    margin-inline: auto;
   }
 
   .network__map {
