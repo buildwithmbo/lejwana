@@ -226,49 +226,6 @@ a {
   margin-bottom: var(--space-2);
 }
 
-/* Provenance rule — the signature device.
-   Hairline with a small rotated-square gem mark, echoing the wordmark. */
-.provenance-rule {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border: 0;
-  margin: 0 0 var(--space-4);
-}
-
-.provenance-rule::before {
-  content: '';
-  width: 9px;
-  height: 9px;
-  background: var(--colour-gold);
-  transform: rotate(45deg);
-  flex-shrink: 0;
-}
-
-.provenance-rule::after {
-  content: '';
-  height: 1px;
-  flex-grow: 1;
-  background: linear-gradient(to right, var(--colour-gold), transparent 70%);
-  max-width: 160px;
-}
-
-.provenance-rule--on-dark::before {
-  background: var(--colour-gold-light);
-}
-
-.provenance-rule--on-dark::after {
-  background: linear-gradient(to right, var(--colour-gold-light), transparent 70%);
-}
-
-.provenance-rule--centred {
-  justify-content: center;
-}
-
-.provenance-rule--centred::after {
-  max-width: 80px;
-}
-
 /* Section rhythm */
 .section {
   padding-block: var(--space-6);
@@ -298,9 +255,24 @@ a {
   margin-bottom: var(--space-2);
 }
 
+.section__title--centred {
+  text-align: center;
+}
+
+/* Extra clearance where a title sits directly on a boxed form, rather than
+   the tighter space-2 rhythm meant for a table or paragraph underneath. */
+.section__title + .form {
+  margin-top: var(--space-4);
+}
+
 .section__intro {
   max-width: var(--width-reading);
   margin-bottom: var(--space-4);
+}
+
+.section__intro--centred {
+  text-align: center;
+  margin-inline: auto;
 }
 
 /* Multi-paragraph intro — the same measure as .section__intro, for copy that
@@ -2077,19 +2049,10 @@ a {
 
 .mandate__stage {
   position: relative;
-  padding-top: var(--space-3);
+  padding: var(--space-3);
+  background: var(--colour-alpine);
   border-top: 1px solid var(--colour-gold-light);
-}
-
-.mandate__stage::before {
-  content: '';
-  position: absolute;
-  top: -0.25rem;
-  left: 0;
-  width: 0.4375rem;
-  height: 0.4375rem;
-  background: var(--colour-gold);
-  transform: rotate(45deg);
+  border-radius: 0 0 5px 5px;
 }
 
 .mandate__heading {
@@ -2097,7 +2060,7 @@ a {
 }
 
 .mandate__number {
-  color: var(--colour-gold-ink);
+  color: var(--colour--sapphire);
 }
 
 .mandate__stage p {
@@ -2134,7 +2097,13 @@ a {
 }
 
 .team-band__prose {
-  max-width: var(--width-reading);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-5);
+  /* Without this, opening one director's <details> stretches every card in
+     its row to match, and the shorter ones gain ugly gaps between their own
+     auto-sized rows. Each card should only ever be as tall as its content. */
+  align-items: start;
 }
 
 .team-band__prose p + p {
@@ -2418,6 +2387,11 @@ a {
   border-radius: 0.3125rem;
 }
 
+.form,
+.spec-builder {
+  margin-inline: auto;
+}
+
 .form__fieldset {
   border: none;
   padding: 0;
@@ -2640,6 +2614,10 @@ a {
   }
 
   .approach {
+    grid-template-columns: 1fr;
+  }
+
+  .team-band__prose {
     grid-template-columns: 1fr;
   }
 
