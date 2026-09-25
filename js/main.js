@@ -7,11 +7,13 @@
    02. Copy email
    03. Enquiry form validation
    04. Cal.com lazy embed
-   05. Verified-dates calendar collapse
-   06. Country tabs (SADC network)
-   07. Scroll reveal + map entrance
-   08. Map / country interlink
-   09. Footer copyright year
+   05. Filter pills (shared helper — hub page only)
+   06. Trade ticker + What's on (hub page only)
+   07. Latest intelligence filter (hub page only)
+   08. Country tabs (SADC network)
+   09. Scroll reveal + map entrance
+   10. Map / country interlink
+   11. Footer copyright year
    ========================================================================== */
 
 (function () {
@@ -143,27 +145,212 @@
   });
 
   /* ------------------------------------------------------------------
-     05. Verified-dates calendar collapse
-     The full calendar renders in the markup; JS trims it to the first
-     five rows and offers the rest behind a toggle. Without JS the button
-     stays hidden and every date is visible.
+     05. Filter pills
+     Shared by the hub's three filter-pill groups (region, calendar type,
+     intelligence category) — one toggle behaviour, extracted once three
+     call sites needed it. Each group stays hidden until wired, since the
+     buttons do nothing without JS.
      ------------------------------------------------------------------ */
-  var datesTable = document.getElementById('dates-table');
-  var datesToggle = document.querySelector('.calendar-toggle');
+  function wirePillGroup(group, onChange) {
+    if (!group) { return; }
+    var pills = Array.prototype.slice.call(group.querySelectorAll('.pill'));
 
-  if (datesTable && datesToggle) {
-    datesTable.classList.add('network-table--collapsed');
-    datesToggle.hidden = false;
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        pills.forEach(function (p) {
+          var active = p === pill;
+          p.classList.toggle('pill--active', active);
+          p.setAttribute('aria-pressed', String(active));
+        });
+        onChange(pill.getAttribute('data-filter'));
+      });
+    });
 
-    datesToggle.addEventListener('click', function () {
-      var collapsed = datesTable.classList.toggle('network-table--collapsed');
-      datesToggle.textContent = collapsed ? 'View more' : 'View less';
-      datesToggle.setAttribute('aria-expanded', String(!collapsed));
+    group.hidden = false;
+  }
+
+  function setPillCounts(group, countFor) {
+    if (!group) { return; }
+    Array.prototype.slice.call(group.querySelectorAll('.pill')).forEach(function (pill) {
+      var count = document.createElement('span');
+      count.className = 'pill__count';
+      count.textContent = countFor(pill.getAttribute('data-filter'));
+      pill.appendChild(count);
     });
   }
 
   /* ------------------------------------------------------------------
-     06. Country tabs (SADC network)
+     06. Trade ticker + What's on
+     The calendar renders in full in the markup; this computes each row's
+     status from real dates, filters rows by type and region, and builds
+     the ticker from whatever isn't "ended". Without JS every row stands,
+     its .trade-status reading CONTENT.md's plain "Confirmed" text, and
+     the ticker — which would only be a duplicate of the table, minus the
+     badge that's its only reason to exist — stays hidden.
+     ------------------------------------------------------------------ */
+  var datesTable = document.getElementById('dates-table');
+
+  function tradeStatus(row) {
+    var start = new Date(row.getAttribute('data-start') + 'T00:00:00');
+    var end = new Date(row.getAttribute('data-end') + 'T00:00:00');
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var msPerDay = 86400000;
+
+    if (today > end) {
+      return { label: 'Ended', modifier: 'ended' };
+    }
+    if (today < start) {
+      var daysUntil = Math.round((start - today) / msPerDay);
+      return {
+        label: 'In ' + daysUntil + (daysUntil === 1 ? ' day' : ' days'),
+        modifier: 'upcoming'
+      };
+    }
+    if (start.getTime() === end.getTime()) {
+      return { label: 'Today', modifier: 'today' };
+    }
+    return {
+      label: 'Live · day ' + (Math.round((today - start) / msPerDay) + 1) +
+        ' of ' + (Math.round((end - start) / msPerDay) + 1),
+      modifier: 'live'
+    };
+  }
+
+  function buildTickerItem(row) {
+    var item = document.createElement('li');
+    item.className = 'ticker__item';
+
+    var name = document.createElement('span');
+    name.className = 'ticker__item-name';
+    name.textContent = row.querySelector('td:nth-child(2) a').textContent;
+
+    item.appendChild(name);
+    item.appendChild(row.querySelector('.trade-status').cloneNode(true));
+    return item;
+  }
+
+  if (datesTable) {
+    var dateRows = Array.prototype.slice.call(datesTable.querySelectorAll('tbody tr'));
+
+    dateRows.forEach(function (row) {
+      var status = tradeStatus(row);
+      var statusEl = row.querySelector('.trade-status');
+      statusEl.textContent = status.label;
+      statusEl.className = 'trade-status trade-status--' + status.modifier;
+      row.dataset.status = status.modifier;
+    });
+
+    var ticker = document.querySelector('.ticker');
+    var tickerTrack = document.querySelector('.ticker__track');
+    var upcomingRows = dateRows.filter(function (row) {
+      return row.dataset.status !== 'ended';
+    });
+
+    if (ticker && tickerTrack && upcomingRows.length) {
+      // The duplicate set is only what makes the CSS animation's -50%
+      // translate loop seamless — under reduced motion (§16 kills the
+      // animation outright) it would just show every item twice.
+      var reducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var tickerRows = reducesMotion ? upcomingRows : upcomingRows.concat(upcomingRows);
+      tickerRows.forEach(function (row) {
+        tickerTrack.appendChild(buildTickerItem(row));
+      });
+      ticker.hidden = false;
+    }
+
+    var activeType = 'all';
+    var activeRegion = 'all';
+    var REVEAL_LIMIT = 7;
+    var expanded = false;
+
+    function applyCalendarFilters() {
+      dateRows.forEach(function (row, index) {
+        var typeMatch = activeType === 'all' || row.getAttribute('data-type') === activeType;
+        var regionMatch = activeRegion === 'all' ||
+          row.getAttribute('data-region').indexOf(activeRegion) !== -1;
+        var withinLimit = expanded || index < REVEAL_LIMIT;
+        row.hidden = !(typeMatch && regionMatch && withinLimit);
+      });
+    }
+
+    var typeFilters = document.querySelector('.whats-on__filters');
+    wirePillGroup(typeFilters, function (value) {
+      activeType = value;
+      applyCalendarFilters();
+    });
+    setPillCounts(typeFilters, function (value) {
+      return dateRows.filter(function (row) {
+        return value === 'all' || row.getAttribute('data-type') === value;
+      }).length;
+    });
+
+    wirePillGroup(document.querySelector('.hub-subnav__region'), function (value) {
+      activeRegion = value;
+      applyCalendarFilters();
+    });
+
+    var calendarToggle = document.querySelector('.whats-on__toggle');
+    if (calendarToggle && dateRows.length > REVEAL_LIMIT) {
+      calendarToggle.addEventListener('click', function () {
+        expanded = !expanded;
+        calendarToggle.textContent = expanded ? 'Read less' : 'Read more';
+        calendarToggle.setAttribute('aria-expanded', String(expanded));
+        applyCalendarFilters();
+      });
+      calendarToggle.hidden = false;
+    }
+
+    applyCalendarFilters();
+  }
+
+  /* ------------------------------------------------------------------
+     07. Latest intelligence filter
+     ------------------------------------------------------------------ */
+  var intelItems = Array.prototype.slice.call(document.querySelectorAll('.intel__item'));
+
+  if (intelItems.length) {
+    var intelFilters = document.querySelector('.intel__filters');
+    var INTEL_REVEAL_LIMIT = 4;
+    var intelExpanded = false;
+    var activeIntelCategory = 'all';
+
+    function applyIntelFilters() {
+      intelItems.forEach(function (item, index) {
+        var categoryMatch = activeIntelCategory === 'all' ||
+          item.getAttribute('data-category') === activeIntelCategory;
+        var withinLimit = intelExpanded || index < INTEL_REVEAL_LIMIT;
+        item.parentElement.hidden = !(categoryMatch && withinLimit);
+      });
+    }
+
+    wirePillGroup(intelFilters, function (value) {
+      activeIntelCategory = value;
+      applyIntelFilters();
+    });
+
+    setPillCounts(intelFilters, function (value) {
+      return intelItems.filter(function (item) {
+        return value === 'all' || item.getAttribute('data-category') === value;
+      }).length;
+    });
+
+    var intelToggle = document.querySelector('.intel__toggle');
+    if (intelToggle && intelItems.length > INTEL_REVEAL_LIMIT) {
+      intelToggle.addEventListener('click', function () {
+        intelExpanded = !intelExpanded;
+        intelToggle.textContent = intelExpanded ? 'Show fewer stories' : 'Show more stories';
+        intelToggle.setAttribute('aria-expanded', String(intelExpanded));
+        applyIntelFilters();
+      });
+      intelToggle.hidden = false;
+    }
+
+    applyIntelFilters();
+  }
+
+  /* ------------------------------------------------------------------
+     08. Country tabs (SADC network)
      The panels render stacked in the markup; JS reveals the tab row and
      shows one country at a time. Arrow keys, Home and End move between
      tabs, per the ARIA tabs pattern.
@@ -217,7 +404,7 @@
   }
 
   /* ------------------------------------------------------------------
-     07. Scroll reveal + map entrance
+     09. Scroll reveal + map entrance
      ------------------------------------------------------------------ */
   // Deliberately not IntersectionObserver: a fast scroll can carry an element
   // from below the viewport to above it between two intersection computations,
@@ -257,7 +444,7 @@
   }
 
   /* ------------------------------------------------------------------
-     08. Map / country interlink
+     10. Map / country interlink
      Hovering or focusing a map node highlights the matching table row and
      panel, and the reverse. Country is matched on the data-country value.
      ------------------------------------------------------------------ */
@@ -282,7 +469,7 @@
   });
 
   /* ------------------------------------------------------------------
-     09. Footer copyright year
+     11. Footer copyright year
      ------------------------------------------------------------------ */
   var yearEl = document.querySelector('.js-year');
   if (yearEl) {
