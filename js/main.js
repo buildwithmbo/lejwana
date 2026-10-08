@@ -189,6 +189,39 @@
      badge that's its only reason to exist — stays hidden.
      ------------------------------------------------------------------ */
   var datesTable = document.getElementById('dates-table');
+  var ticker = document.querySelector('.ticker');
+  var tickerTrack = document.querySelector('.ticker__track');
+
+  function showTicker(items) {
+    if (!ticker || !tickerTrack || !items.length) { return; }
+    // The duplicate set is only what makes the CSS animation's -50%
+    // translate loop seamless — under reduced motion (§16 kills the
+    // animation outright) it would just show every item twice.
+    var reducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var looped = reducesMotion ? items : items.concat(items.map(function (item) {
+      return item.cloneNode(true);
+    }));
+    tickerTrack.textContent = '';
+    looped.forEach(function (item) { tickerTrack.appendChild(item); });
+    ticker.hidden = false;
+  }
+
+  function setTradeStatus(row) {
+    var status = tradeStatus(row);
+    var statusEl = row.querySelector('.trade-status');
+    statusEl.textContent = status.label;
+    statusEl.className = 'trade-status trade-status--' + status.modifier;
+    row.dataset.status = status.modifier;
+  }
+
+  // Homepage: the ticker items are written in the markup with their own dates.
+  if (!datesTable) {
+    var markupItems = Array.prototype.slice.call(tickerTrack ? tickerTrack.children : []);
+    markupItems.forEach(setTradeStatus);
+    showTicker(markupItems.filter(function (item) {
+      return item.dataset.status !== 'ended';
+    }));
+  }
 
   function tradeStatus(row) {
     var start = new Date(row.getAttribute('data-start') + 'T00:00:00');
@@ -233,31 +266,19 @@
   if (datesTable) {
     var dateRows = Array.prototype.slice.call(datesTable.querySelectorAll('tbody tr'));
 
-    dateRows.forEach(function (row) {
-      var status = tradeStatus(row);
-      var statusEl = row.querySelector('.trade-status');
-      statusEl.textContent = status.label;
-      statusEl.className = 'trade-status trade-status--' + status.modifier;
-      row.dataset.status = status.modifier;
-    });
+    dateRows.forEach(setTradeStatus);
 
-    var ticker = document.querySelector('.ticker');
-    var tickerTrack = document.querySelector('.ticker__track');
-    var upcomingRows = dateRows.filter(function (row) {
+    // Ended rows sink to the bottom, so the positional reveal limit below
+    // shows what's still ahead first. Array sort is stable, so dates keep order.
+    var sortedRows = dateRows.slice().sort(function (a, b) {
+      return (a.dataset.status === 'ended') - (b.dataset.status === 'ended');
+    });
+    sortedRows.forEach(function (row) { row.parentNode.appendChild(row); });
+    dateRows = sortedRows;
+
+    showTicker(dateRows.filter(function (row) {
       return row.dataset.status !== 'ended';
-    });
-
-    if (ticker && tickerTrack && upcomingRows.length) {
-      // The duplicate set is only what makes the CSS animation's -50%
-      // translate loop seamless — under reduced motion (§16 kills the
-      // animation outright) it would just show every item twice.
-      var reducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var tickerRows = reducesMotion ? upcomingRows : upcomingRows.concat(upcomingRows);
-      tickerRows.forEach(function (row) {
-        tickerTrack.appendChild(buildTickerItem(row));
-      });
-      ticker.hidden = false;
-    }
+    }).map(buildTickerItem));
 
     var activeType = 'all';
     var activeRegion = 'all';

@@ -647,11 +647,10 @@ a {
   color: var(--colour-sapphire);
 }
 
-/* External-link marker: visible arrow, spoken as text where the alternative
-   syntax is supported. */
+/* External-link marker: no visible glyph (not in DESIGN.md), spoken as text
+   where the alternative syntax is supported. */
 .link-external::after {
-  content: " \2197" / " (opens in new tab)";
-  font-size: 0.8em;
+  content: "" / " (opens in new tab)";
 }
 
 .button--ghost:hover {
@@ -1685,7 +1684,8 @@ a {
   min-width: 0;
 }
 
-.whats-on {
+.whats-on,
+.intel {
   background: var(--colour-alpine);
   border: 1px solid var(--colour-sky);
   border-radius: 0.3125rem;
@@ -1868,22 +1868,38 @@ a {
    doesn't get a second look. */
 .explainer-grid__item {
   position: relative;
+  cursor: pointer;
   background: var(--colour-alpine);
   border-radius: 0.3125rem;
   box-shadow: 0 10px 30px rgba(30, 58, 95, 0.08);
   padding: var(--space-3);
 }
 
+/* Stretched link: the title's anchor covers the whole card, so the card is
+   one target without wrapping block content in an <a>. */
+.explainer-grid__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.explainer-grid__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.explainer-grid__item:focus-within,
+.explainer-grid__item:hover {
+  box-shadow: 0 14px 36px rgba(30, 58, 95, 0.16);
+}
+
+.explainer-grid__item:hover .explainer-grid__title {
+  color: var(--colour-olive-ink);
+}
+
 .explainer-grid__number {
   font-family: var(--font-heading);
   color: var(--colour-gold-ink);
-}
-
-.explainer-grid__arrow {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  color: var(--colour-sapphire);
 }
 
 .explainer-grid__title {
@@ -2006,6 +2022,18 @@ a {
 
 .article__body p {
   margin-bottom: var(--space-2);
+}
+
+.article__standfirst {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--colour-sapphire);
+}
+
+.article__body ul {
+  margin-bottom: var(--space-2);
+  padding-left: var(--space-3);
+  list-style: disc;
 }
 
 /* Olive quote rule */
