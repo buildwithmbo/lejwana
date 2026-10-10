@@ -146,8 +146,8 @@
 
   /* ------------------------------------------------------------------
      05. Filter pills
-     Shared by the hub's three filter-pill groups (region, calendar type,
-     intelligence category) — one toggle behaviour, extracted once three
+     Shared by the filter-pill groups on the events and insights pages
+     (country, calendar type, intelligence category) — one toggle behaviour, extracted once three
      call sites needed it. Each group stays hidden until wired, since the
      buttons do nothing without JS.
      ------------------------------------------------------------------ */
@@ -268,8 +268,8 @@
 
     dateRows.forEach(setTradeStatus);
 
-    // Ended rows sink to the bottom, so the positional reveal limit below
-    // shows what's still ahead first. Array sort is stable, so dates keep order.
+    // Ended rows sink to the bottom, so what's still ahead reads first.
+    // Array sort is stable, so dates keep order.
     var sortedRows = dateRows.slice().sort(function (a, b) {
       return (a.dataset.status === 'ended') - (b.dataset.status === 'ended');
     });
@@ -282,16 +282,13 @@
 
     var activeType = 'all';
     var activeRegion = 'all';
-    var REVEAL_LIMIT = 7;
-    var expanded = false;
 
     function applyCalendarFilters() {
-      dateRows.forEach(function (row, index) {
+      dateRows.forEach(function (row) {
         var typeMatch = activeType === 'all' || row.getAttribute('data-type') === activeType;
         var regionMatch = activeRegion === 'all' ||
           row.getAttribute('data-region').indexOf(activeRegion) !== -1;
-        var withinLimit = expanded || index < REVEAL_LIMIT;
-        row.hidden = !(typeMatch && regionMatch && withinLimit);
+        row.hidden = !(typeMatch && regionMatch);
       });
     }
 
@@ -306,21 +303,10 @@
       }).length;
     });
 
-    wirePillGroup(document.querySelector('.hub-subnav__region'), function (value) {
+    wirePillGroup(document.querySelector('.whats-on__region'), function (value) {
       activeRegion = value;
       applyCalendarFilters();
     });
-
-    var calendarToggle = document.querySelector('.whats-on__toggle');
-    if (calendarToggle && dateRows.length > REVEAL_LIMIT) {
-      calendarToggle.addEventListener('click', function () {
-        expanded = !expanded;
-        calendarToggle.textContent = expanded ? 'Read less' : 'Read more';
-        calendarToggle.setAttribute('aria-expanded', String(expanded));
-        applyCalendarFilters();
-      });
-      calendarToggle.hidden = false;
-    }
 
     applyCalendarFilters();
   }
@@ -332,16 +318,13 @@
 
   if (intelItems.length) {
     var intelFilters = document.querySelector('.intel__filters');
-    var INTEL_REVEAL_LIMIT = 4;
-    var intelExpanded = false;
     var activeIntelCategory = 'all';
 
     function applyIntelFilters() {
-      intelItems.forEach(function (item, index) {
+      intelItems.forEach(function (item) {
         var categoryMatch = activeIntelCategory === 'all' ||
           item.getAttribute('data-category') === activeIntelCategory;
-        var withinLimit = intelExpanded || index < INTEL_REVEAL_LIMIT;
-        item.parentElement.hidden = !(categoryMatch && withinLimit);
+        item.parentElement.hidden = !categoryMatch;
       });
     }
 
@@ -355,17 +338,6 @@
         return value === 'all' || item.getAttribute('data-category') === value;
       }).length;
     });
-
-    var intelToggle = document.querySelector('.intel__toggle');
-    if (intelToggle && intelItems.length > INTEL_REVEAL_LIMIT) {
-      intelToggle.addEventListener('click', function () {
-        intelExpanded = !intelExpanded;
-        intelToggle.textContent = intelExpanded ? 'Show fewer stories' : 'Show more stories';
-        intelToggle.setAttribute('aria-expanded', String(intelExpanded));
-        applyIntelFilters();
-      });
-      intelToggle.hidden = false;
-    }
 
     applyIntelFilters();
   }

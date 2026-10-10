@@ -67,28 +67,6 @@
       </div>
     </section>
 
-    <!-- Hub subnav: in-page jumps work with no JS; the region filter is
-         hidden until JS runs, since the buttons do nothing without it. -->
-    <nav class="hub-subnav" aria-label="The Southern Cut sections">
-      <div class="container container--wide hub-subnav__inner">
-        <ul class="hub-subnav__jumps">
-          <li><a href="#dates">Calendar</a></li>
-          <li><a href="#intelligence">Intelligence</a></li>
-          <li><a href="#explainers">Explainers</a></li>
-          <li><a href="#brief">The Brief</a></li>
-        </ul>
-        <div class="hub-subnav__region pill-group" role="group" aria-label="Filter the calendar by country" hidden>
-          <span class="pill-group__label">Country</span>
-          <button type="button" class="pill pill--active" data-filter="all" aria-pressed="true">All countries</button>
-          <button type="button" class="pill" data-filter="botswana" aria-pressed="false">Botswana</button>
-          <button type="button" class="pill" data-filter="angola" aria-pressed="false">Angola</button>
-          <button type="button" class="pill" data-filter="south-africa" aria-pressed="false">South Africa</button>
-          <button type="button" class="pill" data-filter="namibia" aria-pressed="false">Namibia</button>
-          <button type="button" class="pill" data-filter="lesotho" aria-pressed="false">Lesotho</button>
-        </div>
-      </div>
-    </nav>
-
     <!-- What's on + Latest intelligence -->
     <section class="section section--sky hub-grid-section">
       <div class="container container--wide">
@@ -96,13 +74,6 @@
           <div class="hub-grid__primary whats-on" id="dates">
             <h2 class="section__title" id="dates-title">What&rsquo;s on</h2>
             <p class="whats-on__intro">Officially published sales, tenders, reporting dates and events, checked against organiser and producer sources. Access requirements vary &mdash; confirm before acting.</p>
-            <div class="whats-on__filters pill-group" role="group" aria-label="Filter by type" hidden>
-              <button type="button" class="pill pill--active" data-filter="all" aria-pressed="true">All</button>
-              <button type="button" class="pill" data-filter="sale" aria-pressed="false">Sales &amp; auctions</button>
-              <button type="button" class="pill" data-filter="tender" aria-pressed="false">Tenders</button>
-              <button type="button" class="pill" data-filter="result" aria-pressed="false">Results</button>
-              <button type="button" class="pill" data-filter="event" aria-pressed="false">Events</button>
-            </div>
             <div class="network-table__scroll">
               <table class="network-table whats-on__table" id="dates-table">
                 <thead>
@@ -114,30 +85,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr data-type="sale" data-region="botswana" data-start="2026-09-15" data-end="2026-09-23">
-                    <td>15&ndash;23 Sep 2026</td>
-                    <td><a class="text-link link-external" href="https://www.odc.co.bw/sales-calendar" target="_blank" rel="noopener">ODC September spot-auction viewings</a><span class="whats-on__type">Sale</span></td>
-                    <td>Gaborone, Botswana</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="sale" data-region="botswana namibia south-africa" data-start="2026-09-22" data-end="2026-09-25">
-                    <td>22&ndash;25 Sep 2026</td>
-                    <td><a class="text-link link-external" href="https://www.debeersgroup.com/our-business/diamond-trading" target="_blank" rel="noopener">De Beers Sight 8</a><span class="whats-on__type">Sale</span></td>
-                    <td>Botswana, Namibia and South Africa</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="sale" data-region="botswana" data-start="2026-09-24" data-end="2026-09-24">
-                    <td>24 Sep 2026</td>
-                    <td><a class="text-link link-external" href="https://www.odc.co.bw/sales-calendar" target="_blank" rel="noopener">ODC September spot auction</a><span class="whats-on__type">Sale</span></td>
-                    <td>Online / Gaborone</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="south-africa" data-start="2026-10-07" data-end="2026-10-08">
-                    <td>7&ndash;8 Oct 2026</td>
-                    <td><a class="text-link link-external" href="https://joburgindaba.com/" target="_blank" rel="noopener">Joburg Indaba</a><span class="whats-on__type">Event</span></td>
-                    <td>Johannesburg, South Africa</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
                   <tr data-type="tender" data-region="botswana" data-start="2026-10-12" data-end="2026-10-13">
                     <td>12&ndash;13 Oct 2026</td>
                     <td><a class="text-link link-external" href="https://www.odc.co.bw/sites/default/files/SALES_CALENDER_2026_Citizens_Tender.pdf" target="_blank" rel="noopener">ODC citizen-tender viewings</a><span class="whats-on__type">Tender</span></td>
@@ -180,89 +127,16 @@
                     <td>Online</td>
                     <td><span class="trade-status">Confirmed</span></td>
                   </tr>
-                  <tr data-type="tender" data-region="botswana" data-start="2026-11-16" data-end="2026-11-17">
-                    <td>16&ndash;17 Nov 2026</td>
-                    <td><a class="text-link link-external" href="https://www.odc.co.bw/sites/default/files/SALES_CALENDER_2026_Citizens_Tender.pdf" target="_blank" rel="noopener">ODC citizen-tender viewings</a><span class="whats-on__type">Tender</span></td>
-                    <td>Gaborone, Botswana</td>
-                    <td><span class="trade-status">Confirmed; eligible citizens</span></td>
-                  </tr>
-                  <tr data-type="tender" data-region="botswana" data-start="2026-11-19" data-end="2026-11-19">
-                    <td>19 Nov 2026</td>
-                    <td><a class="text-link link-external" href="https://www.odc.co.bw/sites/default/files/SALES_CALENDER_2026_Citizens_Tender.pdf" target="_blank" rel="noopener">ODC citizen tender</a><span class="whats-on__type">Tender</span></td>
-                    <td>Gaborone, Botswana</td>
-                    <td><span class="trade-status">Confirmed; eligible citizens</span></td>
-                  </tr>
-                  <tr data-type="sale" data-region="botswana" data-start="2026-11-29" data-end="2026-12-09">
-                    <td>29 Nov&ndash;9 Dec 2026</td>
-                    <td><a class="text-link link-external" href="https://www.odc.co.bw/sales-calendar" target="_blank" rel="noopener">ODC December spot-auction viewings</a><span class="whats-on__type">Sale</span></td>
-                    <td>Gaborone, Botswana</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="sale" data-region="botswana namibia south-africa" data-start="2026-11-30" data-end="2026-12-04">
-                    <td>30 Nov&ndash;4 Dec 2026</td>
-                    <td><a class="text-link link-external" href="https://www.debeersgroup.com/our-business/diamond-trading" target="_blank" rel="noopener">De Beers Sight 10</a><span class="whats-on__type">Sale</span></td>
-                    <td>Botswana, Namibia and South Africa</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="" data-start="2026-11-30" data-end="2026-12-04">
-                    <td>30 Nov&ndash;4 Dec 2026</td>
-                    <td><a class="text-link link-external" href="https://www.kimberleyprocess.com/" target="_blank" rel="noopener">Kimberley Process Plenary</a><span class="whats-on__type">Event</span></td>
-                    <td>New Delhi, India</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="sale" data-region="botswana" data-start="2026-12-10" data-end="2026-12-10">
-                    <td>10 Dec 2026</td>
-                    <td><a class="text-link link-external" href="https://www.odc.co.bw/sales-calendar" target="_blank" rel="noopener">ODC December spot auction</a><span class="whats-on__type">Sale</span></td>
-                    <td>Online / Gaborone</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="" data-start="2027-01-07" data-end="2027-01-10">
-                    <td>7&ndash;10 Jan 2027</td>
-                    <td><a class="text-link link-external" href="https://gjepc.org/iijs-premiere/" target="_blank" rel="noopener">IIJS Premiere</a><span class="whats-on__type">Event</span></td>
-                    <td>Mumbai, India</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="south-africa" data-start="2027-02-08" data-end="2027-02-11">
-                    <td>8&ndash;11 Feb 2027</td>
-                    <td><a class="text-link link-external" href="https://miningindaba.com/" target="_blank" rel="noopener">Investing in African Mining Indaba</a><span class="whats-on__type">Event</span></td>
-                    <td>Cape Town, South Africa</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="" data-start="2027-03-04" data-end="2027-03-08">
-                    <td>4&ndash;8 Mar 2027</td>
-                    <td><a class="text-link link-external" href="https://www.hktdc.com/event/hkjewellery/en/fair-at-a-glance" target="_blank" rel="noopener">Hong Kong International Jewellery Show</a><span class="whats-on__type">Event</span></td>
-                    <td>Hong Kong</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="botswana" data-start="2027-03-22" data-end="2027-03-23">
-                    <td>22&ndash;23 Mar 2027</td>
-                    <td><a class="text-link link-external" href="https://www.bwminingandenergy.com/" target="_blank" rel="noopener">Botswana Mining &amp; Energy Conference</a><span class="whats-on__type">Event</span></td>
-                    <td>Gaborone, Botswana</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
-                  <tr data-type="event" data-region="" data-start="2027-06-04" data-end="2027-06-07">
-                    <td>4&ndash;7 Jun 2027</td>
-                    <td><a class="text-link link-external" href="https://lasvegas.jckonline.com/en-us/attendee-resources.html" target="_blank" rel="noopener">JCK Las Vegas</a><span class="whats-on__type">Event</span></td>
-                    <td>Las Vegas, United States</td>
-                    <td><span class="trade-status">Confirmed</span></td>
-                  </tr>
                 </tbody>
               </table>
             </div>
-            <button type="button" class="button button--ghost whats-on__toggle" aria-controls="dates-table" aria-expanded="false" hidden>Read more</button>
+            <a class="button button--ghost hub-grid__more" href="the-southern-cut/events.html">Read more</a>
             <p class="calendar-note">Dates can change. Confirm participation, customer registration, viewing rights and auction terms directly with the organiser before acting.</p>
           </div>
 
           <div class="hub-grid__secondary intel" id="intelligence" aria-labelledby="intelligence-title">
             <h2 class="section__title" id="intelligence-title">Latest intelligence</h2>
             <p class="intel__intro">Short reads. Each links out to the full piece.</p>
-            <div class="intel__filters pill-group" role="group" aria-label="Filter by category" hidden>
-              <button type="button" class="pill pill--active" data-filter="all" aria-pressed="true">All stories</button>
-              <button type="button" class="pill" data-filter="the-region" aria-pressed="false">The Region</button>
-              <button type="button" class="pill" data-filter="on-provenance" aria-pressed="false">On Provenance</button>
-              <button type="button" class="pill" data-filter="rough-and-polished" aria-pressed="false">Rough and Polished</button>
-              <button type="button" class="pill" data-filter="journeys" aria-pressed="false">Journeys</button>
-            </div>
             <ul class="intel__list" id="intel-list">
               <li>
                 <a class="intel__item" href="the-southern-cut/southern-africas-polished-moment.html" data-category="the-region">
@@ -296,24 +170,8 @@
                   <span class="intel__read" aria-hidden="true">Read More</span>
                 </a>
               </li>
-              <li>
-                <a class="intel__item" href="the-southern-cut/on-yield.html" data-category="rough-and-polished">
-                  <span class="intel__category">Rough and Polished</span>
-                  <h3 class="intel__item-title">On yield: what a rough parcel really becomes in polished</h3>
-                  <p class="intel__standfirst">Most of a rough diamond ends up on the polishing wheel floor. Understanding what remains is the whole economics of the trade.</p>
-                  <span class="intel__read" aria-hidden="true">Read More</span>
-                </a>
-              </li>
-              <li>
-                <a class="intel__item" href="the-southern-cut/journey-debswana-to-europe.html" data-category="journeys">
-                  <span class="intel__category">Journeys</span>
-                  <h3 class="intel__item-title">Journey: a stone from a Debswana parcel to a European buyer</h3>
-                  <p class="intel__standfirst">One stone, followed from a Botswana mine to a buyer&rsquo;s desk in Europe, with every document it collected on the way.</p>
-                  <span class="intel__read" aria-hidden="true">Read More</span>
-                </a>
-              </li>
             </ul>
-            <button type="button" class="button button--ghost intel__toggle" aria-controls="intel-list" aria-expanded="false" hidden>Show more stories</button>
+            <a class="button button--ghost hub-grid__more" href="the-southern-cut/insights.html">Read more</a>
           </div>
         </div>
       </div>

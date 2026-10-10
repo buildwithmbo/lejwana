@@ -1445,7 +1445,7 @@ a {
   color: var(--colour-muted);
 }
 
-/* Shared filter-toggle button — the hub subnav's region filter, the
+/* Shared filter-toggle button — the region filter, the
    calendar's type filter and the intelligence list's category filter all
    use it. Same relationship .button/.button--ghost already use (filled when
    active, outlined when not), so this doesn't read as a new idiom. */
@@ -1621,47 +1621,6 @@ a {
   opacity: 1;
 }
 
-/* Hub subnav — in-page jumps plus the calendar's region filter. Sticky only
-   above the 900px breakpoint (§15); the header itself never sticks, so this
-   pins to the viewport top once scrolled past, not below a fixed header. */
-.hub-subnav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--colour-alpine);
-  border-bottom: 1px solid var(--colour-sky);
-}
-
-.hub-subnav__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
-  padding-block: var(--space-2);
-}
-
-.hub-subnav__jumps {
-  display: flex;
-  gap: var(--space-3);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.hub-subnav__jumps a {
-  font-size: var(--size-small);
-  font-weight: 500;
-  color: var(--colour-sapphire);
-  text-decoration: none;
-  padding-block: 0.4rem;
-  border-bottom: 2px solid transparent;
-}
-
-.hub-subnav__jumps a:hover {
-  border-bottom-color: var(--colour-botswana-ink);
-}
-
 /* What's on — the unified trade calendar. Reuses .network-table (shared with
    About and The Network — only the status/type cells below are new). */
 .hub-grid-section {
@@ -1697,7 +1656,18 @@ a {
   margin-bottom: var(--space-3);
 }
 
-.whats-on__filters {
+.whats-on__filters,
+.whats-on__region {
+  margin-bottom: var(--space-3);
+}
+
+.hub-grid__more {
+  display: inline-block;
+  margin-top: var(--space-3);
+}
+
+.listing-back {
+  display: inline-block;
   margin-bottom: var(--space-3);
 }
 
@@ -1711,22 +1681,17 @@ a {
   margin-top: 0.2rem;
 }
 
+/* The type label beneath each event already marks the row as a link target;
+   the .text-link rule is dropped here so the calendar reads as a plain list. */
+.whats-on__table .text-link {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
 /* Filtered out by type or region — kept in the DOM (not display: none via a
    third state) so the row count in each pill stays a simple, honest count of
    what's rendered. */
 .whats-on__table tbody tr[hidden] {
-  display: none;
-}
-
-/* Read more/Read less — .button's own display beats the UA [hidden] rule, so
-   restate it, same as .pill-group[hidden] below. Stays hidden until JS
-   confirms there's a row count worth collapsing. */
-.whats-on__toggle {
-  display: block;
-  margin-top: var(--space-3);
-}
-
-.whats-on__toggle[hidden] {
   display: none;
 }
 
@@ -1749,17 +1714,6 @@ a {
 }
 
 .intel__list li[hidden] {
-  display: none;
-}
-
-/* Show more/Show fewer stories — same idiom as .whats-on__toggle, kept a
-   separate class since .whats-on and .intel are separate components. */
-.intel__toggle {
-  display: block;
-  margin-top: var(--space-3);
-}
-
-.intel__toggle[hidden] {
   display: none;
 }
 
@@ -2934,15 +2888,10 @@ a {
     gap: var(--space-4);
   }
 
-  /* Calendar first, then intelligence; the sticky subnav isn't worth it on a
-     viewport this short. */
+  /* Calendar first, then intelligence. */
   .hub-grid {
     grid-template-columns: 1fr;
     gap: var(--space-4);
-  }
-
-  .hub-subnav {
-    position: static;
   }
 
   .explainer-grid__head {
@@ -3148,14 +3097,8 @@ a {
     grid-template-columns: 1fr;
   }
 
-  /* Scroll sideways rather than wrap — a wrapped pill row on a phone-width
-     hub subnav would eat the sticky bar's whole point, and a wrapped filter
-     row pushes the table or list below it down further than it needs to. */
-  .hub-subnav__inner {
-    flex-wrap: nowrap;
-  }
-
-  .hub-subnav__jumps,
+  /* Scroll sideways rather than wrap — a wrapped filter row pushes the table
+     or list below it down further than it needs to. */
   .pill-group {
     flex-wrap: nowrap;
     overflow-x: auto;
