@@ -765,8 +765,8 @@ a {
    08. Cards
    ========================================================================== */
 
-/* Service cards — full-width rows that alternate image and ground, so the three
-   services read as a sequence rather than three competing columns. */
+/* Service cards — full-width rows that alternate image and ground, so the
+   services read as a sequence rather than competing columns. */
 .service-cards {
   display: grid;
 }
@@ -812,6 +812,10 @@ a {
 
 .service-card:nth-child(3) {
   background: var(--ground-icey);
+}
+
+.service-card:nth-child(4) {
+  background: var(--ground-olive);
 }
 
 /* Image and ground swap sides down the sequence. */
