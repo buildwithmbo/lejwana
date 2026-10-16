@@ -2406,7 +2406,7 @@ a {
   padding-block: var(--space-6);
   color: var(--colour-alpine);
   background:
-    linear-gradient(to right, rgba(30, 58, 95, 0.97) 45%, rgba(30, 58, 95, 0.62)),
+    linear-gradient(to right, rgba(30, 58, 95, 0.97) 45%, rgba(30, 58, 95, 0.8)),
     url("../images/our-team.jpg") right center / cover no-repeat;
 }
 
