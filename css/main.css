@@ -2572,6 +2572,10 @@ a {
   font-size: var(--size-small);
 }
 
+.membership-line--spaced {
+  margin-top: 2.5rem;
+}
+
 /* CTA band */
 /* A soft sweep rather than a flat fill, lightening towards the centre where
    the title sits. --mesh-rise is already the hero's "sapphire, lifted" token
