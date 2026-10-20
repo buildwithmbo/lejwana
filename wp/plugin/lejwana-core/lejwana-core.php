@@ -9,3 +9,6 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+require_once __DIR__ . '/includes/events.php';
+require_once __DIR__ . '/includes/contact.php';
