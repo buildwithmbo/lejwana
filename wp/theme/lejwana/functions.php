@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || exit;
 require_once get_template_directory() . '/inc/template-tags.php';
 require_once get_template_directory() . '/inc/setup.php';
 require_once get_template_directory() . '/inc/editor.php';
+require_once get_template_directory() . '/inc/performance.php';
 
 const LEJWANA_FONT_URLS = array(
 	'lejwana-fonts'    => 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@300;400;500&display=swap',

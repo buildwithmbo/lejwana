@@ -52,6 +52,23 @@ How it measures, so the numbers can be trusted:
   mid-entrance reports partial opacity and invents failures — it claimed 98% of
   the Windhoek label was under AA when nothing was wrong.
 
+## Verification status — WordPress build, 2026-10-20
+
+Local site (lejwana.local), theme and plugin at `a307b19` plus phase 7 changes.
+
+| Check | Status |
+|---|---|
+| Lighthouse mobile, 8 pages (home, about, sourcing, contact, hub, events, insights, article) | ✅ Performance 94–99, accessibility 100, SEO 100 except hub 92 (see below). Run one page at a time: running alongside other browser work dropped the homepage to 73 |
+| Best practices 78 | ⚠️ Only the local `http://` site (no HTTPS); re-run on staging |
+| Hub SEO 92 | ⚠️ Two "Read more" links (copy from `CONTENT.md`; each has a descriptive `aria-label`, but Lighthouse reads the visible text) |
+| Keyboard, 7 pages (`scripts/keyboard.py`) | ✅ 16–49 tab stops each, every stop visible with a focus ring |
+| `prefers-reduced-motion`, same 7 pages | ✅ No running animation, no hidden `.reveal` |
+| Redirect map (`wp/redirects.htaccess`, `scripts/check-redirects.py`) | ✅ 28 old URLs, one rule each, all targets answer 200 locally. Real `.htaccess` behaviour still to test on staging |
+| Core CSS, emoji, oEmbed, REST and generator tags removed from the front end | ✅ `inc/performance.php` |
+| 404 page | ✅ Renders, returns 404. Copy is `[CONFIRM]` |
+| W3C validation (vnu) on the PHP output | ⬜ Not run: no Java; `brew install vnu` started, see session log |
+| Copy matches static pages (events, insights, 12 articles, JS off) | ✅ 2026-10-20; only straight-to-curly apostrophes differ |
+
 ## Verification status — 2026-10-19
 
 What has actually been checked on the current build, and what has not. Anything
