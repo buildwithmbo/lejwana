@@ -1,8 +1,10 @@
 <?php
 $article_id = get_queried_object_id();
+$search_title       = get_post_meta( $article_id, 'lj_search_title', true );
+$search_description = get_post_meta( $article_id, 'lj_search_description', true );
 lejwana_set_page_meta(
-  get_the_title( $article_id ) . ' | The Southern Cut | Lejwana',
-  get_the_excerpt( $article_id )
+  ( $search_title ? $search_title : get_the_title( $article_id ) ) . ' | The Southern Cut | Lejwana',
+  $search_description ? $search_description : get_the_excerpt( $article_id )
 );
 get_header();
 $category = lejwana_get_primary_category( $article_id );
