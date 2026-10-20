@@ -4,22 +4,19 @@ Newest entry first. Written by /wrap at the end of every session.
 
 ## 2026-10-20 (4) — WordPress phase 3: theme core built
 
-`header.php`, `footer.php`, `front-page.php` and eight `page-{slug}.php`
-templates, generated from the static pages (copy and markup verbatim, links
-rewritten to `lejwana_the_url()` / `lejwana_the_asset()`). `functions.php` +
-`inc/` enqueue assets, set per-page title/description/OG, and create the nine
-pages on theme activation. Shared `css/`, `js/`, `images/` are copied into
-`wp/theme/lejwana/assets/` (gitignored) by `scripts/sync-theme-assets.sh`; run
-it after any change to those folders. Contact form posts to the plugin handler
-(nonce, honeypot, `?enquiry=` messages rendered server-side; redirect now ends
-`#enquiry`); `main.js` validates then lets a form with an `action` submit
-natively. New `.form__failure` style.
-**State:** all nine WP pages match the static pages at 1440 and 390 (pixel diff
-under 0.06%, zero console errors). Test enquiry arrived in Mailpit.
-**Caveats:** the contact page carries a nonce, so exclude `/contact/` from
-SiteGround page caching. Homepage ticker is still the static markup (phase 6).
-Not run: vnu on the PHP output. **Open [CONFIRM]s:** unchanged, 38.
-**Next:** phase 4, the Southern Cut templates.
+Built `header.php`, `footer.php`, `front-page.php` and eight `page-{slug}.php`
+templates from the static pages (copy verbatim, links via `lejwana_the_url()` /
+`lejwana_the_asset()`). `functions.php` + `inc/` enqueue assets, set per-page
+title/description/OG, and create the nine pages on theme activation. Shared
+`css/`, `js/`, `images/` reach the theme via `scripts/sync-theme-assets.sh`
+(assets folder gitignored; re-run after any change). Contact form now posts to
+the plugin handler with server-rendered `?enquiry=` messages; `main.js` submits
+natively when the form has an `action`. Added `.form__failure`.
+**State:** commit `17f3cbf`. All nine pages match static at 1440/390 (diff
+under 0.06%), zero console errors, test enquiry arrived in Mailpit. Not run:
+vnu on PHP output. Exclude `/contact/` from SiteGround page cache (nonce).
+Homepage ticker still static (phase 6). **Open [CONFIRM]s:** 38, unchanged.
+**Next:** phase 4, the Southern Cut templates (hub, What's on, Insights, article, 404).
 
 ## 2026-10-20 (3) — WordPress phases 1 and 2 scaffolded on branch `wp`
 
