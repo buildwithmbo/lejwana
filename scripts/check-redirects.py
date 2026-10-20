@@ -19,7 +19,7 @@ for line in (root / "wp/redirects.htaccess").read_text().splitlines():
 
 
 def status(path):
-    request = urllib.request.Request(base + path, method="HEAD")
+    request = urllib.request.Request(base + path, method="HEAD", headers={"User-Agent": "Mozilla/5.0 (redirect check)"})
     try:
         return urllib.request.urlopen(request).status
     except urllib.error.HTTPError as error:
@@ -29,6 +29,14 @@ def status(path):
 failures = 0
 paths = ["/" + str(p.relative_to(root)) for p in sorted(root.glob("*.html")) + sorted(root.glob("the-southern-cut/*.html"))]
 paths += ["/insight", "/insight.html", "/insight/on-yield", "/insight/on-yield.html"]
+paths += [
+    "/lejwana-gem-works/", "/contact-lejwana/", "/insights/", "/what-we-do/",
+    "/what-we-do/diamond-brokerage-and-facilitation/", "/what-we-do/diamond-marketing-advisory/",
+    "/what-we-do/industrial-services-and-consultancy/", "/what-we-do/cutting-and-polishing/",
+    "/what-we-do/jewellery-manufacturing/", "/what-we-do/unique-buying-experience/",
+    "/privacy-policy/", "/cookie-policy/", "/trends-and-innovations-in-diamond-valuation/",
+    "/unveiling-botswanas-safari-inspired-jewelry-collection/", "/the-ethical-facets-of-diamond-sourcing/",
+]
 for path in paths:
     hits = [(rule, target) for rule, target in rules if rule.match(path)]
     if len(hits) != 1:

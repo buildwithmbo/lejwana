@@ -8,3 +8,15 @@ RedirectMatch 301 ^/the-southern-cut/([a-z0-9-]+)\.html$ /the-southern-cut/$1/
 # Before The Southern Cut was renamed (September 2026) these lived under /insight.
 RedirectMatch 301 ^/insight(\.html)?/?$ /the-southern-cut/
 RedirectMatch 301 ^/insight/([a-z0-9-]+)(\.html)?/?$ /the-southern-cut/$1/
+
+# The previous WordPress site (Divi, "Lejwana Gem Works"). Mapping proposed 2026-10-21,
+# not yet approved by the client. /about/ keeps its address, so it needs no rule.
+RedirectMatch 301 ^/lejwana-gem-works/?$ /
+RedirectMatch 301 ^/contact-lejwana/?$ /contact/
+RedirectMatch 301 ^/insights/?$ /the-southern-cut/insights/
+RedirectMatch 301 ^/what-we-do/?$ /
+RedirectMatch 301 ^/what-we-do/diamond-brokerage-and-facilitation/?$ /trading/
+RedirectMatch 301 ^/what-we-do/(diamond-marketing-advisory|industrial-services-and-consultancy)/?$ /advisory/
+RedirectMatch 301 ^/what-we-do/(cutting-and-polishing|jewellery-manufacturing|unique-buying-experience)/?$ /sourcing/
+RedirectMatch 301 ^/(privacy-policy|cookie-policy)/?$ /privacy/
+RedirectMatch 301 ^/(trends-and-innovations-in-diamond-valuation|unveiling-botswanas-safari-inspired-jewelry-collection|the-ethical-facets-of-diamond-sourcing)/?$ /the-southern-cut/insights/

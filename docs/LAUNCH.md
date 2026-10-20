@@ -20,7 +20,8 @@ your account; follow the SiteGround staging guide linked in `WORDPRESS.md` if th
 
 Do each step on **staging**, check it, then repeat on production or push staging live.
 
-1. **Fresh WordPress** at the site root. PHP 8.4 or later (Site Tools → Devs → PHP Manager). Keep SiteGround's Speed Optimizer and Security Optimizer; add no other plugins.
+0. **The domain already has a live WordPress site** (Divi, 18 pages, 3 posts, Complianz, really-simple-ssl). staging2 is a copy and was converted first; production gets the same treatment only after sign-off, with a database backup first. Old pages go to draft and the old URLs redirect (end of `wp/redirects.htaccess`).
+1. **WordPress** at the site root. PHP 8.4 or later (Site Tools → Devs → PHP Manager). Keep SiteGround's Speed Optimizer and Security Optimizer; add no other plugins.
 2. **Upload and activate** `lejwana-core` first, then the `lejwana` theme. Activating the theme creates the pages, categories and the `/the-southern-cut/%postname%/` permalinks.
 3. **Settings → Reading:** untick "Discourage search engines" only at go-live (leave it ticked on staging). Check Settings → General: site title, admin email, timezone Africa/Gaborone.
 4. **Move the content.** Unzip `lejwana-migration.zip` into a temporary folder on the server, then from that folder run `wp eval-file scripts/migrate-content.php`. Expect "Events migrated: 22" and "Articles migrated: 12". Delete the folder. The theme does not need it.

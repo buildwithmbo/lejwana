@@ -2,6 +2,28 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-10-21 — WordPress phase 8: staging2 converted
+
+Connected over SSH (key `~/.ssh/lejwana_siteground_ed25519`, host `ssh.lejwana.com`
+port 18765; the key reaches production too, so only `staging2` was touched).
+**Finding:** `lejwana.com` is a live WordPress site (Divi, "Lejwana Gem Works",
+18 pages and 3 blog posts, indexed), not a fresh install; staging2 is a copy.
+Decisions: convert staging2 in place; retire old content to draft and redirect;
+deactivate Complianz only (really-simple-ssl, sg-ai-studio and wp-svg-images left active).
+**Done on staging2 only:** DB backup `~/backups/staging2-before-lejwana-*.sql`,
+`.htaccess` backup, uploaded theme and plugin, activated, 18 old items set to
+draft, old `about` page reused (title set to About), migration run (22 events,
+12 articles), `blog_public` set to 0, redirects added to `.htaccess` (43 old URLs
+resolve; real 301s confirmed). Checks on https://staging2.lejwana.com: zero
+console errors on 7 pages, keyboard clean on 4, Lighthouse 98–99 performance
+(a cold first load scored 72), accessibility 100, best practices 100 (SEO is
+low only because staging is noindex).
+**Not done:** test enquiry email (needs user's OK; sends a real email to
+info@lejwana.com); `/contact/` cache exclusion, PHP 8.4, backups and auto-update
+(Site Tools); Editor login; production. Redirect mapping for the old site's URLs
+is **proposed, awaiting client approval**. Open [CONFIRM]s still 38.
+**Next:** test enquiry, Site Tools settings, client review of staging, then production.
+
 ## 2026-10-20 (9) — 404 copy written
 
 User gave permission to write the 404 copy (exception to the copy rule; recorded
