@@ -15,6 +15,9 @@ Run `sh scripts/build-wp-package.sh`. It writes three files to `dist/`:
 
 ## Cut-over runbook (SiteGround GoGeek, staging first)
 
+SiteGround menu names below are from memory and have not been checked against
+your account; follow the SiteGround staging guide linked in `WORDPRESS.md` if they differ.
+
 Do each step on **staging**, check it, then repeat on production or push staging live.
 
 1. **Fresh WordPress** at the site root. PHP 8.4 or later (Site Tools → Devs → PHP Manager). Keep SiteGround's Speed Optimizer and Security Optimizer; add no other plugins.
@@ -26,7 +29,7 @@ Do each step on **staging**, check it, then repeat on production or push staging
 7. **Mail.** Confirm the mailbox `info@lejwana.com` exists. Send a test enquiry from `/contact/` and check it lands in the inbox, not spam. This is the conversion goal, so do not skip it.
 8. **Run the checks on the staging URL:** `/usr/bin/python3 scripts/review.py <url>`, `scripts/keyboard.py`, `scripts/check-redirects.py <url>`, Lighthouse on mobile (HTTPS, so best-practices should now pass).
 9. **Editor login.** Users → Add New, role Editor, for the client. Send the password separately. Hand over `docs/CLIENT_GUIDE.md`.
-10. **Backups and updates.** Site Tools → Security → Backups: confirm daily backups. WordPress core minor updates are automatic; Settings in Site Tools → WordPress → Auto-update for plugins and themes.
+10. **Backups and updates.** Site Tools → Security → Backups: confirm daily backups. Turn on auto-updates for WordPress, plugins and the theme in Site Tools → WordPress, or in the WordPress Plugins screen.
 11. **Go live.** Push staging to production. The domain is already at SiteGround, so there is no DNS change; confirm the existing mail records are untouched. Enforce HTTPS (Site Tools → Security → HTTPS Enforce).
 12. **After:** repeat step 8 on `https://lejwana.com`, submit `https://lejwana.com/wp-sitemap.xml` to Google Search Console, retire the static files.
 13. **Acceptance:** the client adds a test event and a test article unaided, then trashes them.
