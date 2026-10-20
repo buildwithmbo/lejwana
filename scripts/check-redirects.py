@@ -13,6 +13,9 @@ root = Path(__file__).resolve().parent.parent
 base = sys.argv[1] if len(sys.argv) > 1 else "http://lejwana.local"
 rules = []
 for line in (root / "wp/redirects.htaccess").read_text().splitlines():
+    if line.startswith("RewriteRule ") and "R=301" in line:
+        pattern, target = line.split()[1:3]
+        rules.append((re.compile(pattern.replace("^", "^/", 1)), target))
     if line.startswith("RedirectMatch 301 "):
         pattern, target = line.split()[2:4]
         rules.append((re.compile(pattern), re.sub(r"\$(\d)", r"\\\1", target)))

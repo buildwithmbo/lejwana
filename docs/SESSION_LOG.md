@@ -18,6 +18,11 @@ resolve; real 301s confirmed). Checks on https://staging2.lejwana.com: zero
 console errors on 7 pages, keyboard clean on 4, Lighthouse 98–99 performance
 (a cold first load scored 72), accessibility 100, best practices 100 (SEO is
 low only because staging is noindex).
+**Fix, same day:** the `index.html` redirect rule looped the homepage (301 to itself)
+because the server maps `/` to `index.html` internally; replaced with a
+`RewriteCond %{THE_REQUEST}` rule, retested on staging2 (`/` 200, `/index.html` 301).
+Bursts of automated requests also tripped SiteGround's bot challenge (HTTP 202,
+`sg-captcha`) for this Mac's IP on every site; it clears with time.
 **Not done:** test enquiry email (needs user's OK; sends a real email to
 info@lejwana.com); `/contact/` cache exclusion, PHP 8.4, backups and auto-update
 (Site Tools); Editor login; production. Redirect mapping for the old site's URLs

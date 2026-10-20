@@ -1,6 +1,10 @@
 # Old static .html URLs to their WordPress paths. Paste above "# BEGIN WordPress"
 # in the site's .htaccess at cut-over. Check with: python3 scripts/check-redirects.py
-RedirectMatch 301 ^/index\.html$ /
+# Matches the address the visitor typed (THE_REQUEST), not the server's own index lookup,
+# which would turn every request for / into a redirect loop.
+RewriteEngine On
+RewriteCond %{THE_REQUEST} ^[A-Z]+\s/index\.html[\s?]
+RewriteRule ^index\.html$ / [R=301,L]
 RedirectMatch 301 ^/(about|advisory|contact|privacy|provenance|sourcing|the-network|trading)\.html$ /$1/
 RedirectMatch 301 ^/the-southern-cut\.html$ /the-southern-cut/
 RedirectMatch 301 ^/the-southern-cut/([a-z0-9-]+)\.html$ /the-southern-cut/$1/
