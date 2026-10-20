@@ -6,25 +6,23 @@ lejwana_set_page_meta(
 get_header();
 ?>
 
-<!-- In the trade: ticker. Mirrors the dates on the-southern-cut.html for sighted
-     users only; JS computes each status and drops ended items. -->
+<?php $ticker_events = lejwana_get_events( true, LEJWANA_TICKER_EVENT_COUNT ); ?>
+<?php if ( $ticker_events ) : ?>
+<!-- In the trade: ticker. Mirrors the events list for sighted users only; JS computes
+     each status and drops ended items. Not rendered at all when nothing is upcoming. -->
 <div class="ticker" hidden aria-hidden="true">
   <div class="container container--wide ticker__inner">
     <span class="ticker__label"><span class="ticker__dot" aria-hidden="true"></span>In the trade</span>
     <div class="ticker__viewport">
       <ul class="ticker__track">
-      <li class="ticker__item" data-start="2026-10-12" data-end="2026-10-13"><span class="ticker__item-name">ODC citizen-tender viewings</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2026-10-15" data-end="2026-10-15"><span class="ticker__item-name">ODC citizen tender</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2026-10-18" data-end="2026-10-21"><span class="ticker__item-name">Okavango Diamond Company auction</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2026-10-26" data-end="2026-10-30"><span class="ticker__item-name">De Beers Sight 9</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2026-11-13" data-end="2026-11-13"><span class="ticker__item-name">Lucara Q3 results</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2026-11-30" data-end="2026-12-04"><span class="ticker__item-name">De Beers Sight 10</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2027-01-07" data-end="2027-01-10"><span class="ticker__item-name">IIJS Premiere</span><span class="trade-status">Confirmed</span></li>
-      <li class="ticker__item" data-start="2027-02-08" data-end="2027-02-11"><span class="ticker__item-name">Investing in African Mining Indaba</span><span class="trade-status">Confirmed</span></li>
+        <?php foreach ( $ticker_events as $event ) : ?>
+          <li class="ticker__item" data-start="<?php echo esc_attr( get_post_meta( $event->ID, 'lj_start_date', true ) ); ?>" data-end="<?php echo esc_attr( lejwana_get_event_end( $event->ID ) ); ?>"><span class="ticker__item-name"><?php echo esc_html( get_the_title( $event ) ); ?></span><span class="trade-status"><?php echo esc_html( get_post_meta( $event->ID, 'lj_status', true ) ); ?></span></li>
+        <?php endforeach; ?>
       </ul>
     </div>
   </div>
 </div>
+<?php endif; ?>
 
 
 

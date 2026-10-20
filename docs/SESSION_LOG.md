@@ -2,6 +2,16 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-10-20 (7) — WordPress phase 6: homepage ticker from events
+
+`front-page.php` now renders the ticker from the next 8 upcoming events (end
+date today or later) instead of the fixed list; `main.js` unchanged. With no
+upcoming events the ticker markup is not output at all. Tested both ways (all
+events set to draft, then restored): ticker present with 22 events, absent
+with none, zero console errors either way. Events with no status note show
+blank until JS fills it.
+**Next:** phase 7, QA (Lighthouse, keyboard, vnu, redirect map, reduced motion).
+
 ## 2026-10-20 (6) — WordPress phase 5: content migrated
 
 Added article search title/description fields to `lejwana-core` (`87866bb`), then

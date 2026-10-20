@@ -7,6 +7,7 @@ const LEJWANA_HUB_SLUG = 'the-southern-cut';
 const LEJWANA_EXPLAINERS_CATEGORY = 'explainers';
 const LEJWANA_HUB_EVENT_COUNT = 7;
 const LEJWANA_HUB_INTEL_COUNT = 4;
+const LEJWANA_TICKER_EVENT_COUNT = 8;
 const LEJWANA_RELATED_COUNT = 2;
 
 const LEJWANA_ENQUIRY_OUTCOMES = array( 'sent', 'invalid', 'failed' );
