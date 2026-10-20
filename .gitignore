@@ -1,10 +1,4 @@
-# Internal docs and planning never reach the public repo/live domain
-docs/
-CLAUDE.md
-.claude/
-scripts/
 screenshots/
-*.md
 .DS_Store
 
 # Design comps — reference for the build, never part of the deployable output.

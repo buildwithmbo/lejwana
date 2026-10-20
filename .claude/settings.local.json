@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Bash(python3 scripts/review.py index.html)",
+      "Bash(sips -g pixelHeight -g pixelWidth screenshots/desktop.png screenshots/mobile.png)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git --no-pager log --stat -1)",
+      "Bash(git --no-pager log --oneline -3)",
+      "Bash(git push *)",
+      "Bash(python3 *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)"
+    ]
+  }
+}
