@@ -2,6 +2,15 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-10-20 (9) — 404 copy written
+
+User gave permission to write the 404 copy (exception to the copy rule; recorded
+in `CONTENT.md`). Headline, message, meta description and a "Contact us" button
+added to `404.php`; no `[CONFIRM]` left on it. Open [CONFIRM]s back to 38.
+`brew install vnu` left a newer `python3` first on PATH without Playwright: use
+`/usr/bin/python3` for `scripts/review.py` and the other QA scripts.
+**Next:** phase 8, handover.
+
 ## 2026-10-20 (8) — WordPress phase 7: QA on the local site
 
 `inc/performance.php` drops core block/emoji/oEmbed CSS and head tags.

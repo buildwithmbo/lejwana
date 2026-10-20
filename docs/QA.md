@@ -65,7 +65,7 @@ Local site (lejwana.local), theme and plugin at `a307b19` plus phase 7 changes.
 | `prefers-reduced-motion`, same 7 pages | ✅ No running animation, no hidden `.reveal` |
 | Redirect map (`wp/redirects.htaccess`, `scripts/check-redirects.py`) | ✅ 28 old URLs, one rule each, all targets answer 200 locally. Real `.htaccess` behaviour still to test on staging |
 | Core CSS, emoji, oEmbed, REST and generator tags removed from the front end | ✅ `inc/performance.php` |
-| 404 page | ✅ Renders, returns 404. Copy is `[CONFIRM]` |
+| 404 page | ✅ Renders, returns 404, copy written 2026-10-20 with the user's permission (recorded in `CONTENT.md`) |
 | W3C validation (vnu) on the rendered PHP output, 25 pages (home, 8 pages, hub, events, insights, 12 articles, 404) | ✅ Zero errors 2026-10-20. Advisories only: WordPress's `<link … />` slashes in `wp_head`, `aria-hidden` on the hidden ticker, a section without a heading on `advisory`, a double hyphen in a comment on `contact` |
 | Copy matches static pages (events, insights, 12 articles, JS off) | ✅ 2026-10-20; only straight-to-curly apostrophes differ |
 

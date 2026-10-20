@@ -917,3 +917,12 @@ Once polished, stones are graded and documented, then sold to dealers, jewellers
 At Lejwana, this is the part we manage on behalf of buyers: confirming that the stones, the documents and the delivery terms agree before goods move. [CONFIRM: wording against the Sourcing and Trading page copy]
 
 **Next:** Back to The Southern Cut.
+
+
+### 404 page - written 2026-10-20, with the user's permission
+
+Headline: This page cannot be found.
+Message: The address may have changed, or the page may have moved. Return to the homepage, or contact us and we will point you to what you need.
+Buttons: Go to the homepage; Contact us.
+Meta description: The page you asked for could not be found. Return to the Lejwana homepage or contact us.
+Title: Page not found | Lejwana
