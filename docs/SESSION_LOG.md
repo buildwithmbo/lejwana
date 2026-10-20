@@ -2,6 +2,21 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-10-20 (8) — WordPress phase 7: QA on the local site
+
+`inc/performance.php` drops core block/emoji/oEmbed CSS and head tags.
+`wp/redirects.htaccess` + `scripts/check-redirects.py` (28 old URLs, all
+resolve locally). `scripts/keyboard.py` (tab order, focus ring, reduced
+motion). **Results:** Lighthouse mobile 94–99 performance, 100 accessibility, SEO 100
+(hub 92: two "Read more" links); keyboard and reduced motion clean on 7 pages;
+vnu zero errors on 25 rendered pages. `brew install vnu` failed (openjdk needs
+full Xcode), so vnu ran from the cached `vnu-jar` with a Temurin 21 JRE
+downloaded to the scratchpad; nothing installed on the system.
+**Not done:** best-practices 78 is HTTP-only (re-check on staging); the real
+`.htaccess` redirect test; QA.md pre-launch boxes for [CONFIRM]s (38 + 404 copy).
+**Next:** phase 8, handover (staging to production, Editor login, client guide,
+backups). Needs SiteGround access and the 404 copy.
+
 ## 2026-10-20 (7) — WordPress phase 6: homepage ticker from events
 
 `front-page.php` now renders the ticker from the next 8 upcoming events (end
