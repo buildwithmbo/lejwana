@@ -2,6 +2,30 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-10-20 (5) — WordPress phase 4: Southern Cut templates built
+
+Added `page-the-southern-cut.php` (hub), `page-events.php` (What's on),
+`home.php` (Insights), `single.php` (article), `404.php`, `template-parts/`
+(event row and table, intel item, insight card), `inc/editor.php` and
+`editor.css`. Deviation from WORDPRESS.md: What's on and Insights are child
+pages of the hub (`/the-southern-cut/events/`, `/insights/`), not an
+`archive-lj_event.php`, so `lj_event` stays non-public. Articles live at
+`/the-southern-cut/{slug}/` (permalink structure changed). Setup now creates
+the hub, two child pages, five categories (incl. Explainers, kept out of
+Insights). Block editor limited to paragraph, heading (h2/h3), list, quote.
+Also fixed: no `<title>` tags on any page (added `title-tag` support); `main.js`
+ticker no longer throws for an event with no link; `main.css` styles bare
+`blockquote` in articles.
+**State:** uncommitted. Tested with throwaway events/posts (since deleted):
+filters work, heading order clean, zero console errors at 1440/390; the 404
+logs the expected 404 resource error. **Not run:** vnu (not installed), editor
+styles in the real block editor, mobile screenshots eyeballed.
+**Flags:** 404 headline, message and meta are `[CONFIRM]` (no copy exists).
+Static article meta descriptions and `<title>`s differ from the excerpt/h1;
+templates use title and excerpt for now (decide in phase 5, maybe a meta field).
+Empty event status note renders blank until JS fills it. Open [CONFIRM]s: 38 + 3 (404).
+**Next:** phase 5, migration of events and six articles + explainers.
+
 ## 2026-10-20 (4) — WordPress phase 3: theme core built
 
 Built `header.php`, `footer.php`, `front-page.php` and eight `page-{slug}.php`
