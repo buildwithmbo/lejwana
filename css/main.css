@@ -1994,8 +1994,9 @@ a {
   list-style: disc;
 }
 
-/* Olive quote rule */
-.article__quote {
+/* Olive quote rule. WordPress strips block classes, so the bare blockquote is styled too. */
+.article__quote,
+.article__body blockquote {
   border-left: 3px solid var(--colour-olive);
   padding-left: var(--space-3);
   margin-block: var(--space-3);

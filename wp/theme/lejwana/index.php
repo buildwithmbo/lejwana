@@ -1,2 +1,3 @@
 <?php
-// Placeholder until the page templates land in phase 3.
+// Fallback only. Every public view has its own template.
+get_template_part( '404' );

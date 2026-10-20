@@ -1,0 +1,29 @@
+/* Editing view for articles. main.css supplies the tokens and body type; this mirrors .article__body. */
+.editor-styles-wrapper .is-root-container {
+  max-width: var(--width-reading);
+  margin-inline: auto;
+}
+
+.editor-styles-wrapper h2 {
+  font-size: 1.5rem;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.editor-styles-wrapper p {
+  margin-bottom: var(--space-2);
+}
+
+.editor-styles-wrapper ul {
+  padding-left: var(--space-3);
+  list-style: disc;
+}
+
+.editor-styles-wrapper blockquote {
+  border-left: 3px solid var(--colour-olive);
+  padding-left: var(--space-3);
+  margin-block: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--colour-sapphire);
+}

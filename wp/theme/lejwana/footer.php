@@ -1,4 +1,4 @@
-<footer class="site-footer site-footer--flush">
+<footer class="site-footer<?php echo is_singular( 'post' ) ? '' : ' site-footer--flush'; ?>">
   <div class="container container--wide">
     <div class="site-footer__grid">
       <div>

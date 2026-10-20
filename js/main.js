@@ -256,7 +256,7 @@
 
     var name = document.createElement('span');
     name.className = 'ticker__item-name';
-    name.textContent = row.querySelector('td:nth-child(2) a').textContent;
+    name.textContent = row.querySelector('td:nth-child(2) a, td:nth-child(2) .whats-on__name').textContent;
 
     item.appendChild(name);
     item.appendChild(row.querySelector('.trade-status').cloneNode(true));
