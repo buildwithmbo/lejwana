@@ -18,8 +18,10 @@ ticker no longer throws for an event with no link; `main.css` styles bare
 `blockquote` in articles.
 **State:** uncommitted. Tested with throwaway events/posts (since deleted):
 filters work, heading order clean, zero console errors at 1440/390; the 404
-logs the expected 404 resource error. **Not run:** vnu (not installed), editor
-styles in the real block editor, mobile screenshots eyeballed.
+logs the expected 404 resource error. Editor checked in the real block editor
+(temp user, since deleted): styles match the front end, inserter offers only
+paragraph/heading/list/quote, heading levels default to h2/h3. **Not run:** vnu
+(no Java on this Mac; deferred to phase 7 by user).
 **Flags:** 404 headline, message and meta are `[CONFIRM]` (no copy exists).
 Static article meta descriptions and `<title>`s differ from the excerpt/h1;
 templates use title and excerpt for now (decide in phase 5, maybe a meta field).
