@@ -2807,6 +2807,12 @@ a {
   display: block;
 }
 
+.form__failure {
+  border-left: 3px solid #9b3535;
+  padding: var(--space-2) var(--space-3);
+  margin-top: var(--space-3);
+}
+
 
 /* ==========================================================================
    14. Footer

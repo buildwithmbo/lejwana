@@ -1,0 +1,186 @@
+<?php
+lejwana_set_page_meta(
+  'About Lejwana | Southern African Natural Polished Diamond Trade',
+  'Lejwana sources, brokers and trades natural polished diamonds across Botswana, Angola, South Africa, Namibia and Lesotho. Regional access, technical review and controlled delivery.'
+);
+get_header();
+?>
+
+<main id="main">
+  <!-- Hero: photograph, with the lead notched into its lower left -->
+  <section class="about-hero">
+    <div class="about-hero__heading">
+      <span class="eyebrow">About</span>
+      <h1 class="about-hero__title">Regional polished diamonds. Clearer trade access.</h1>
+    </div>
+    <div class="about-hero__lead">
+      <p>We source, broker and trade natural polished diamonds across Botswana, Angola, South Africa, Namibia and Lesotho.</p>
+      <p>Based in Gaborone, we work with established jewellers, dealers, manufacturers and sourcing partners who want relevant regional stock, technically sound selection and a controlled transaction.</p>
+      <p>We work to a defined brief: sourcing through selected regional factories and suppliers, reviewing the stones put forward, and running the commercial process through to delivery.</p>
+      <a class="button about-hero__cta" href="<?php lejwana_the_url( 'contact/' ); ?>">Discuss a sourcing brief</a>
+    </div>
+  </section>
+
+  <!-- What you can expect -->
+  <section class="section" aria-labelledby="expect-title">
+    <div class="container">
+      <h2 class="section__title" id="expect-title">What you can expect</h2>
+      <div class="network-table__scroll">
+        <table class="network-table">
+          <thead>
+            <tr>
+              <th scope="col">You need</th>
+              <th scope="col">We provide</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Relevant polished stock</td>
+              <td>Access to selected regional factories and available natural polished diamonds</td>
+            </tr>
+            <tr>
+              <td>A precise brief</td>
+              <td>Sourcing against the specifications, budget, timing and end use that matter to you</td>
+            </tr>
+            <tr>
+              <td>Technical judgement</td>
+              <td>Review of make, proportions, finish, matching and overall suitability, not report data alone</td>
+            </tr>
+            <tr>
+              <td>Commercial clarity</td>
+              <td>Clear terms, available documentation and direct discussion of any limitation or compromise</td>
+            </tr>
+            <tr>
+              <td>Controlled delivery</td>
+              <td>Coordinated paperwork, clearance, insured transit, handover and settlement</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="expect-note">Filtered rather than listed. We do not send broad inventory feeds. We put forward stones that fit the requirement.</p>
+    </div>
+  </section>
+
+  <!-- How a mandate moves -->
+  <section class="section section--sky" aria-labelledby="mandate-title">
+    <div class="container">
+      <h2 class="section__title" id="mandate-title">How a mandate moves</h2>
+      <ol class="mandate">
+        <li class="mandate__stage">
+          <h3 class="mandate__heading"><span class="mandate__number">1.</span> Brief</h3>
+          <p>You set the requirement: shape, carat weight, colour, clarity, cut, quantity, budget, destination and timing.</p>
+        </li>
+        <li class="mandate__stage">
+          <h3 class="mandate__heading"><span class="mandate__number">2.</span> Source</h3>
+          <p>We approach selected regional factories and suppliers for available polished stock that meets, or closely meets, the brief.</p>
+        </li>
+        <li class="mandate__stage">
+          <h3 class="mandate__heading"><span class="mandate__number">3.</span> Review</h3>
+          <p>We assess proposed stones against the requirement, the grading information and available supporting documentation.</p>
+        </li>
+        <li class="mandate__stage">
+          <h3 class="mandate__heading"><span class="mandate__number">4.</span> Agree</h3>
+          <p>Price, payment, documentation, delivery method and commercial terms are settled before goods move.</p>
+        </li>
+        <li class="mandate__stage">
+          <h3 class="mandate__heading"><span class="mandate__number">5.</span> Deliver</h3>
+          <p>We manage the documented, insured movement of goods through clearance, handover and settlement.</p>
+        </li>
+      </ol>
+      <p class="section__cta"><a class="button" href="<?php lejwana_the_url( 'contact/' ); ?>">Send a sourcing brief</a></p>
+    </div>
+  </section>
+
+  <!-- How we operate -->
+  <section class="approach" aria-labelledby="operate-title">
+    <img class="approach__media" src="<?php lejwana_the_asset( 'images/4-diamonds.jpeg' ); ?>" width="1035" height="1024" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <div class="approach__body">
+      <h2 class="section__title" id="operate-title">How we operate</h2>
+      <article class="approach-card">
+        <h3 class="approach-card__title">Straight representation</h3>
+        <p>We represent a stone as it is, not as it might be sold. If a stone does not meet the brief, if documentation is limited, or if there is a compromise to consider, we make that clear before a buyer decides.</p>
+      </article>
+      <article class="approach-card">
+        <h3 class="approach-card__title">Direct relationships</h3>
+        <p>We work through direct, repeated relationships with selected regional factories, suppliers and trade buyers. That gives buyers a better-informed route to available stock than an open marketplace can.</p>
+      </article>
+      <article class="approach-card">
+        <h3 class="approach-card__title">Disciplined execution</h3>
+        <p>Technical assessment, commercial terms, documentation, financial review and logistics are handled as one connected transaction. Selecting the stone is not the finish. The mandate closes when the stone, the records, the payment and the handover are all in order.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Meet the team -->
+  <section class="team-band" id="team" aria-labelledby="team-title">
+    <div class="container">
+      <h2 class="team-band__title" id="team-title">Meet the team</h2>
+      <div class="team-band__prose">
+        <div class="team-director">
+          <img class="team-director__photo" src="<?php lejwana_the_asset( 'images/thoko-t.jpg' ); ?>" alt="" aria-hidden="true" width="138" height="138" loading="lazy" decoding="async">
+          <h3 class="team-director__name">Thoko Tshuma, <span class="team-director__postnominals">ACCA, MBA</span></h3>
+          <span class="team-director__role">Managing Director</span>
+          <p>Thoko leads sourcing, trading, advisory and commercial delivery at Lejwana.</p>
+          <details class="team-director__profile">
+            <summary class="team-director__toggle">Read profile</summary>
+            <p>He has worked in the natural-diamond industry since 2012 and is a certified diamond polisher and valuator, a Chartered Certified Accountant (ACCA), and an MBA graduate in Global Enterprise from Oxford Brookes Business School. He brings technical diamond knowledge, market insight and evidence-based commercial judgement to buyer mandates and regional supplier relationships.</p>
+            <p>Thoko is a member of the London Diamond Bourse, which connects Lejwana to the international diamond trade and its professional standards that are unwaveringly adhered to.</p>
+            <p>With family roots in Lesotho and Eswatini, and living, learning and professional experience across Botswana, South Africa and Zimbabwe, he also brings a native Southern African perspective to Lejwana’s work. Raised in a mining town, he understands why responsible sourcing and local beneficiation matter, commercially and regionally.</p>
+          </details>
+        </div>
+        <div class="team-director">
+          <img class="team-director__photo" src="<?php lejwana_the_asset( 'images/paresh-k.jpg' ); ?>" alt="" aria-hidden="true" width="138" height="138" loading="lazy" decoding="async">
+          <h3 class="team-director__name">Paresh Kumar</h3>
+          <span class="team-director__role">Technical Director</span>
+          <p>Paresh leads diamond selection, technical review and quality assurance.</p>
+          <details class="team-director__profile">
+            <summary class="team-director__toggle">Read profile</summary>
+            <p>A fourth-generation Surat diamantaire, he has more than 30 years of experience across cutting and polishing, buying, planning, manufacturing and trading, working through Surat, Kimberley and Southern Africa.</p>
+            <p>He reviews proposed stones against the agreed brief: make, proportions, matching, finish, presentation and suitability for the intended purpose. His job is to judge whether a stone works in practice for the buyer, not just whether it matches a report description. Where a compromise is involved, he identifies it clearly before the buyer decides.</p>
+          </details>
+        </div>
+        <div class="team-director">
+          <img class="team-director__photo" src="<?php lejwana_the_asset( 'images/nelly-m.jpg' ); ?>" alt="" aria-hidden="true" width="138" height="138" loading="lazy" decoding="async">
+          <h3 class="team-director__name">Onneile Maripe, <span class="team-director__postnominals">BFP, FCA</span></h3>
+          <span class="team-director__role">Finance, Assurance and Risk</span>
+          <p>Onneile leads finance, assurance and risk.</p>
+          <details class="team-director__profile">
+            <summary class="team-director__toggle">Read profile</summary>
+            <p>She has more than 15 years across audit, finance and assurance, including more than five years in the natural-diamond industry at Debswana Diamond Company. Her background covers diamond sales, treasury, financial reporting, performance management, sustainability reporting, compliance and due diligence.</p>
+            <p>She oversees the financial side of a mandate: commercial terms, transaction records, settlement, compliance requirements and counterparty review. As an ICAEW Council member, she brings a standards-led perspective to governance and assurance.</p>
+          </details>
+        </div>
+        <div class="team-director">
+          <img class="team-director__photo" src="<?php lejwana_the_asset( 'images/baone-s.jpg' ); ?>" alt="" aria-hidden="true" width="138" height="138" loading="lazy" decoding="async">
+          <h3 class="team-director__name">Baone Sefhemo</h3>
+          <span class="team-director__role">Operations Director</span>
+          <p>Baone leads operational coordination, drawing on experience at Remnant Diamonds Botswana.</p>
+          <details class="team-director__profile">
+            <summary class="team-director__toggle">Read profile</summary>
+            <p>Once terms are agreed, he handles documentation, timing, clearance, insured transit and handovers, keeping records aligned between the parties and confirming operational requirements before goods move.</p>
+            <p>His role is to keep the route from agreed transaction to delivery orderly, discreet and properly documented.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Southern Cut -->
+  <section class="section section--sky" aria-labelledby="southern-cut-title">
+    <div class="container">
+      <h2 class="section__title" id="southern-cut-title">The Southern Cut</h2>
+      <p class="section__intro">The Southern Cut is Lejwana’s regional diamond-trade intelligence desk. It tracks verified sales dates, tenders, producer updates, pricing signals, policy, beneficiation and industry developments across Botswana, Angola, South Africa, Namibia and Lesotho.</p>
+      <a class="button button--ghost" href="<?php lejwana_the_url( 'the-southern-cut/' ); ?>">Visit The Southern Cut</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <h2 class="cta-band__title">Start a sourcing conversation</h2>
+      <a class="button button--on-dark" href="<?php lejwana_the_url( 'contact/' ); ?>">Contact Lejwana</a>
+    </div>
+  </section>
+</main>
+
+<?php get_footer(); ?>

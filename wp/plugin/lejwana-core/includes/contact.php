@@ -31,7 +31,7 @@ function lejwana_posted_text( $key ) {
 function lejwana_finish_enquiry( $outcome ) {
 	$referer = wp_get_referer();
 	$target  = $referer ? $referer : home_url( '/contact/' );
-	wp_safe_redirect( add_query_arg( 'enquiry', $outcome, $target ) );
+	wp_safe_redirect( add_query_arg( 'enquiry', $outcome, $target ) . '#enquiry' );
 	exit;
 }
 

@@ -1,0 +1,580 @@
+<?php
+lejwana_set_page_meta(
+  'Lejwana | Southern African Natural Polished Diamonds',
+  'Lejwana sources, trades and advises on provenanced natural polished diamonds from Botswana, Angola, South Africa and Namibia. Members of the London Diamond Bourse.'
+);
+get_header();
+?>
+
+<!-- In the trade: ticker. Mirrors the dates on the-southern-cut.html for sighted
+     users only; JS computes each status and drops ended items. -->
+<div class="ticker" hidden aria-hidden="true">
+  <div class="container container--wide ticker__inner">
+    <span class="ticker__label"><span class="ticker__dot" aria-hidden="true"></span>In the trade</span>
+    <div class="ticker__viewport">
+      <ul class="ticker__track">
+      <li class="ticker__item" data-start="2026-10-12" data-end="2026-10-13"><span class="ticker__item-name">ODC citizen-tender viewings</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2026-10-15" data-end="2026-10-15"><span class="ticker__item-name">ODC citizen tender</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2026-10-18" data-end="2026-10-21"><span class="ticker__item-name">Okavango Diamond Company auction</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2026-10-26" data-end="2026-10-30"><span class="ticker__item-name">De Beers Sight 9</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2026-11-13" data-end="2026-11-13"><span class="ticker__item-name">Lucara Q3 results</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2026-11-30" data-end="2026-12-04"><span class="ticker__item-name">De Beers Sight 10</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2027-01-07" data-end="2027-01-10"><span class="ticker__item-name">IIJS Premiere</span><span class="trade-status">Confirmed</span></li>
+      <li class="ticker__item" data-start="2027-02-08" data-end="2027-02-11"><span class="ticker__item-name">Investing in African Mining Indaba</span><span class="trade-status">Confirmed</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<main id="main">
+  <!-- Hero: copy left, network map right. The map is the orientation device —
+     it states the regional argument the copy makes. -->
+  <section class="hero hero--dark">
+    <div class="container container--wide hero__split">
+      <div>
+        <h1 class="hero__title">
+          Make the invisible visible.
+        </h1>
+        <p class="hero__body">
+          Natural diamonds sourced from Botswana and Southern Africa, with provenance that connects every stone to its journey, people and place.
+        </p>
+        <p class="hero__highlight">
+          Trace the origin. Reveal the journey. Share the story.
+        </p>
+        <div class="hero__actions">
+          <a class="button button--on-dark" href="<?php lejwana_the_url( 'contact/' ); ?>"
+            >Submit your specification</a>
+          <a class="button button--ghost-on-dark" href="<?php lejwana_the_url( 'provenance/' ); ?>"
+            >Explore provenance</a>
+        </div>
+      </div>
+      <div class="hero__map">
+        <svg
+          class="network-map"
+          viewBox="0 0 240 300"
+          role="img"
+          aria-labelledby="hero-map-title hero-map-desc"
+        >
+          <title id="hero-map-title">
+            The Lejwana network across Southern Africa
+          </title>
+          <desc id="hero-map-desc">
+            Gaborone marked as the gateway, connected to Luanda in Angola,
+            Windhoek in Namibia, Kimberley in South Africa and Maseru in
+            Lesotho.
+          </desc>
+          <g class="network-map__land">
+            <path
+              class="network-map__country"
+              data-country="angola"
+              fill-rule="evenodd"
+              d="M64.0 19.6 L66.3 26.7 L69.0 32.4 L71.2 35.5 L74.9 40.4 L81.1 39.6 L84.3 38.3 L89.5 39.7 L90.9 37.3 L93.3 31.8 L99.2 31.4 L99.7 29.7 L104.5 29.7 L103.7 33.1 L115.2 33.0 L115.4 39.0 L117.3 42.7 L115.9 48.4 L116.6 54.2 L119.8 57.7 L119.2 69.0 L121.6 68.1 L125.7 68.4 L131.6 67.0 L135.9 67.5 L136.9 70.5 L135.8 75.1 L137.5 79.5 L136.1 83.0 L136.9 86.3 L117.1 86.2 L116.7 116.4 L123.1 124.1 L129.3 130.0 L111.9 133.9 L88.9 132.6 L82.3 128.0 L43.9 128.4 L42.5 129.1 L36.8 124.8 L30.7 124.5 L25.0 126.1 L20.5 127.9 L19.6 122.0 L20.9 113.6 L24.1 105.0 L24.6 100.9 L27.7 92.4 L30.0 88.5 L35.4 82.3 L38.5 78.1 L39.5 71.0 L39.0 65.7 L36.1 62.3 L33.6 56.5 L31.3 50.8 L31.8 48.9 L34.7 45.1 L31.8 35.9 L29.9 29.6 L25.1 23.6 L26.0 21.8 L29.9 20.5 L32.7 20.7 L36.0 19.5 Z M27.1 17.8 L24.7 18.8 L22.2 11.7 L26.0 7.6 L28.9 6.0 L32.4 9.3 L29.0 11.2 L27.4 13.7 Z"
+            ></path>
+            <path
+              class="network-map__country"
+              data-country="namibia"
+              fill-rule="evenodd"
+              d="M64.2 234.8 L57.1 227.7 L53.4 220.7 L51.3 211.5 L49.0 204.6 L45.8 190.0 L45.6 178.7 L44.4 173.5 L40.7 169.6 L35.8 161.8 L30.8 150.4 L28.7 144.5 L21.0 135.2 L20.5 127.9 L25.0 126.1 L30.7 124.5 L36.8 124.8 L42.5 129.1 L43.9 128.4 L82.3 128.0 L88.9 132.6 L111.9 133.9 L129.3 130.0 L137.1 127.9 L143.2 128.4 L146.9 130.6 L141.7 133.5 L138.8 133.5 L132.7 137.2 L129.1 133.3 L114.5 136.6 L107.4 137.0 L107.2 170.7 L97.8 171.0 L97.8 198.7 L97.8 233.7 L89.4 238.6 L84.3 239.3 L78.3 237.5 L74.0 236.8 L72.4 232.7 L68.7 230.1 Z"
+            ></path>
+            <path
+              class="network-map__country"
+              data-country="botswana"
+              fill-rule="evenodd"
+              d="M152.4 139.6 L154.3 141.3 L157.3 146.8 L168.0 157.2 L172.0 158.3 L172.1 161.6 L174.9 167.6 L182.2 169.1 L188.2 173.3 L174.8 180.3 L166.3 187.4 L163.1 193.7 L160.3 197.3 L155.1 198.0 L153.5 202.6 L152.5 205.5 L146.4 207.7 L138.7 207.3 L134.2 204.6 L130.2 203.5 L125.6 205.7 L123.3 210.2 L118.8 213.1 L114.0 217.3 L107.2 218.3 L105.1 214.9 L106.0 209.1 L100.4 200.1 L97.8 198.7 L97.8 171.0 L107.2 170.7 L107.4 137.0 L114.5 136.6 L129.1 133.3 L132.7 137.2 L138.8 133.5 L141.7 133.5 L147.0 131.4 L148.7 132.1 Z"
+            ></path>
+            <path
+              class="network-map__country"
+              data-country="south-africa"
+              fill-rule="evenodd"
+              d="M208.0 241.3 L206.2 242.6 L202.2 247.5 L199.5 252.3 L194.1 259.1 L183.4 268.9 L176.7 274.6 L169.6 278.9 L159.7 282.6 L154.8 283.1 L153.6 285.7 L147.8 284.3 L143.2 286.1 L132.9 284.3 L127.1 285.4 L123.2 284.9 L113.4 288.7 L105.3 290.2 L99.5 293.8 L95.2 294.0 L91.2 290.6 L88.0 290.4 L83.9 286.2 L83.4 287.5 L82.2 285.0 L82.2 279.4 L79.1 273.1 L82.2 271.3 L82.0 264.1 L75.7 255.2 L71.0 247.2 L64.2 234.8 L68.7 230.1 L72.4 232.7 L74.0 236.8 L78.3 237.5 L84.3 239.3 L89.4 238.6 L97.8 233.7 L97.8 198.7 L100.4 200.1 L106.0 209.1 L105.1 214.9 L107.2 218.3 L114.0 217.3 L118.8 213.1 L123.3 210.2 L125.6 205.7 L130.2 203.5 L134.2 204.6 L138.7 207.3 L146.4 207.7 L152.5 205.5 L153.5 202.6 L155.1 198.0 L160.3 197.3 L163.1 193.7 L166.3 187.4 L174.8 180.3 L188.2 173.3 L192.1 173.4 L196.7 175.1 L199.9 173.9 L204.9 174.9 L209.4 188.2 L211.9 194.9 L210.2 205.5 L211.0 208.9 L206.2 207.2 L203.5 207.9 L202.6 210.6 L200.0 214.2 L200.1 217.4 L205.8 222.6 L211.3 221.6 L213.2 217.4 L220.4 217.4 L218.1 224.3 L216.9 232.2 L214.5 236.5 Z M183.9 238.4 L179.8 235.5 L175.4 237.4 L170.2 241.1 L165.2 247.1 L172.3 254.4 L175.7 253.5 L177.4 250.5 L182.7 249.0 L184.3 245.9 L187.2 241.3 Z"
+            ></path>
+          </g>
+          <g class="network-map__links">
+            <path
+              class="network-map__link"
+              pathLength="1"
+              d="M154.8 197.6 L34.6 47.7"
+            ></path>
+            <path
+              class="network-map__link"
+              pathLength="1"
+              d="M154.8 197.6 L71.1 177.9"
+            ></path>
+            <path
+              class="network-map__link"
+              pathLength="1"
+              d="M154.8 197.6 L144.0 236.4"
+            ></path>
+            <path
+              class="network-map__link"
+              pathLength="1"
+              d="M154.8 197.6 L177.6 244.9"
+            ></path>
+          </g>
+          <g class="network-map__nodes">
+            <g
+              class="network-map__node network-map__node--gateway"
+              data-country="gaborone"
+            >
+              <rect
+                class="network-map__gem"
+                x="-4.6"
+                y="-4.6"
+                width="9.2"
+                height="9.2"
+                transform="translate(154.8 197.6) rotate(45)"
+              ></rect>
+              <text
+                class="network-map__label"
+                x="161.8"
+                y="199.1"
+                text-anchor="start"
+              >
+                Gaborone
+              </text>
+            </g>
+            <g class="network-map__node" data-country="luanda">
+              <rect
+                class="network-map__gem"
+                x="-3.4"
+                y="-3.4"
+                width="6.8"
+                height="6.8"
+                transform="translate(34.6 47.7) rotate(45)"
+              ></rect>
+              <text
+                class="network-map__label"
+                x="41.6"
+                y="49.2"
+                text-anchor="start"
+              >
+                Luanda
+              </text>
+            </g>
+            <g class="network-map__node" data-country="windhoek">
+              <rect
+                class="network-map__gem"
+                x="-3.4"
+                y="-3.4"
+                width="6.8"
+                height="6.8"
+                transform="translate(71.1 177.9) rotate(45)"
+              ></rect>
+              <text
+                class="network-map__label"
+                x="78.1"
+                y="179.4"
+                text-anchor="start"
+              >
+                Windhoek
+              </text>
+            </g>
+            <g class="network-map__node" data-country="kimberley">
+              <rect
+                class="network-map__gem"
+                x="-3.4"
+                y="-3.4"
+                width="6.8"
+                height="6.8"
+                transform="translate(144.0 236.4) rotate(45)"
+              ></rect>
+              <text
+                class="network-map__label"
+                x="137.0"
+                y="237.9"
+                text-anchor="end"
+              >
+                Kimberley
+              </text>
+            </g>
+            <g class="network-map__node" data-country="maseru">
+              <rect
+                class="network-map__gem"
+                x="-3.4"
+                y="-3.4"
+                width="6.8"
+                height="6.8"
+                transform="translate(177.6 244.9) rotate(45)"
+              ></rect>
+              <text
+                class="network-map__label"
+                x="184.6"
+                y="246.4"
+                text-anchor="start"
+              >
+                Maseru
+              </text>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities band -->
+  <section class="capabilities reveal" aria-labelledby="capabilities-title">
+    <div class="container">
+      <h2 class="u-visually-hidden" id="capabilities-title">
+        What Lejwana does
+      </h2>
+      <div class="capabilities__grid">
+        <div class="capability">
+          <span class="capability__label">Provenance</span>
+          <span class="capability__gem" aria-hidden="true"></span>
+          <img
+            class="capability__icon"
+            src="<?php lejwana_the_asset( 'images/provenance-icon.jpg' ); ?>"
+            width="300"
+            height="300"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="capability__benefit">
+              Every diamond has a Diamond Passport, accessed by QR code. It traces the stone from its rough source and Kimberley Process certificate through cutting and polishing, with photographs, video and its GIA grading report.
+          </p>
+        </div>
+
+        <div class="capability">
+          <span class="capability__label">Sourcing</span>
+          <span class="capability__gem" aria-hidden="true"></span>
+          <img
+            class="capability__icon"
+            src="<?php lejwana_the_asset( 'images/sourcing-icon.jpg' ); ?>"
+            width="300"
+            height="300"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="capability__benefit">
+              Our network of trusted local cutters and polishers across Botswana, Angola, South Africa and Namibia gives us reliable access to polished goods with good make, sound grading, and the supporting documentation a jeweller needs.
+          </p>
+        </div>
+
+        <div class="capability">
+          <span class="capability__label">Partnership</span>
+          <span class="capability__gem" aria-hidden="true"></span>
+          <img
+            class="capability__icon"
+            src="<?php lejwana_the_asset( 'images/partnership-icon.jpg' ); ?>"
+            width="300"
+            height="300"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="capability__benefit">
+              We build long-term relationships through fair dealing, mutual benefit and trust. We are transparent where clarity matters, while remaining discreet where commercial confidence and trusted relationships matter.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section reveal" aria-labelledby="services-title">
+    <div class="container">
+      <h2 class="section__title" id="services-title">Services</h2>
+      <p class="section__intro">
+          Four ways to work with Lejwana, on the same network and the same documentation standard.
+      </p>
+      <div class="service-cards">
+        <article class="service-card">
+          <img
+            class="service-card__image"
+            src="<?php lejwana_the_asset( 'images/sourcing.jpeg' ); ?>"
+            width="1264"
+            height="843"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="service-card__name">Sourcing</h3>
+          <p class="service-card__copy">
+              Send the specification: shape, weight, colour, clarity, cut, fluorescence, certification, budget and timing. We work the regional network, view the goods on the ground, and come back with what fits, what it prices at against the list, and what documentation sits behind it.
+          </p>
+          <a class="text-link service-card__link" href="<?php lejwana_the_url( 'sourcing/' ); ?>"
+            >About sourcing</a
+          >
+        </article>
+        <article class="service-card">
+          <img
+            class="service-card__image"
+            src="<?php lejwana_the_asset( 'images/trading.jpeg' ); ?>"
+            width="1264"
+            height="843"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="service-card__name">Trading</h3>
+          <p class="service-card__copy">
+              Natural polished supplied against your requirement, from singles and matched pairs to parcels and layouts. GIA certification, laser inscription, Kimberley Process paperwork and provenance records travel with the goods where they exist. Fancy colour handled on the same terms.
+          </p>
+          <a class="text-link service-card__link" href="<?php lejwana_the_url( 'trading/' ); ?>">Explore trading</a>
+        </article>
+        <article class="service-card">
+          <img
+            class="service-card__image"
+            src="<?php lejwana_the_asset( 'images/advisory.jpeg' ); ?>"
+            width="1264"
+            height="844"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="service-card__name">Advisory</h3>
+          <p class="service-card__copy">
+              Rough-to-polished yield, polished pricing against the list, beneficiation policy, provenance pathways and local clearance. On retainer or by project, and independent of any purchase through Lejwana.
+          </p>
+          <a class="text-link service-card__link" href="<?php lejwana_the_url( 'advisory/' ); ?>">Discuss advisory</a>
+        </article>
+        <article class="service-card">
+          <img
+            class="service-card__image"
+            src="<?php lejwana_the_asset( 'images/diamond-mine.jpeg' ); ?>"
+            width="1408"
+            height="768"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="service-card__name">Provenance</h3>
+          <p class="service-card__copy">
+              Provenance is assessed stone by stone, or parcel by parcel. What is available varies with the goods and the source: GIA certification, laser inscription, Kimberley Process certification, rough imagery, cutting and polishing material, and transaction records.
+          </p>
+          <a class="text-link service-card__link" href="<?php lejwana_the_url( 'provenance/' ); ?>">Explore provenance</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value-chain rail: where the house sits in the pipeline -->
+  <section class="section section--sky reveal" aria-labelledby="rail-title">
+    <div class="container">
+      <h2 class="section__title" id="rail-title">Where We Sit in the Trade</h2>
+      <div class="section__prose">
+        <p>Lejwana connects the source with the jeweller, working across Botswana and Southern Africa to provide well-made natural diamonds with the documentation and provenance behind them.</p>
+        <p>We understand the journey from rough to polished, and the people, craftsmanship and value within it.</p>
+      </div>
+      <ol class="rail" role="list">
+        <li class="rail__stage">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/Mine.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="Open-pit mine terraces cut into a hillside"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Mine</span>
+          <span class="rail__detail">Botswana, Angola, South Africa, Namibia and Lesotho.</span>
+        </li>
+        <li class="rail__stage">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/Sort.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="A sorter examining a rough diamond through a loupe"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Sorting and valuation</span>
+          <span class="rail__detail">Rough is sorted, valued and prepared for sale.</span>
+        </li>
+        <li class="rail__stage">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/RoughTrading.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="Rough diamonds being traded across desks at an auction"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Rough trade</span>
+          <span class="rail__detail">Rough moves through authorised trading channels.</span>
+        </li>
+        <li class="rail__stage">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/Cut.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="A brilliant-cut diamond catching the light"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Cutting and polishing</span>
+          <span class="rail__detail">Local cutters and polishers turn rough into polished goods.</span>
+        </li>
+        <li class="rail__stage rail__stage--here" aria-current="true">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/Polished.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="Polished diamonds gathered on a sorting tray"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Polished sourcing</span>
+          <span class="rail__detail">Lejwana sources polished goods from regional cutters and polishers.</span>
+        </li>
+        <li class="rail__stage">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/JeweleryMaking.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="A dealer handling stones in parcel papers"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Jeweller</span>
+          <span class="rail__detail">The jeweller selects the goods and makes the finished piece.</span>
+        </li>
+        <li class="rail__stage">
+          <img
+            class="rail__image"
+            src="<?php lejwana_the_asset( 'images/Finger.jpg' ); ?>"
+            width="118"
+            height="118"
+            alt="A diamond ring worn on a hand"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="rail__name">Final customer</span>
+          <span class="rail__detail">The finished jewellery goes to the person who wears, gives or keeps it.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- The Network -->
+  <section
+    class="section reveal"
+    aria-labelledby="network-title"
+  >
+    <div class="container">
+      <div class="network__intro">
+        <div class="network__copy">
+          <h2 class="section__title" id="network-title">The SADC Diamond Network</h2>
+          <p class="section__subtitle">Connecting Southern Africa&rsquo;s diamond industry.</p>
+          <div class="section__prose">
+            <p>Lejwana works across Botswana, Angola, South Africa, Namibia and Lesotho, linking regional cutting and polishing with the polished diamond market.</p>
+            <p>Our regional knowledge helps clients source natural polished goods with the available documentation and provenance behind them.</p>
+          </div>
+        </div>
+        <div class="network__map">
+          <img class="network__map-image" data-country="botswana" src="<?php lejwana_the_asset( 'images/botswan-map.jpeg' ); ?>" width="1024" height="1049" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <img class="network__map-image" data-country="angola" src="<?php lejwana_the_asset( 'images/angola-map.jpeg' ); ?>" width="976" height="1097" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <img class="network__map-image" data-country="south-africa" src="<?php lejwana_the_asset( 'images/south-africa-map.jpeg' ); ?>" width="1111" height="944" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <img class="network__map-image" data-country="namibia" src="<?php lejwana_the_asset( 'images/namibia-map.jpeg' ); ?>" width="1053" height="1008" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+          <img class="network__map-image" data-country="lesotho" src="<?php lejwana_the_asset( 'images/lesotho-map.jpeg' ); ?>" width="1029" height="1024" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <span class="eyebrow">Country by country</span>
+      <div class="country-tabs">
+        <!-- Hidden until JS runs: without it the five countries read as stacked sections. -->
+        <div class="country-tabs__list" role="tablist" aria-label="Country by country" hidden>
+          <button class="country-tabs__tab" type="button" role="tab" id="tab-botswana" aria-controls="panel-botswana" aria-selected="true">Botswana</button>
+          <button class="country-tabs__tab" type="button" role="tab" id="tab-angola" aria-controls="panel-angola" aria-selected="false">Angola</button>
+          <button class="country-tabs__tab" type="button" role="tab" id="tab-south-africa" aria-controls="panel-south-africa" aria-selected="false">South Africa</button>
+          <button class="country-tabs__tab" type="button" role="tab" id="tab-namibia" aria-controls="panel-namibia" aria-selected="false">Namibia</button>
+          <button class="country-tabs__tab" type="button" role="tab" id="tab-lesotho" aria-controls="panel-lesotho" aria-selected="false">Lesotho</button>
+        </div>
+        <div class="country-tabs__panel" role="tabpanel" id="panel-botswana" aria-labelledby="tab-botswana" tabindex="0">
+          <h3 class="country-tabs__name">Botswana</h3>
+          <p>Botswana is a major source of rough diamonds and an established centre for sorting, valuation, sales and local cutting and polishing. Its mature downstream sector makes it an important part of the regional polished-diamond pipeline.</p>
+          <p><strong>Our role:</strong> Our presence in Botswana gives us a close view of local cutting and polishing activity and the records available with polished goods.</p>
+        </div>
+        <div class="country-tabs__panel" role="tabpanel" id="panel-angola" aria-labelledby="tab-angola" tabindex="0">
+          <h3 class="country-tabs__name">Angola</h3>
+          <p>Angola has significant rough-diamond production and a developing downstream sector. Supply routes, export processes and provenance documentation can require close local understanding.</p>
+          <p><strong>Our role:</strong> Our presence in Angola helps us understand available polished supply and the documentation that may accompany it.</p>
+        </div>
+        <div class="country-tabs__panel" role="tabpanel" id="panel-south-africa" aria-labelledby="tab-south-africa" tabindex="0">
+          <h3 class="country-tabs__name">South Africa</h3>
+          <p>South Africa has longstanding expertise in cutting, polishing, diamond trading and jewellery manufacture, alongside a broad technical skills base.</p>
+          <p><strong>Our role:</strong> Our presence in South Africa supports sourcing of polished goods to agreed specifications.</p>
+        </div>
+        <div class="country-tabs__panel" role="tabpanel" id="panel-namibia" aria-labelledby="tab-namibia" tabindex="0">
+          <h3 class="country-tabs__name">Namibia</h3>
+          <p>Namibia is known for specialist marine diamond production, with a distinct high-value supply profile and established export framework.</p>
+          <p><strong>Our role:</strong> Our presence in Namibia helps us identify polished goods associated with Namibian supply and the records available with them.</p>
+        </div>
+        <div class="country-tabs__panel" role="tabpanel" id="panel-lesotho" aria-labelledby="tab-lesotho" tabindex="0">
+          <h3 class="country-tabs__name">Lesotho</h3>
+          <p>Lesotho has a distinctive high value rough supply, including larger stones in some production, alongside a growing focus on local beneficiation, skills and diamond manufacturing.</p>
+          <p><strong>Our role:</strong> We contribute practical market insight, valuation and trade experience, and advisory support as local cutting, polishing and value addition develop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- The Southern Cut -->
+  <section class="section section--sky reveal" aria-labelledby="insight-title">
+    <div class="container">
+      <h2 class="section__title" id="insight-title">The Southern Cut</h2>
+      <p class="section__intro">
+          First-hand notes on Southern African supply, provenance and trade conditions. Published when there is something worth saying.
+      </p>
+      <div class="insight-grid">
+        <a
+          class="insight-card"
+          href="<?php lejwana_the_url( 'the-southern-cut/southern-africas-polished-moment/' ); ?>"
+        >
+          <span class="insight-card__category">The Region</span>
+          <h3 class="insight-card__title">
+            Southern Africa's polished moment: why the region is more than
+            rough
+          </h3>
+        </a>
+        <a
+          class="insight-card"
+          href="<?php lejwana_the_url( 'the-southern-cut/botswana-beyond-the-mine/' ); ?>"
+        >
+          <span class="insight-card__category">The Region</span>
+          <h3 class="insight-card__title">
+            Botswana beyond the mine: beneficiation, ODC, and a national
+            diamond strategy
+          </h3>
+        </a>
+        <a
+          class="insight-card"
+          href="<?php lejwana_the_url( 'the-southern-cut/what-angolan-production-is-becoming/' ); ?>"
+        >
+          <span class="insight-card__category">The Region</span>
+          <h3 class="insight-card__title">
+            What Angolan production is becoming
+          </h3>
+        </a>
+      </div>
+      <p class="section__cta section__cta--start">
+        <a class="text-link" href="<?php lejwana_the_url( 'the-southern-cut/' ); ?>">Visit The Southern Cut</a>
+      </p>
+    </div>
+  </section>
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <h2 class="cta-band__title">Send us a specification</h2>
+      <p class="cta-band__body">Tell us the goods you need. We will tell you what is available, what it prices at, and what documentation comes with it.</p>
+      <a class="button button--on-dark" href="<?php lejwana_the_url( 'contact/' ); ?>">Submit your specification</a>
+    </div>
+  </section>
+</main>
+
+<?php get_footer(); ?>

@@ -80,8 +80,8 @@
 
   /* ------------------------------------------------------------------
      03. Enquiry form (validation + specification pre-fill from Sourcing)
-     NOTE: front-end only. Wire `action` to the form handler
-     (e.g. server endpoint or form service) before launch.
+     Validates only. When the form has an `action` (WordPress), a valid
+     form posts natively; without one (static preview) it fakes success.
      ------------------------------------------------------------------ */
   var form = document.querySelector('.form');
 
@@ -99,8 +99,6 @@
     }
 
     form.addEventListener('submit', function (event) {
-      event.preventDefault();
-
       var valid = true;
       var fields = form.querySelectorAll('[required]');
 
@@ -116,8 +114,10 @@
         if (!fieldValid) { valid = false; }
       });
 
-      if (valid) {
-        // Replace with real submission before launch.
+      if (!valid) { event.preventDefault(); return; }
+
+      if (!form.getAttribute('action')) {
+        event.preventDefault();
         form.querySelector('.form__success').classList.add('form__success--visible');
         form.reset();
       }
