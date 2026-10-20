@@ -10,3 +10,6 @@ images/sky.png
 images/about.jpg/
 images/diamond-pattern.svg
 wp/theme/lejwana/assets/
+
+# Built by scripts/build-wp-package.sh
+dist/

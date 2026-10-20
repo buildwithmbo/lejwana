@@ -1,67 +1,43 @@
 # LAUNCH.md — Natural Polished Diamonds · Southern Africa
 
-Deployment target and everything that must be resolved before the site goes
-live. The build is static and dependency-free: deploying is copying the repo
-root (minus the gitignored internal files) to a host.
+How the WordPress site goes live. Plan and phases: `docs/WORDPRESS.md`. Checks:
+`docs/QA.md`. Phases 1 to 7 are done on the local site; this is phase 8.
 
-## Deployment
+## What we hold
 
-- **Host / DNS:** [CONFIRM: host and domain not yet chosen]
-- **Deploy method:** [CONFIRM: not yet chosen — static host, any of Netlify/
-  Cloudflare Pages/S3 works; no build step required]
-- **Publish root:** repo root. `.gitignore` already excludes `docs/`,
-  `CLAUDE.md`, `.claude/`, `scripts/`, `screenshots/` and all `*.md` from the
-  public repo, so internal material never reaches the live domain.
+Run `sh scripts/build-wp-package.sh`. It writes three files to `dist/`:
 
-## Blockers — must be resolved before launch
+| File | Goes to | Purpose |
+|---|---|---|
+| `lejwana-theme.zip` | Appearance → Themes → Add → Upload | The site |
+| `lejwana-core.zip` | Plugins → Add → Upload | Events, article search fields, contact form |
+| `lejwana-migration.zip` | SFTP, temporary | Moves the 22 events and 12 articles in. Delete afterwards |
 
-Each of these ships as a placeholder today. `[CONFIRM: …]` markers are in the
-markup where the content belongs.
+## Cut-over runbook (SiteGround GoGeek, staging first)
 
-1. **Gaborone address** — placeholder in the footer of all 14 pages and in the
-   Contact locations block. Markers: `[CONFIRM: full Gaborone street address]`.
-2. **Cal.com link** — `contact.html` uses placeholder `lejwana/intro`. Replace
-   with the real booking link. The embed is lazy-loaded on click, so the page
-   stays fast; keep it that way.
-3. **Form handler** — front-end validation only. Wire the form `action` to a
-   mail handler (server endpoint or form service) and remove the stub success
-   state in `js/main.js`. **The enquiry form does not currently send anything.**
-   This is the one blocker that silently loses leads if missed. The form is
-   now live on `contact.html` (2026-09-24 — was previously commented out
-   entirely) with Sourcing's specification builder feeding into it via a
-   query string, but this blocker is otherwise unchanged: nothing on either
-   page sends anywhere until a handler is wired.
-4. **Article dates** — the six launch articles carry placeholder monthly dates
-   (Mar–Aug 2026). Set real publication dates.
-5. **Wordmark** — currently an HTML/CSS lockup matching the brief (wide-tracked
-   sans, sapphire, gold gem). Replace with the finalised SVG when supplied.
-6. **Photography** — none ships. Slots are commented where the brief's approved
-   subjects belong: home hero (`.hero--dark` ground) and the Insight featured
-   panel (`.insight-featured__ground`). Approved subjects only — see DESIGN.md §7.
-7. **Meta descriptions** — confirm per page; several are placeholders.
-8. **Favicon + og image** — done: `images/favicon.svg` (diamond) and `images/og-image.jpg` (1200×630 crop of `about-hero.jpg`), tagged on all 24 pages. `og:image` and `og:url` use absolute `https://lejwana.com/` URLs.
-9. **Analytics** — not included. Add if wanted, before launch.
+Do each step on **staging**, check it, then repeat on production or push staging live.
 
-## Open questions for the client
+1. **Fresh WordPress** at the site root. PHP 8.4 or later (Site Tools → Devs → PHP Manager). Keep SiteGround's Speed Optimizer and Security Optimizer; add no other plugins.
+2. **Upload and activate** `lejwana-core` first, then the `lejwana` theme. Activating the theme creates the pages, categories and the `/the-southern-cut/%postname%/` permalinks.
+3. **Settings → Reading:** untick "Discourage search engines" only at go-live (leave it ticked on staging). Check Settings → General: site title, admin email, timezone Africa/Gaborone.
+4. **Move the content.** Unzip `lejwana-migration.zip` into a temporary folder on the server, then from that folder run `wp eval-file scripts/migrate-content.php`. Expect "Events migrated: 22" and "Articles migrated: 12". Delete the folder. The theme does not need it.
+5. **Redirects.** Paste `wp/redirects.htaccess` above `# BEGIN WordPress` in `.htaccess`. Test a few old URLs (`/about.html`, `/the-southern-cut/on-yield.html`, `/insight`).
+6. **Caching.** Site Tools → Speed → Caching: exclude `/contact/` (the form has a nonce). Flush the cache after each change.
+7. **Mail.** Confirm the mailbox `info@lejwana.com` exists. Send a test enquiry from `/contact/` and check it lands in the inbox, not spam. This is the conversion goal, so do not skip it.
+8. **Run the checks on the staging URL:** `/usr/bin/python3 scripts/review.py <url>`, `scripts/keyboard.py`, `scripts/check-redirects.py <url>`, Lighthouse on mobile (HTTPS, so best-practices should now pass).
+9. **Editor login.** Users → Add New, role Editor, for the client. Send the password separately. Hand over `docs/CLIENT_GUIDE.md`.
+10. **Backups and updates.** Site Tools → Security → Backups: confirm daily backups. WordPress core minor updates are automatic; Settings in Site Tools → WordPress → Auto-update for plugins and themes.
+11. **Go live.** Push staging to production. The domain is already at SiteGround, so there is no DNS change; confirm the existing mail records are untouched. Enforce HTTPS (Site Tools → Security → HTTPS Enforce).
+12. **After:** repeat step 8 on `https://lejwana.com`, submit `https://lejwana.com/wp-sitemap.xml` to Google Search Console, retire the static files.
+13. **Acceptance:** the client adds a test event and a test article unaided, then trashes them.
 
-- **Page count** — the source brief says nine pages, the sitemap lists eight.
-  Built to the eight-page sitemap. Confirm what the ninth was.
-- **Self-hosted fonts** — currently Google Fonts. Self-host if zero third-party
-  requests is a requirement (DESIGN.md §12).
-- **CMS** — this is the static launch build. The Insight section is structured
-  to map cleanly onto a CMS when one is chosen: title, category, standfirst,
-  date, body, related and closing CTA are all discrete blocks, and the
-  categories match the five approved ones.
+## Open before launch
 
-## Sequence
-
-1. QA.md complete — per-page checks and the pre-launch block
-2. All `[CONFIRM: …]` markers resolved (`grep -rn CONFIRM . --include=*.html`)
-3. Client sign-off
-4. Deploy
-5. Post-launch: run `scripts/review.py <live-url>`, submit sitemap if there is one
-
-## Phase Two
-
-Inventory and Toolkit are excluded from navigation and this build, per brief.
-Neither enters navigation until live and maintained (DESIGN.md §11).
+- **Gaborone address:** placeholder `[CONFIRM: full Gaborone street address]` in the footer (`footer.php`) and the contact locations block.
+- **Cal.com link:** placeholder on the contact page.
+- **Newsletter handler:** The Southern Cut Brief form only validates; it sends nowhere. Pick a list provider.
+- **Explainers button:** held back until the explainers have a destination.
+- **Explainer fact-checks:** 10 `[CONFIRM]` comments inside the explainers (content, so the client sees them in the editor); resolve before publishing.
+- **Analytics:** none included.
+- **Copy review:** the client reviews copy before it is published (WORDPRESS.md §9).
+- **Self-hosted fonts:** currently Google Fonts; decide if zero third-party requests is required.
