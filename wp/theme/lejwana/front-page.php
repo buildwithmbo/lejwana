@@ -33,7 +33,7 @@ get_header();
     <div class="container container--wide hero__split">
       <div>
         <h1 class="hero__title">
-          Make the invisible visible.
+          Every Diamond Has a Story.
         </h1>
         <p class="hero__body">
           Natural diamonds sourced from Botswana and Southern Africa, with provenance that connects every stone to its journey, people and place.

@@ -926,3 +926,7 @@ Message: The address may have changed, or the page may have moved. Return to the
 Buttons: Go to the homepage; Contact us.
 Meta description: The page you asked for could not be found. Return to the Lejwana homepage or contact us.
 Title: Page not found | Lejwana
+
+### Homepage hero heading - changed 2026-10-21 by the user
+
+Heading: Every Diamond Has a Story. (was: Make the invisible visible.)
