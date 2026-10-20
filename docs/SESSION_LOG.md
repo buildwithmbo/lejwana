@@ -2,6 +2,22 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-10-20 (6) — WordPress phase 5: content migrated
+
+Added article search title/description fields to `lejwana-core` (`87866bb`), then
+`scripts/migrate-content.php` (run with `wp eval-file`; idempotent). Local site
+now holds 22 events (from `events.html`) and 12 articles (6 insights, 6
+explainers) as block markup, with category, month date, excerpt (insight card
+standfirst, or the explainer's lead line) and the original `<title>` and meta
+description in the search fields. All 10 in-article `[CONFIRM]` comments kept.
+Deleted the phase 2 test event "Diamond Expo".
+**State:** with JS off, events, insights and all 12 article bodies, titles and
+meta match the static pages. One difference: WordPress curls straight
+apostrophes in 6 articles (e.g. "buyer's" → "buyer’s"); the rest of the site
+already uses curly. Kept; flag if verbatim straight is wanted. Related articles
+are automatic, so they differ from the static ones. Zero console errors.
+**Next:** phase 6, homepage ticker from events.
+
 ## 2026-10-20 (5) — WordPress phase 4: Southern Cut templates built
 
 Added `page-the-southern-cut.php` (hub), `page-events.php` (What's on),
