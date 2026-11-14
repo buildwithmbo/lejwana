@@ -943,3 +943,10 @@ Line below buttons: MEMBER OF THE LONDON DIAMOND BOURSE
 ### Homepage capability cards - reordered 2026-11-14, client feedback
 
 Order is now Sourcing, Partnership, Provenance (was Provenance, Sourcing, Partnership). Each icon moves with its card.
+
+### Advisory hero - changed 2026-11-14, client feedback
+
+Heading: Navigate the Diamond Pipeline (was: Read the Southern African pipeline.)
+Description: We provide expert guidance at every critical stage, from accurate rough diamond assessment and realistic yield forecasting to verified provenance and traceability. (replaces: Yield, pricing, provenance pathways and clearance, turned into a decision.)
+Page title: Southern African Diamond Expertise | Assessment & Provenance (was: Advisory | Rough-to-Polished Economics and Market Intelligence | Lejwana)
+Meta description: Navigate the Southern African diamond pipeline with expert guidance on rough diamond assessment, yield forecasting, provenance verification and traceability.

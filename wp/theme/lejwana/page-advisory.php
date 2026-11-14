@@ -1,7 +1,7 @@
 <?php
 lejwana_set_page_meta(
-  'Advisory | Rough-to-Polished Economics and Market Intelligence | Lejwana',
-  'Rough-to-polished modelling and first-hand Southern African market intelligence, from a house run by a certified polisher and valuator. Retainer, project or briefing.'
+  'Southern African Diamond Expertise | Assessment & Provenance',
+  'Navigate the Southern African diamond pipeline with expert guidance on rough diamond assessment, yield forecasting, provenance verification and traceability.'
 );
 get_header();
 ?>
@@ -12,8 +12,8 @@ get_header();
     <div class="container hero__split">
       <div>
         <span class="eyebrow">Services &middot; Advisory</span>
-        <h1>Read the Southern African pipeline.</h1>
-        <p class="hero__subheading">Yield, pricing, provenance pathways and clearance, turned into a decision.</p>
+        <h1>Navigate the Diamond Pipeline</h1>
+        <p class="hero__subheading">We provide expert guidance at every critical stage, from accurate rough diamond assessment and realistic yield forecasting to verified provenance and traceability.</p>
       </div>
       <div class="hero__figure">
         <img class="hero__figure-image" src="<?php lejwana_the_asset( 'images/advisory-hero.jpg' ); ?>" width="1339" height="784" alt="" aria-hidden="true">
