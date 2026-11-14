@@ -950,3 +950,7 @@ Heading: Navigate the Diamond Pipeline (was: Read the Southern African pipeline.
 Description: We provide expert guidance at every critical stage, from accurate rough diamond assessment and realistic yield forecasting to verified provenance and traceability. (replaces: Yield, pricing, provenance pathways and clearance, turned into a decision.)
 Page title: Southern African Diamond Expertise | Assessment & Provenance (was: Advisory | Rough-to-Polished Economics and Market Intelligence | Lejwana)
 Meta description: Navigate the Southern African diamond pipeline with expert guidance on rough diamond assessment, yield forecasting, provenance verification and traceability.
+
+### Advisory cards - changed 2026-11-14, client feedback
+
+Five cards replaced in place, same order and icons: Rough-to-Polished Yield Modelling; Pricing & Rapaport Benchmarking; Beneficiation, Kimberley Process & Provenance; Beneficiation & Downstream Operations; Assorting, Grading & Bench Training. Full text is in the advisory page markup.
