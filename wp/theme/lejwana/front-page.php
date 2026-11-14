@@ -33,13 +33,16 @@ get_header();
     <div class="container container--wide hero__split">
       <div>
         <h1 class="hero__title">
-          Every Diamond Has a Story.
+          Southern African Diamond Sourcing
         </h1>
-        <p class="hero__body">
-          Natural diamonds sourced from Botswana and Southern Africa, with provenance that connects every stone to its journey, people and place.
-        </p>
         <p class="hero__highlight">
-          Trace the origin. Reveal the journey. Share the story.
+          Natural polished diamonds, sourced to your specification.
+        </p>
+        <p class="hero__body">
+          For your polished diamond and selected rough requirements, our experienced team works directly with you and our regional network of cutting and polishing works and dealers. We support selection, valuation and negotiation, handle compliance documentation and coordinate secure, timely delivery.
+        </p>
+        <p class="hero__body">
+          Our traceability ecosystem helps you share the goods’ documented origin and journey with your client.
         </p>
         <div class="hero__actions">
           <a class="button button--on-dark" href="<?php lejwana_the_url( 'contact/' ); ?>"
@@ -47,6 +50,9 @@ get_header();
           <a class="button button--ghost-on-dark" href="<?php lejwana_the_url( 'provenance/' ); ?>"
             >Explore provenance</a>
         </div>
+        <p class="eyebrow hero__membership">
+          MEMBER OF THE LONDON DIAMOND BOURSE
+        </p>
       </div>
       <div class="hero__map">
         <svg
@@ -219,24 +225,6 @@ get_header();
       </h2>
       <div class="capabilities__grid">
         <div class="capability">
-          <span class="capability__label">Provenance</span>
-          <span class="capability__gem" aria-hidden="true"></span>
-          <img
-            class="capability__icon"
-            src="<?php lejwana_the_asset( 'images/provenance-icon.jpg' ); ?>"
-            width="300"
-            height="300"
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          />
-          <p class="capability__benefit">
-              Every diamond has a Diamond Passport, accessed by QR code. It traces the stone from its rough source and Kimberley Process certificate through cutting and polishing, with photographs, video and its GIA grading report.
-          </p>
-        </div>
-
-        <div class="capability">
           <span class="capability__label">Sourcing</span>
           <span class="capability__gem" aria-hidden="true"></span>
           <img
@@ -271,6 +259,24 @@ get_header();
               We build long-term relationships through fair dealing, mutual benefit and trust. We are transparent where clarity matters, while remaining discreet where commercial confidence and trusted relationships matter.
           </p>
         </div>
+        <div class="capability">
+          <span class="capability__label">Provenance</span>
+          <span class="capability__gem" aria-hidden="true"></span>
+          <img
+            class="capability__icon"
+            src="<?php lejwana_the_asset( 'images/provenance-icon.jpg' ); ?>"
+            width="300"
+            height="300"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="capability__benefit">
+              Every diamond has a Diamond Passport, accessed by QR code. It traces the stone from its rough source and Kimberley Process certificate through cutting and polishing, with photographs, video and its GIA grading report.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>

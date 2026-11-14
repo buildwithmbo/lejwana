@@ -487,6 +487,11 @@ a {
 .hero__highlight {
   color: var(--colour-ice-light);
   font-style: italic;
+  margin-top: var(--space-2);
+}
+
+.hero__membership {
+  margin-top: var(--space-4);
 }
 
 /* Dark stone variant — the mesh ground from the comp. Flat sapphire for the

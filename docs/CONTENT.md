@@ -930,3 +930,16 @@ Title: Page not found | Lejwana
 ### Homepage hero heading - changed 2026-10-21 by the user
 
 Heading: Every Diamond Has a Story. (was: Make the invisible visible.)
+
+### Homepage hero copy - changed 2026-11-14, client feedback
+
+Heading: Southern African Diamond Sourcing (was: Every Diamond Has a Story.)
+Tagline: Natural polished diamonds, sourced to your specification.
+Body 1: For your polished diamond and selected rough requirements, our experienced team works directly with you and our regional network of cutting and polishing works and dealers. We support selection, valuation and negotiation, handle compliance documentation and coordinate secure, timely delivery.
+Body 2: Our traceability ecosystem helps you share the goods’ documented origin and journey with your client.
+Buttons: Submit your specification; Explore provenance.
+Line below buttons: MEMBER OF THE LONDON DIAMOND BOURSE
+
+### Homepage capability cards - reordered 2026-11-14, client feedback
+
+Order is now Sourcing, Partnership, Provenance (was Provenance, Sourcing, Partnership). Each icon moves with its card.
