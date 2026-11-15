@@ -2,6 +2,20 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-15 (2) — The Southern Cut rebuilt, deployed to staging2
+
+**Done (`cbc91bb`, pushed to `origin/wp`):** from `BUILD-BRIEF.md` and the designer's screenshots. DESIGN.md §14 agreed first.
+Front page (lead story, Next in the trade card, Latest intelligence + Most read, What's on), All intelligence, Calendar,
+in the static pages and the WP theme. Event rows with Africa/Gaborone countdowns in JS, no-JS filters upgraded to buttons,
+`.ics` per event and `/?lj_ics=all` feed, Sight type, Source URL, "Most read" tick. Old table calendar and `.intel` CSS removed.
+User calls: client's newer intros win; keep explainers and Brief band below; existing categories; "Who can attend" dropped; Brief copy kept.
+**Deployed to staging2** with backups `~/backups/staging2-{theme,plugin}-before-southern-cut-2026-11-15.tgz`. Pages 200, zero console
+errors, feeds valid. De Beers Sights 8–10 set to type Sight on staging only (repeat on production).
+**Problems:** tender label failed AA (4.49:1), now white with an olive border. contrast.py flags the dark card's focus ring (false positive, ring measured ~8:1).
+Hub and calendar overflowed at 390px, fixed. contrast.py cannot take URLs.
+**Open:** Most read hidden until articles are ticked; Lucara tagged Botswana? Sight 10 countries; hub empty message says 30 days; clear page cache daily.
+**Next:** client adds a test event and ticks Most read in WP admin; then production cut-over.
+
 ## 2026-11-15 — Client feedback applied, deployed to staging2
 
 **Done (static + theme, committed `b9ebf64`, `08b5d99`, `46aed94`, `ea5b754`, pushed to `origin/wp`):**
