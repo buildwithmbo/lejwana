@@ -5,14 +5,23 @@ lejwana_set_page_meta(
 );
 get_header();
 
-$events = lejwana_get_events( true, LEJWANA_HUB_EVENT_COUNT );
-$intel  = new WP_Query(
+$articles  = get_posts(
   array(
-    'posts_per_page' => LEJWANA_HUB_INTEL_COUNT,
+    'posts_per_page'   => 3,
     'category__not_in' => array( lejwana_get_explainers_category_id() ),
-    'no_found_rows'  => true,
+    'no_found_rows'    => true,
   )
 );
+$lead      = array_shift( $articles );
+$most_read = lejwana_get_most_read();
+$upcoming  = lejwana_get_events( true );
+$next      = $upcoming ? $upcoming[0] : null;
+$then      = array_slice( $upcoming, 1, LEJWANA_HUB_THEN_COUNT );
+$type      = isset( $_GET['type'] ) ? sanitize_key( wp_unslash( $_GET['type'] ) ) : '';
+$type      = array_key_exists( $type, LEJWANA_EVENT_TYPES ) ? $type : '';
+$shown     = array_slice( array_filter( $upcoming, function ( $event ) use ( $type ) { return lejwana_event_matches( $event, $type, '' ); } ), 0, LEJWANA_HUB_EVENT_COUNT );
+$shown_ids = wp_list_pluck( $shown, 'ID' );
+$type_tabs = array( '' => 'All', 'result' => 'Results', 'tender' => 'Tenders', 'sale' => 'Sales', 'sight' => 'Sights' );
 ?>
 
 <!-- In the trade: ticker. Duplicates the calendar below for sighted users
@@ -38,29 +47,100 @@ $intel  = new WP_Query(
     </div>
   </section>
 
-  <!-- What's on + Latest intelligence -->
-  <section class="section section--sky hub-grid-section">
-    <div class="container container--wide">
-      <div class="hub-grid">
-        <div class="hub-grid__primary whats-on" id="dates">
-          <h2 class="section__title" id="dates-title">What&rsquo;s on</h2>
-          <p class="whats-on__intro">Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers.</p>
-          <?php get_template_part( 'template-parts/events-table', null, array( 'events' => $events ) ); ?>
-          <a class="button button--ghost hub-grid__more" href="<?php lejwana_the_url( 'the-southern-cut/events/' ); ?>" aria-label="Read more about events and dates">Read more</a>
-          <p class="calendar-note">Dates can change. Confirm participation, customer registration, viewing rights and auction terms directly with the organiser before acting.</p>
-        </div>
+<?php get_template_part( 'template-parts/section-nav', null, array( 'current' => 'hub' ) ); ?>
 
-        <div class="hub-grid__secondary intel" id="intelligence" role="region" aria-labelledby="intelligence-title">
-          <h2 class="section__title" id="intelligence-title">Latest intelligence</h2>
-          <p class="intel__intro">Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future.</p>
-          <ul class="intel__list" id="intel-list">
-            <?php while ( $intel->have_posts() ) : $intel->the_post(); ?>
-              <?php get_template_part( 'template-parts/intel-item', null, array( 'heading' => 'h3' ) ); ?>
-            <?php endwhile; wp_reset_postdata(); ?>
-          </ul>
-          <a class="button button--ghost hub-grid__more" href="<?php lejwana_the_url( 'the-southern-cut/insights/' ); ?>" aria-label="Read more about latest intelligence">Read more</a>
-        </div>
+  <?php if ( $lead || $next ) : ?>
+  <!-- Lead story + next event -->
+  <section class="section" aria-labelledby="lead-title">
+    <div class="container container--wide front__grid">
+      <?php if ( $lead ) : ?>
+        <article class="front__lead">
+          <?php $lead_category = lejwana_get_primary_category( $lead->ID ); ?>
+          <?php if ( $lead_category ) : ?><span class="intel-card__category"><?php echo esc_html( $lead_category->name ); ?></span><?php endif; ?>
+          <h2 class="intel-card__title" id="lead-title"><?php echo esc_html( get_the_title( $lead ) ); ?></h2>
+          <p class="intel-card__standfirst"><?php echo esc_html( get_the_excerpt( $lead ) ); ?></p>
+          <p class="intel-card__meta"><?php echo esc_html( lejwana_get_article_card_meta( $lead->ID ) ); ?></p>
+          <a class="text-link" href="<?php echo esc_url( get_permalink( $lead ) ); ?>">Read the briefing &rarr;</a>
+        </article>
+      <?php endif; ?>
+      <?php if ( $next ) : ?>
+        <?php
+        $next_start  = get_post_meta( $next->ID, 'lj_start_date', true );
+        $next_end    = lejwana_get_event_end( $next->ID );
+        $next_status = lejwana_get_countdown( $next_start, $next_end );
+        $next_type   = get_post_meta( $next->ID, 'lj_type', true );
+        $is_count    = $next_status['days'] > 1;
+        ?>
+        <aside class="next-card" aria-labelledby="next-title" data-start="<?php echo esc_attr( $next_start ); ?>" data-end="<?php echo esc_attr( $next_end ); ?>">
+          <h2 class="next-card__label" id="next-title">Next in the trade</h2>
+          <p class="next-card__count<?php echo $is_count ? '' : ' next-card__count--word'; ?>"><?php echo esc_html( $is_count ? $next_status['days'] : $next_status['label'] ); ?><span class="next-card__unit"><?php echo $is_count ? 'days' : ''; ?></span></p>
+          <h3 class="next-card__title"><?php echo esc_html( get_the_title( $next ) ); ?></h3>
+          <p class="next-card__meta"><?php echo esc_html( date_create( $next_start )->format( 'D j M Y' ) . ' · ' . get_post_meta( $next->ID, 'lj_place', true ) . ( $next_type ? ' · ' . lejwana_get_event_type_label( $next_type ) : '' ) ); ?></p>
+          <a class="button button--on-dark" href="<?php echo esc_url( lejwana_get_calendar_url( $next->ID ) ); ?>">Add to calendar</a>
+          <div class="next-card__then">
+            <?php if ( $then ) : ?>
+              <p class="next-card__then-label">Then</p>
+              <ul class="next-card__then-list">
+                <?php foreach ( $then as $event ) : ?>
+                  <li class="next-card__then-item" data-start="<?php echo esc_attr( get_post_meta( $event->ID, 'lj_start_date', true ) ); ?>" data-end="<?php echo esc_attr( lejwana_get_event_end( $event->ID ) ); ?>"><span><?php echo esc_html( get_the_title( $event ) ); ?></span><span class="next-card__then-days"><?php echo esc_html( lejwana_get_countdown( get_post_meta( $event->ID, 'lj_start_date', true ), lejwana_get_event_end( $event->ID ) )['label'] ); ?></span></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
+            <a class="next-card__link" href="<?php lejwana_the_url( 'the-southern-cut/events/' ); ?>">Full calendar</a>
+          </div>
+        </aside>
+      <?php endif; ?>
+    </div>
+  </section>
+  <?php endif; ?>
+
+  <!-- Latest intelligence -->
+  <section class="section" id="intelligence" aria-labelledby="intelligence-title">
+    <div class="container container--wide">
+      <div class="latest__head">
+        <h2 class="section__title" id="intelligence-title">Latest intelligence</h2>
+        <a class="text-link" href="<?php lejwana_the_url( 'the-southern-cut/insights/' ); ?>">All intelligence &rarr;</a>
       </div>
+      <p class="section__intro">Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future.</p>
+      <div class="latest">
+        <ul class="intel-grid intel-grid--pair">
+          <?php global $post; ?>
+          <?php foreach ( $articles as $post ) : setup_postdata( $post ); ?>
+            <?php get_template_part( 'template-parts/intel-card', null, array( 'heading' => 'h3' ) ); ?>
+          <?php endforeach; wp_reset_postdata(); ?>
+        </ul>
+        <?php if ( $most_read ) : ?>
+          <aside class="most-read" aria-labelledby="most-read-title">
+            <h3 class="most-read__title" id="most-read-title">Most read</h3>
+            <ol class="most-read__list">
+              <?php foreach ( $most_read as $article ) : ?>
+                <li class="most-read__item"><a class="most-read__link" href="<?php echo esc_url( get_permalink( $article ) ); ?>"><?php echo esc_html( get_the_title( $article ) ); ?></a></li>
+              <?php endforeach; ?>
+            </ol>
+          </aside>
+        <?php endif; ?>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's on -->
+  <section class="section section--sky" id="dates" aria-labelledby="dates-title">
+    <div class="container container--wide">
+      <h2 class="section__title" id="dates-title">What&rsquo;s on</h2>
+      <p class="section__intro">Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers.</p>
+      <div class="pill-group event-types" role="group" aria-label="Filter by type">
+        <?php foreach ( $type_tabs as $slug => $label ) : ?>
+          <a class="pill<?php echo $slug === $type ? ' pill--active' : ''; ?>" href="<?php echo esc_url( $slug ? add_query_arg( 'type', $slug, get_permalink() ) : get_permalink() ); ?>" data-filter="<?php echo esc_attr( $slug ? $slug : 'all' ); ?>"<?php echo $slug === $type ? ' aria-current="true"' : ''; ?>><?php echo esc_html( $label ); ?></a>
+        <?php endforeach; ?>
+      </div>
+      <ul class="event-list" data-event-list="hub">
+        <?php foreach ( $upcoming as $event ) : ?>
+          <?php get_template_part( 'template-parts/event-row', null, array( 'event' => $event, 'hidden' => ! in_array( $event->ID, $shown_ids, true ) ) ); ?>
+        <?php endforeach; ?>
+      </ul>
+      <p class="event-empty"<?php echo $shown ? ' hidden' : ''; ?>>Nothing of this type in the next 30 days.</p>
+      <a class="text-link event-more" href="<?php lejwana_the_url( 'the-southern-cut/events/' ); ?>">See full calendar &rarr;</a>
+      <p class="calendar-note">Dates can change. Confirm participation, customer registration, viewing rights and auction terms directly with the organiser before acting.</p>
     </div>
   </section>
 

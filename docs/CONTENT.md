@@ -960,3 +960,11 @@ Five cards replaced in place, same order and icons: Rough-to-Polished Yield Mode
 Latest Intelligence: Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future. (was: Short reads. Each links out to the full piece.)
 What’s On: Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers. (was: Officially published sales, tenders, reporting dates and events, checked against organiser and producer sources. Access requirements vary - confirm before acting.)
 Applied the same day to the Insights and Events sub-pages: on-page intros, meta descriptions and og:description.
+
+### The Southern Cut rebuild - 2026-11-15, from BUILD-BRIEF.md
+
+Copy placed from the brief and the designer's screenshots: "Next in the trade", "Then", "Full calendar", "Add to calendar", "Latest intelligence", "All intelligence", "Most read", "Read the briefing", "What's on", "All intelligence" page heading, the type and country filter labels, "Show past events", "Spotted a date we're missing? Tell us", and the empty states "Nothing of this type in the next 30 days." and "Nothing scheduled for this filter yet." The intros are the client's newer copy (see above), not the designer's.
+Dropped: the empty-state line "Get the Weekly Cut and you'll hear as soon as one is published." (no newsletter handler yet). New microcopy, mine: "No reads tagged {Topic} yet." (brief) and "No reads published yet." (shown only if the site has no articles at all).
+"Who can attend" was dropped by the user (2026-11-15): no field, no column. Open [CONFIRM]s: that Lucara Q3 results is tagged Botswana; the "Most read" picks (the three newest ticked articles show, the static pages use the designer's three). The Southern Cut Brief band keeps its existing copy (user, 2026-11-15). Dec 2026 and Jan 2027 rows in the designer's calendar were placeholders and were not built.
+Data: De Beers Sight 9 and 10 are now type Sight. Sight 10 keeps Botswana, Namibia and South Africa as its countries; the brief says Botswana and Namibia only.
+

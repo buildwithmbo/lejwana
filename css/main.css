@@ -98,6 +98,7 @@
   --size-body: 1.0625rem;
   --size-small: 0.875rem;
   --size-eyebrow: 0.8125rem;
+  --size-countdown: clamp(3rem, 9vw, 4.5rem);  /* the Next in the trade day count */
 
   --leading-body: 1.65;
   --leading-heading: 1.2;
@@ -107,6 +108,8 @@
   /* Layout */
   --width-site: 1140px;
   --width-reading: 680px;
+  --width-date-block: 4.625rem;   /* the event row's month/day box */
+  --width-intel-card: 18.75rem;   /* narrowest an intelligence card gets before the grid drops a column */
 
   /* Distance from the viewport edge to the container's text edge. Lets a
      full-bleed band keep its copy aligned with the rest of the page. Resolves
@@ -1501,14 +1504,9 @@ a {
   color: var(--colour-alpine);
 }
 
-.pill__count {
-  opacity: 0.7;
-  margin-left: 0.15rem;
-}
-
 /* In the trade — the ticker. The one deliberate exception to the sitewide
    no-looping-animation rule (DESIGN.md §8), agreed 2026-09-25. Every item it
-   shows also lives in .whats-on below, so it stays aria-hidden and JS-only —
+   shows also lives in the event list on the page, so it stays aria-hidden and JS-only —
    a screen reader is never asked to track moving text, and prefers-reduced-
    motion (§16) already kills the animation for everyone who asks. */
 .ticker {
@@ -1587,9 +1585,7 @@ a {
   transform: rotate(45deg);
 }
 
-/* Trade status — shared by the ticker and .whats-on's table. Without JS this
-   stays the plain "Confirmed" text CONTENT.md gives every row; JS replaces
-   it with the computed label and a colour. Botswana blue for "live" reuses
+/* Trade status — the ticker's countdown badge, coloured by state. Botswana blue for "live" reuses
    the nav's active-state colour rather than adding green, which isn't in
    the palette; gold marks "today" as the eyebrow/urgency colour already
    does; muted grey covers both "ended" and a plain day-count. */
@@ -1630,143 +1626,599 @@ a {
   opacity: 1;
 }
 
-/* What's on — the unified trade calendar. Reuses .network-table (shared with
-   About and The Network — only the status/type cells below are new). */
-.hub-grid-section {
-  padding-block: var(--space-5);
+/* ---- The Southern Cut sections (DESIGN.md §14, agreed 2026-11-15) ---- */
+
+/* Section sub-nav — The Southern Cut · Intelligence · Calendar. Page links,
+   not the in-page jumps .hub-subnav used to carry. Active uses the header
+   nav's own Botswana-ink underline. Scrolls sideways at phone width rather
+   than wrapping, like every .pill group. */
+.section-nav {
+  border-bottom: 1px solid var(--colour-sky);
 }
 
-.hub-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: var(--space-5);
-  align-items: start;
-}
-
-/* Grid items default to min-width: auto, which is their content's intrinsic
-   width — here, the table's 40rem min-width (.network-table). Without this,
-   .whats-on__table pushes the whole column wider than the viewport instead
-   of scrolling inside .network-table__scroll as it's meant to. */
-.hub-grid__primary,
-.hub-grid__secondary {
-  min-width: 0;
-}
-
-.whats-on,
-.intel {
-  background: var(--colour-alpine);
-  border: 1px solid var(--colour-sky);
-  border-radius: 0.3125rem;
-  padding: var(--space-4);
-}
-
-.whats-on__intro {
-  max-width: var(--width-reading);
-  margin-bottom: var(--space-3);
-}
-
-.whats-on__filters,
-.whats-on__region {
-  margin-bottom: var(--space-3);
-}
-
-.hub-grid__more {
-  display: inline-block;
-  margin-top: var(--space-3);
-}
-
-.listing-back {
-  display: inline-block;
-  margin-bottom: var(--space-3);
-}
-
-.whats-on__type {
+.section-nav__name {
   display: block;
+  padding-top: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  color: var(--colour-sapphire);
+  text-decoration: none;
+}
+
+.section-nav__list {
+  display: flex;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.section-nav__link {
+  display: block;
+  padding-block: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--colour-sapphire);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.section-nav__link:hover {
+  border-bottom-color: var(--colour-botswana);
+}
+
+.section-nav__link--active {
+  font-weight: 500;
+  border-bottom-color: var(--colour-botswana-ink);
+}
+
+/* An anchor wearing .pill (the no-JS filter) needs the button's box. */
+a.pill {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Event labels. One look per type, all from tints the palette already has;
+   Sight is the solid one so the four stay distinguishable without colour
+   alone (the word is always printed). A type the client adds later, and the
+   existing "Event" type, fall back to the neutral sky label. */
+.event-label {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.3125rem;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--colour-muted);
-  margin-top: 0.2rem;
+  background: var(--colour-sky);
+  color: var(--colour-sapphire);
 }
 
-/* The type label beneath each event already marks the row as a link target;
-   the .text-link rule is dropped here so the calendar reads as a plain list. */
-.whats-on__table .text-link {
-  border-bottom: 0;
-  padding-bottom: 0;
+.event-label--result {
+  background: var(--ground-gold);
+  color: var(--colour-gold-ink);
 }
 
-/* Filtered out by type or region — kept in the DOM (not display: none via a
-   third state) so the row count in each pill stays a simple, honest count of
-   what's rendered. */
-.whats-on__table tbody tr[hidden] {
+.event-label--tender {
+  background: var(--colour-alpine);
+  border-color: var(--colour-olive);
+  color: var(--colour-olive-ink);
+}
+
+.event-label--sale {
+  background: var(--ground-icey);
+  color: var(--colour-botswana-ink);
+}
+
+.event-label--sight {
+  background: var(--colour-sapphire);
+  color: var(--colour-alpine);
+}
+
+/* Event rows — date block, label + title + place, countdown, add-to-calendar.
+   A list, not the old table. */
+.event-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--colour-alpine);
+}
+
+.event-types {
+  margin-bottom: var(--space-3);
+}
+
+.event-more {
+  display: inline-block;
+  margin-top: var(--space-3);
+}
+
+.event-list[hidden],
+.event-row[hidden],
+.event-month[hidden] {
   display: none;
 }
 
-/* Latest intelligence — a narrow list, not the three-up .insight-grid card
-   (that block is untouched and still used on Home and every article's
-   related-reading footer). */
-.intel__intro {
+.event-row {
+  display: grid;
+  grid-template-columns: var(--width-date-block) 1fr auto auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--colour-sky);
+}
+
+.event-row__date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.4rem 0.25rem;
+  border: 1px solid var(--colour-sky);
+  text-align: center;
+}
+
+.event-row__month {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold-ink);
+}
+
+.event-row__day {
+  font-family: var(--font-heading);
+  font-size: var(--size-h2);
+  line-height: 1.1;
+  color: var(--colour-sapphire);
+}
+
+.event-row__to {
+  font-size: 0.6875rem;
   color: var(--colour-muted);
-  margin-bottom: var(--space-3);
 }
 
-.intel__filters {
-  margin-bottom: var(--space-3);
+.event-row__title {
+  margin-top: 0.25rem;
+  font-size: 1.1875rem;
+  font-weight: 400;
 }
 
-.intel__list {
+.event-row__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.event-row__title a:hover {
+  color: var(--colour-botswana-ink);
+}
+
+.event-row__place {
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
+.event-row__status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  background: var(--colour-sky);
+  font-size: var(--size-small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.event-row__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--colour-sky);
+  color: var(--colour-sapphire);
+}
+
+.event-row__add:hover {
+  background: var(--colour-sky);
+}
+
+.event-row__add svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.event-empty {
+  padding: var(--space-3);
+  background: var(--colour-alpine);
+  color: var(--colour-muted);
+}
+
+.event-empty[hidden] {
+  display: none;
+}
+
+/* "Next in the trade" — the dark panel beside the lead story. Same sapphire
+   sweep .cta-band and .explainer-band use. */
+.next-card {
+  --focus-ring: var(--colour-ice);
+  padding: var(--space-4);
+  background: linear-gradient(120deg, var(--colour-sapphire) 0%, var(--mesh-rise) 50%, var(--colour-sapphire) 100%);
+  color: var(--colour-alpine);
+}
+
+.next-card__label {
+  font-size: var(--size-eyebrow);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-gold-light);
+}
+
+.next-card__count {
+  margin-top: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--size-countdown);
+  line-height: 1;
+  color: var(--colour-alpine);
+}
+
+.next-card__count--word {
+  font-size: var(--size-h1);
+}
+
+.next-card__unit {
+  margin-left: 0.5rem;
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  color: var(--colour-ice-light);
+}
+
+.next-card__title {
+  margin-top: var(--space-2);
+  font-size: var(--size-h3);
+  color: var(--colour-alpine);
+}
+
+.next-card__meta {
+  font-size: var(--size-small);
+  color: var(--colour-ice-light);
+}
+
+.next-card .button {
+  margin-top: var(--space-3);
+}
+
+.next-card__then {
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--mesh-rise);
+  font-size: var(--size-small);
+}
+
+.next-card__then-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--colour-ice-light);
+}
+
+.next-card__then-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-1) 0 var(--space-2);
+}
+
+.next-card__then-days {
+  white-space: nowrap;
+}
+
+.next-card__then-item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: 0.2rem;
+}
+
+.next-card__link {
+  color: var(--colour-alpine);
+}
+
+/* Intelligence cards — the hub's two latest reads and every card on the
+   archive. The lead modifier is the "Latest" feature card: full width, big
+   headline. The badge exists in every card's markup and shows only on the
+   lead, so filtering can hand the badge to whichever card is first without
+   touching the markup. */
+.intel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--width-intel-card), 1fr));
+  gap: var(--space-3);
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.intel__list li[hidden] {
+.intel-grid[hidden],
+.intel-card[hidden] {
   display: none;
 }
 
-.intel__list li + li {
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--colour-sky);
+.intel-grid--pair {
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.intel__item {
-  display: block;
+.intel-card {
+  background: var(--colour-alpine);
+  border-top: 1px solid var(--colour-sapphire);
+}
+
+.intel-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-3);
   text-decoration: none;
+  color: inherit;
 }
 
-.intel__category {
-  display: block;
-  font-weight: 500;
+.intel-card__category {
   font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--colour-olive-ink);
-  margin-bottom: var(--space-1);
 }
 
-.intel__item-title {
-  font-size: 1.0625rem;
+.intel-card__title {
+  margin-top: var(--space-1);
+  font-size: 1.375rem;
+  line-height: var(--leading-heading);
 }
 
-.intel__item:hover .intel__item-title {
+.intel-card__link:hover .intel-card__title {
   color: var(--colour-olive-ink);
 }
 
-.intel__standfirst {
+.intel-card__standfirst {
   margin-top: var(--space-1);
   font-size: 0.9375rem;
   color: var(--colour-charcoal);
 }
 
-.intel__read {
+.intel-card__meta {
+  margin-top: auto;
+  padding-top: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
+.intel-card__badge {
+  display: none;
+  margin-right: var(--space-1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.3125rem;
+  background: var(--ground-gold);
+  color: var(--colour-gold-ink);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.intel-card--lead {
+  grid-column: 1 / -1;
+  border-top-width: 2px;
+}
+
+.intel-card--lead .intel-card__link {
+  padding: var(--space-4);
+}
+
+.intel-card--lead .intel-card__badge {
+  display: inline-block;
+}
+
+.intel-card--lead .intel-card__title {
+  max-width: 24ch;
+  font-size: var(--size-h1);
+}
+
+.intel-card--lead .intel-card__standfirst {
+  max-width: var(--width-reading);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.1875rem;
+}
+
+/* Hub front: lead story beside the Next in the trade card. */
+.front__grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 24rem);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.front__lead {
+  border-top: 2px solid var(--colour-sapphire);
+  padding-top: var(--space-3);
+}
+
+.front__lead .intel-card__title {
+  max-width: 24ch;
+  font-size: var(--size-h1);
+}
+
+.front__lead .intel-card__standfirst {
+  max-width: var(--width-reading);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.1875rem;
+}
+
+.front__lead .text-link {
   display: inline-block;
   margin-top: var(--space-2);
-  font-size: var(--size-small);
+}
+
+.latest {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 20rem);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.latest__head .text-link {
+  white-space: nowrap;
+}
+
+.latest__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.most-read {
+  padding: var(--space-3);
+  background: var(--colour-sky);
+}
+
+.most-read__title {
+  font-size: var(--size-eyebrow);
   font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  color: var(--colour-gold-ink);
+}
+
+.most-read__list {
+  list-style: none;
+  counter-reset: most-read;
+  padding: 0;
+  margin: var(--space-2) 0 0;
+}
+
+.most-read__item {
+  counter-increment: most-read;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: var(--space-1);
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--colour-alpine);
+}
+
+.most-read__item::before {
+  content: counter(most-read);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--colour-sapphire);
+}
+
+.most-read__link {
+  color: var(--colour-sapphire);
+  text-decoration: none;
+}
+
+.most-read__link:hover {
   color: var(--colour-botswana-ink);
+}
+
+/* Calendar page. */
+.event-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--colour-alpine);
+  margin-bottom: var(--space-4);
+}
+
+.event-filter__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.event-filter__apply[hidden] {
+  display: none;
+}
+
+.event-filter__count {
+  margin-left: auto;
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
+.event-month {
+  margin-bottom: var(--space-4);
+}
+
+.event-month__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid var(--colour-sapphire);
+}
+
+.event-month__title {
+  font-size: var(--size-h2);
+}
+
+.event-month__count {
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
+.event-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: var(--size-small);
+  color: var(--colour-muted);
+}
+
+/* Archive pagination — pill-shaped, so it needs no new button look. */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+}
+
+.pager__link {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--colour-sapphire);
+  border-radius: 0.3125rem;
+  background: var(--colour-alpine);
+  color: var(--colour-sapphire);
+  font-size: var(--size-small);
+  text-decoration: none;
+}
+
+.pager__link:hover {
+  background: var(--colour-sky);
+}
+
+.pager__link--current,
+.pager__link--current:hover {
+  background: var(--colour-sapphire);
+  color: var(--colour-alpine);
+}
+
+.pager__link--off {
+  border-color: var(--colour-sky);
+  color: var(--colour-muted);
+  pointer-events: none;
 }
 
 /* Trade explainers — numbered cards, replacing the plain bulleted list.
@@ -2908,10 +3360,9 @@ a {
     gap: var(--space-4);
   }
 
-  /* Calendar first, then intelligence. */
-  .hub-grid {
+  .front__grid,
+  .latest {
     grid-template-columns: 1fr;
-    gap: var(--space-4);
   }
 
   .explainer-grid__head {
@@ -3108,6 +3559,28 @@ a {
 }
 
 @media (max-width: 700px) {
+  /* The row stacks: date and title side by side, the rest beneath the title. */
+  .event-row {
+    grid-template-columns: var(--width-date-block) 1fr auto;
+    grid-template-areas:
+      "date main add"
+      "date status status";
+    gap: var(--space-1) var(--space-2);
+  }
+
+  .event-row__date { grid-area: date; }
+  .event-row__main { grid-area: main; }
+  .event-row__status { grid-area: status; justify-self: start; }
+  .event-row__add { grid-area: add; }
+
+  .event-filter__count {
+    margin-left: 0;
+  }
+
+  .intel-grid--pair {
+    grid-template-columns: 1fr;
+  }
+
   .contact-channels,
   .location-cards,
   .related__grid,

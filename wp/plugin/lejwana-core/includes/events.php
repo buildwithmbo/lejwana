@@ -18,6 +18,7 @@ const LEJWANA_EVENT_TYPES = array(
 	'sale'   => 'Sale',
 	'tender' => 'Tender',
 	'result' => 'Result',
+	'sight'  => 'Sight',
 	'event'  => 'Event',
 );
 
@@ -28,6 +29,7 @@ function lejwana_event_fields() {
 		'lj_type'       => array( 'label' => 'Type', 'kind' => 'type' ),
 		'lj_link_url'   => array( 'label' => 'Link URL', 'kind' => 'url' ),
 		'lj_place'      => array( 'label' => 'Place', 'kind' => 'text' ),
+		'lj_source_url' => array( 'label' => 'Source URL (where the date was verified)', 'kind' => 'url' ),
 		'lj_status'     => array( 'label' => 'Status note', 'kind' => 'text' ),
 	);
 }

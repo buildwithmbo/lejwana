@@ -7,9 +7,9 @@
    02. Copy email
    03. Enquiry form validation
    04. Cal.com lazy embed
-   05. Filter pills (shared helper — hub page only)
-   06. Trade ticker + What's on (hub page only)
-   07. Latest intelligence filter (hub page only)
+   05. Filter pills (links that become buttons)
+   06. Events: countdowns, filters, ticker (hub, calendar, homepage ticker)
+   07. Intelligence archive filter
    08. Country tabs (SADC network)
    09. Scroll reveal + map entrance
    10. Map / country interlink
@@ -146,56 +146,131 @@
 
   /* ------------------------------------------------------------------
      05. Filter pills
-     Shared by the filter-pill groups on the events and insights pages
-     (country, calendar type, intelligence category) — one toggle behaviour, extracted once three
-     call sites needed it. Each group stays hidden until wired, since the
-     buttons do nothing without JS.
+     Filters are plain links first (?type=tender), so they work without JS.
+     Here each link becomes a real button carrying aria-pressed, and the
+     list filters in place. The URL is kept in step, so a filtered view can
+     be shared and a reload keeps it.
      ------------------------------------------------------------------ */
-  function wirePillGroup(group, onChange) {
-    if (!group) { return; }
-    var pills = Array.prototype.slice.call(group.querySelectorAll('.pill'));
+  function linkToButton(link) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = link.className;
+    button.textContent = link.textContent;
+    button.setAttribute('data-filter', link.getAttribute('data-filter'));
+    link.parentNode.replaceChild(button, link);
+    return button;
+  }
 
+  function setActivePill(pills, value) {
+    pills.forEach(function (pill) {
+      var active = pill.getAttribute('data-filter') === value;
+      pill.classList.toggle('pill--active', active);
+      pill.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function wirePillGroup(group, initial, onChange) {
+    if (!group) { return; }
+    var pills = Array.prototype.slice.call(group.querySelectorAll('.pill')).map(function (pill) {
+      return pill.tagName === 'A' ? linkToButton(pill) : pill;
+    });
+    setActivePill(pills, initial);
     pills.forEach(function (pill) {
       pill.addEventListener('click', function () {
-        pills.forEach(function (p) {
-          var active = p === pill;
-          p.classList.toggle('pill--active', active);
-          p.setAttribute('aria-pressed', String(active));
-        });
+        setActivePill(pills, pill.getAttribute('data-filter'));
         onChange(pill.getAttribute('data-filter'));
       });
     });
-
-    group.hidden = false;
   }
 
-  function setPillCounts(group, countFor) {
-    if (!group) { return; }
-    Array.prototype.slice.call(group.querySelectorAll('.pill')).forEach(function (pill) {
-      var count = document.createElement('span');
-      count.className = 'pill__count';
-      count.textContent = countFor(pill.getAttribute('data-filter'));
-      pill.appendChild(count);
-    });
+  function getParam(name) {
+    return new URLSearchParams(window.location.search).get(name) || 'all';
+  }
+
+  function setParam(name, value) {
+    var url = new URL(window.location.href);
+    if (value === 'all') { url.searchParams.delete(name); } else { url.searchParams.set(name, value); }
+    window.history.replaceState(null, '', url);
   }
 
   /* ------------------------------------------------------------------
-     06. Trade ticker + What's on
-     The calendar renders in full in the markup; this computes each row's
-     status from real dates, filters rows by type and region, and builds
-     the ticker from whatever isn't "ended". Without JS every row stands,
-     its .trade-status reading CONTENT.md's plain "Confirmed" text, and
-     the ticker — which would only be a duplicate of the table, minus the
-     badge that's its only reason to exist — stays hidden.
+     06. Events: countdowns, filters, the ticker
+     Counts are worked out here, from today in Africa/Gaborone, so a cached
+     page never shows a stale "In 3 days". The server still prints a first
+     answer, so the page reads correctly without JS.
      ------------------------------------------------------------------ */
-  var datesTable = document.getElementById('dates-table');
+  var MS_PER_DAY = 86400000;
+  var HUB_EVENT_LIMIT = 5;
+  var TICKER_EVENT_LIMIT = 8;
+  var gaboroneToday = new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Gaborone' }).format(new Date());
+
+  function dayNumber(isoDate) {
+    return Date.parse(isoDate + 'T00:00:00Z') / MS_PER_DAY;
+  }
+
+  function countdown(start, end) {
+    var today = dayNumber(gaboroneToday);
+    var from = dayNumber(start);
+    var to = dayNumber(end);
+    var daysUntil = from - today;
+
+    if (today > to) { return { label: 'Ended', modifier: 'ended', days: 0 }; }
+    if (today === from) { return { label: 'Today', modifier: 'today', days: 0 }; }
+    if (today > from) { return { label: 'On now', modifier: 'live', days: 0 }; }
+    if (daysUntil === 1) { return { label: 'Tomorrow', modifier: 'upcoming', days: 1 }; }
+    return { label: 'In ' + daysUntil + ' days', modifier: 'upcoming', days: daysUntil };
+  }
+
+  function countdownFor(el) {
+    return countdown(el.getAttribute('data-start'), el.getAttribute('data-end'));
+  }
+
+  var eventRows = Array.prototype.slice.call(document.querySelectorAll('.event-row'));
+
+  eventRows.forEach(function (row) {
+    var status = countdownFor(row);
+    row.dataset.status = status.modifier;
+    row.querySelector('.event-row__status').textContent = status.label;
+  });
+
+  var nextCard = document.querySelector('.next-card');
+
+  if (nextCard) {
+    var nextStatus = countdownFor(nextCard);
+    var nextCount = nextCard.querySelector('.next-card__count');
+    var nextUnit = document.createElement('span');
+    nextUnit.className = 'next-card__unit';
+    nextUnit.textContent = nextStatus.days > 1 ? 'days' : '';
+    nextCount.textContent = nextStatus.days > 1 ? String(nextStatus.days) : nextStatus.label;
+    nextCount.classList.toggle('next-card__count--word', nextStatus.days <= 1);
+    nextCount.appendChild(nextUnit);
+
+    nextCard.querySelectorAll('.next-card__then-item').forEach(function (item) {
+      item.querySelector('.next-card__then-days').textContent = countdownFor(item).label;
+    });
+  }
+
   var ticker = document.querySelector('.ticker');
   var tickerTrack = document.querySelector('.ticker__track');
+
+  function buildTickerItem(name, status) {
+    var item = document.createElement('li');
+    item.className = 'ticker__item';
+    var label = document.createElement('span');
+    label.className = 'ticker__item-name';
+    label.textContent = name;
+    var badge = document.createElement('span');
+    badge.className = 'trade-status trade-status--' + status.modifier;
+    badge.textContent = status.label;
+    item.appendChild(label);
+    item.appendChild(badge);
+    return item;
+  }
 
   function showTicker(items) {
     if (!ticker || !tickerTrack || !items.length) { return; }
     // The duplicate set is only what makes the CSS animation's -50%
-    // translate loop seamless — under reduced motion (§16 kills the
+    // translate loop seamless. Under reduced motion (§16 kills the
     // animation outright) it would just show every item twice.
     var reducesMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var looped = reducesMotion ? items : items.concat(items.map(function (item) {
@@ -206,140 +281,159 @@
     ticker.hidden = false;
   }
 
-  function setTradeStatus(row) {
-    var status = tradeStatus(row);
-    var statusEl = row.querySelector('.trade-status');
-    statusEl.textContent = status.label;
-    statusEl.className = 'trade-status trade-status--' + status.modifier;
-    row.dataset.status = status.modifier;
-  }
-
-  // Homepage: the ticker items are written in the markup with their own dates.
-  if (!datesTable) {
-    var markupItems = Array.prototype.slice.call(tickerTrack ? tickerTrack.children : []);
-    markupItems.forEach(setTradeStatus);
-    showTicker(markupItems.filter(function (item) {
-      return item.dataset.status !== 'ended';
-    }));
-  }
-
-  function tradeStatus(row) {
-    var start = new Date(row.getAttribute('data-start') + 'T00:00:00');
-    var end = new Date(row.getAttribute('data-end') + 'T00:00:00');
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var msPerDay = 86400000;
-
-    if (today > end) {
-      return { label: 'Ended', modifier: 'ended' };
-    }
-    if (today < start) {
-      var daysUntil = Math.round((start - today) / msPerDay);
-      return {
-        label: 'In ' + daysUntil + (daysUntil === 1 ? ' day' : ' days'),
-        modifier: 'upcoming'
-      };
-    }
-    if (start.getTime() === end.getTime()) {
-      return { label: 'Today', modifier: 'today' };
-    }
-    return {
-      label: 'Live · day ' + (Math.round((today - start) / msPerDay) + 1) +
-        ' of ' + (Math.round((end - start) / msPerDay) + 1),
-      modifier: 'live'
-    };
-  }
-
-  function buildTickerItem(row) {
-    var item = document.createElement('li');
-    item.className = 'ticker__item';
-
-    var name = document.createElement('span');
-    name.className = 'ticker__item-name';
-    name.textContent = row.querySelector('td:nth-child(2) a, td:nth-child(2) .whats-on__name').textContent;
-
-    item.appendChild(name);
-    item.appendChild(row.querySelector('.trade-status').cloneNode(true));
-    return item;
-  }
-
-  if (datesTable) {
-    var dateRows = Array.prototype.slice.call(datesTable.querySelectorAll('tbody tr'));
-
-    dateRows.forEach(setTradeStatus);
-
-    // Ended rows sink to the bottom, so what's still ahead reads first.
-    // Array sort is stable, so dates keep order.
-    var sortedRows = dateRows.slice().sort(function (a, b) {
-      return (a.dataset.status === 'ended') - (b.dataset.status === 'ended');
-    });
-    sortedRows.forEach(function (row) { row.parentNode.appendChild(row); });
-    dateRows = sortedRows;
-
-    showTicker(dateRows.filter(function (row) {
+  // Homepage: the items are written in the markup with their own dates.
+  // Hub and calendar: they come from the event rows.
+  if (ticker && tickerTrack) {
+    var markupItems = Array.prototype.slice.call(tickerTrack.children);
+    var tickerItems = markupItems.length ? markupItems.filter(function (item) {
+      var status = countdownFor(item);
+      item.querySelector('.trade-status').className = 'trade-status trade-status--' + status.modifier;
+      item.querySelector('.trade-status').textContent = status.label;
+      return status.modifier !== 'ended';
+    }) : eventRows.filter(function (row) {
       return row.dataset.status !== 'ended';
-    }).map(buildTickerItem));
+    }).slice(0, TICKER_EVENT_LIMIT).map(function (row) {
+      return buildTickerItem(row.querySelector('.event-row__title').textContent.trim(), countdownFor(row));
+    });
+    showTicker(tickerItems);
+  }
 
-    var activeType = 'all';
-    var activeRegion = 'all';
+  // Hub: the next few events, by type.
+  var hubEvents = document.querySelector('[data-event-list="hub"]');
 
-    function applyCalendarFilters() {
-      dateRows.forEach(function (row) {
-        var typeMatch = activeType === 'all' || row.getAttribute('data-type') === activeType;
-        var regionMatch = activeRegion === 'all' ||
-          row.getAttribute('data-region').indexOf(activeRegion) !== -1;
-        row.hidden = !(typeMatch && regionMatch);
+  function showHubEvents(type) {
+    var shown = 0;
+    eventRows.forEach(function (row) {
+      var match = row.dataset.status !== 'ended' && (type === 'all' || row.getAttribute('data-type') === type);
+      row.hidden = !(match && shown < HUB_EVENT_LIMIT);
+      if (!row.hidden) { shown += 1; }
+    });
+    document.querySelector('.event-empty').hidden = shown > 0;
+  }
+
+  if (hubEvents) {
+    var hubType = getParam('type');
+    wirePillGroup(document.querySelector('.event-types'), hubType, function (value) {
+      setParam('type', value);
+      showHubEvents(value);
+    });
+    showHubEvents(hubType);
+  }
+
+  // Calendar: month groups, type and country filters, past events.
+  var calendar = document.querySelector('[data-event-list="calendar"]');
+
+  function pluralise(count, noun) {
+    return count + ' ' + noun + (count === 1 ? '' : 's');
+  }
+
+  function reverseChildren(parent, selector) {
+    Array.prototype.slice.call(parent.querySelectorAll(selector)).reverse().forEach(function (child) {
+      child.parentNode.appendChild(child);
+    });
+  }
+
+  if (calendar) {
+    var months = Array.prototype.slice.call(calendar.querySelectorAll('.event-month'));
+    var countryField = document.querySelector('.event-filter__country');
+    var pastLink = document.querySelector('.event-foot__past');
+    var countEl = document.querySelector('.event-filter__count');
+    var calendarState = { type: getParam('type'), country: getParam('country'), past: getParam('past') === '1' };
+
+    function applyCalendar() {
+      var total = 0;
+      months.forEach(function (month) {
+        var visible = 0;
+        month.querySelectorAll('.event-row').forEach(function (row) {
+          var ended = row.dataset.status === 'ended';
+          var match = ended === calendarState.past &&
+            (calendarState.type === 'all' || row.getAttribute('data-type') === calendarState.type) &&
+            (calendarState.country === 'all' || row.getAttribute('data-region').split(' ').indexOf(calendarState.country) !== -1);
+          row.hidden = !match;
+          if (match) { visible += 1; }
+        });
+        month.hidden = visible === 0;
+        month.querySelector('.event-month__count').textContent = pluralise(visible, 'event');
+        total += visible;
+      });
+      countEl.textContent = pluralise(total, calendarState.past ? 'past event' : 'upcoming event');
+      document.querySelector('.event-empty').hidden = total > 0;
+      pastLink.textContent = calendarState.past ? 'Show upcoming events' : 'Show past events';
+    }
+
+    // Past events read newest first. The server already prints them that way
+    // when it renders the past view; the static pages hold every event oldest first.
+    var newestFirst = calendar.hasAttribute('data-newest-first');
+
+    function setOrder(wantNewestFirst) {
+      if (wantNewestFirst === newestFirst) { return; }
+      reverseChildren(calendar, '.event-month');
+      months = Array.prototype.slice.call(calendar.querySelectorAll('.event-month'));
+      months.forEach(function (month) { reverseChildren(month, '.event-row'); });
+      newestFirst = wantNewestFirst;
+    }
+
+    wirePillGroup(document.querySelector('.event-types'), calendarState.type, function (value) {
+      calendarState.type = value;
+      setParam('type', value);
+      applyCalendar();
+    });
+
+    countryField.value = calendarState.country;
+    countryField.addEventListener('change', function () {
+      calendarState.country = countryField.value;
+      setParam('country', calendarState.country);
+      applyCalendar();
+    });
+    document.querySelector('.event-filter__apply').hidden = true;
+
+    // WordPress only prints one of the two views, so there the link stays a link.
+    if (calendar.hasAttribute('data-all-events')) {
+      pastLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        calendarState.past = !calendarState.past;
+        setParam('past', calendarState.past ? '1' : 'all');
+        setOrder(calendarState.past);
+        applyCalendar();
       });
     }
 
-    var typeFilters = document.querySelector('.whats-on__filters');
-    wirePillGroup(typeFilters, function (value) {
-      activeType = value;
-      applyCalendarFilters();
-    });
-    setPillCounts(typeFilters, function (value) {
-      return dateRows.filter(function (row) {
-        return value === 'all' || row.getAttribute('data-type') === value;
-      }).length;
-    });
-
-    wirePillGroup(document.querySelector('.whats-on__region'), function (value) {
-      activeRegion = value;
-      applyCalendarFilters();
-    });
-
-    applyCalendarFilters();
+    setOrder(calendarState.past);
+    applyCalendar();
   }
 
   /* ------------------------------------------------------------------
-     07. Latest intelligence filter
+     07. Intelligence archive filter
+     Filtering hands the "Latest" feature card to whichever article is now
+     first. With more than one page of articles the list is filtered by the
+     server instead, so the links stay as they are.
      ------------------------------------------------------------------ */
-  var intelItems = Array.prototype.slice.call(document.querySelectorAll('.intel__item'));
+  var intelGrid = document.querySelector('.intel-grid[data-filterable]');
+  var intelCards = Array.prototype.slice.call(document.querySelectorAll('.intel-grid[data-filterable] .intel-card'));
 
-  if (intelItems.length) {
-    var intelFilters = document.querySelector('.intel__filters');
-    var activeIntelCategory = 'all';
-
-    function applyIntelFilters() {
-      intelItems.forEach(function (item) {
-        var categoryMatch = activeIntelCategory === 'all' ||
-          item.getAttribute('data-category') === activeIntelCategory;
-        item.parentElement.hidden = !categoryMatch;
-      });
-    }
-
-    wirePillGroup(intelFilters, function (value) {
-      activeIntelCategory = value;
-      applyIntelFilters();
+  function applyIntelFilter(topic, topicName) {
+    var first = null;
+    intelCards.forEach(function (card) {
+      var match = topic === 'all' || card.getAttribute('data-category') === topic;
+      card.hidden = !match;
+      card.classList.remove('intel-card--lead');
+      if (match && !first) { first = card; }
     });
+    if (first) { first.classList.add('intel-card--lead'); }
+    var empty = document.querySelector('.intel-empty');
+    empty.hidden = Boolean(first);
+    empty.textContent = 'No reads tagged ' + topicName + ' yet.';
+  }
 
-    setPillCounts(intelFilters, function (value) {
-      return intelItems.filter(function (item) {
-        return value === 'all' || item.getAttribute('data-category') === value;
-      }).length;
+  if (intelGrid) {
+    var intelFilter = document.querySelector('.intel-filter');
+    var intelTopic = getParam('topic');
+    wirePillGroup(intelFilter, intelTopic, function (value) {
+      setParam('topic', value);
+      applyIntelFilter(value, intelFilter.querySelector('[data-filter="' + value + '"]').textContent);
     });
-
-    applyIntelFilters();
+    var activeTopic = intelFilter.querySelector('[data-filter="' + intelTopic + '"]');
+    applyIntelFilter(intelTopic, activeTopic ? activeTopic.textContent : '');
   }
 
   /* ------------------------------------------------------------------

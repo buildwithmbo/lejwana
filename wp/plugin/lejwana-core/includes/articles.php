@@ -2,6 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 const LEJWANA_ARTICLE_NONCE = 'lejwana_article_search_fields';
+const LEJWANA_FEATURED_META = 'lj_featured';
 
 // Empty means the theme falls back to the article title and excerpt.
 function lejwana_article_search_fields() {
@@ -27,6 +28,22 @@ function lejwana_register_article_fields() {
 }
 add_action( 'init', 'lejwana_register_article_fields' );
 
+function lejwana_register_featured_field() {
+	register_post_meta(
+		'post',
+		LEJWANA_FEATURED_META,
+		array(
+			'type'              => 'string',
+			'single'            => true,
+			'sanitize_callback' => function ( $value ) {
+				return '1' === $value ? '1' : '';
+			},
+			'show_in_rest'      => false,
+		)
+	);
+}
+add_action( 'init', 'lejwana_register_featured_field' );
+
 function lejwana_add_article_meta_box() {
 	add_meta_box( 'lejwana-article-search', 'Search results text', 'lejwana_render_article_meta_box', 'post', 'normal', 'default' );
 }
@@ -49,6 +66,9 @@ function lejwana_render_article_meta_box( $post ) {
 	}
 
 	echo '</table>';
+
+	$featured = get_post_meta( $post->ID, LEJWANA_FEATURED_META, true );
+	echo '<p><label><input type="checkbox" name="' . esc_attr( LEJWANA_FEATURED_META ) . '" value="1"' . checked( $featured, '1', false ) . '> Show in the "Most read" list on The Southern Cut (the three newest ticked articles appear)</label></p>';
 }
 
 function lejwana_save_article_fields( $post_id ) {
@@ -63,5 +83,6 @@ function lejwana_save_article_fields( $post_id ) {
 		$value = isset( $_POST[ $key ] ) ? wp_unslash( $_POST[ $key ] ) : '';
 		update_post_meta( $post_id, $key, $value );
 	}
+	update_post_meta( $post_id, LEJWANA_FEATURED_META, isset( $_POST[ LEJWANA_FEATURED_META ] ) ? '1' : '' );
 }
 add_action( 'save_post_post', 'lejwana_save_article_fields' );
