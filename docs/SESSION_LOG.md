@@ -2,6 +2,22 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-15 — Client feedback applied, deployed to staging2
+
+**Done (static + theme, committed `b9ebf64`, `08b5d99`, `46aed94`, `ea5b754`, pushed to `origin/wp`):**
+homepage hero copy (heading "Southern African Diamond Sourcing", tagline, two paragraphs,
+Bourse line) and capability cards reordered Sourcing, Partnership, Provenance; advisory hero,
+title, meta and all five cards; Southern Cut hub, Insights and Events intros and meta. All new
+copy was supplied by the user and is recorded in `CONTENT.md`. Review script clean on each page.
+**Deployed to staging2 only:** theme uploaded, cache flushed, `/`, `/advisory/`, `/the-southern-cut/`
+200 with the new copy and zero console errors. Theme backup `~/backups/staging2-theme-before-2026-11-15.tgz`.
+**Deploy recipe:** `u1715-5lrezgdgwfbb@ssh.lejwana.com`, port 18765, key `~/.ssh/lejwana_siteground_ed25519`,
+path `~/www/staging2.lejwana.com/public_html/wp-content/themes/lejwana` (production is `~/www/lejwana.com`; do not touch).
+tar the theme, scp to `~/tmp`, extract, `wp cache flush`. In zsh, write ssh options out (no `$K`) and brace `${H}:tmp/`.
+**Open:** hub page meta and hero line still carry old combined copy; homepage meta description untouched;
+`images/about.jpg` untracked; the earlier 38 [CONFIRM]s still stand (not recounted).
+**Next:** user's OK to send the test enquiry on staging2, then client review and production.
+
 ## 2026-10-21 — WordPress phase 8: staging2 converted
 
 Connected over SSH (key `~/.ssh/lejwana_siteground_ed25519`, host `ssh.lejwana.com`
