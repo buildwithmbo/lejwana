@@ -1,7 +1,7 @@
 <?php
 lejwana_set_page_meta(
   'What’s on | The Southern Cut | Lejwana',
-  'Officially published sales, tenders, reporting dates and events, checked against organiser and producer sources. Access requirements vary — confirm before acting.'
+  'Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers.'
 );
 get_header();
 ?>
@@ -12,7 +12,7 @@ get_header();
       <a class="text-link listing-back" href="<?php lejwana_the_url( 'the-southern-cut/' ); ?>">Back to The Southern Cut</a>
       <div class="whats-on">
         <h1 class="section__title">What&rsquo;s on</h1>
-        <p class="whats-on__intro">Officially published sales, tenders, reporting dates and events, checked against organiser and producer sources. Access requirements vary &mdash; confirm before acting.</p>
+        <p class="whats-on__intro">Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers.</p>
         <div class="whats-on__filters pill-group" role="group" aria-label="Filter by type" hidden>
           <button type="button" class="pill pill--active" data-filter="all" aria-pressed="true">All</button>
           <button type="button" class="pill" data-filter="sale" aria-pressed="false">Sales &amp; auctions</button>

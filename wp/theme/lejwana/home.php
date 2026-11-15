@@ -1,7 +1,7 @@
 <?php
 lejwana_set_page_meta(
   'Latest intelligence | The Southern Cut | Lejwana',
-  'Short reads on Southern Africa’s diamond trade. Each links out to the full piece.'
+  'Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future.'
 );
 get_header();
 
@@ -26,7 +26,7 @@ $articles   = new WP_Query(
       <a class="text-link listing-back" href="<?php lejwana_the_url( 'the-southern-cut/' ); ?>">Back to The Southern Cut</a>
       <div class="intel">
         <h1 class="section__title">Latest intelligence</h1>
-        <p class="intel__intro">Short reads. Each links out to the full piece.</p>
+        <p class="intel__intro">Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future.</p>
         <div class="intel__filters pill-group" role="group" aria-label="Filter by category" hidden>
           <button type="button" class="pill pill--active" data-filter="all" aria-pressed="true">All stories</button>
           <?php foreach ( $categories as $category ) : ?>

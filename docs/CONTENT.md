@@ -954,3 +954,9 @@ Meta description: Navigate the Southern African diamond pipeline with expert gui
 ### Advisory cards - changed 2026-11-14, client feedback
 
 Five cards replaced in place, same order and icons: Rough-to-Polished Yield Modelling; Pricing & Rapaport Benchmarking; Beneficiation, Kimberley Process & Provenance; Beneficiation & Downstream Operations; Assorting, Grading & Bench Training. Full text is in the advisory page markup.
+
+### The Southern Cut hub intros - changed 2026-11-14, client feedback
+
+Latest Intelligence: Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future. (was: Short reads. Each links out to the full piece.)
+What’s On: Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers. (was: Officially published sales, tenders, reporting dates and events, checked against organiser and producer sources. Access requirements vary - confirm before acting.)
+Applied the same day to the Insights and Events sub-pages: on-page intros, meta descriptions and og:description.

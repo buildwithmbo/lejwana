@@ -44,7 +44,7 @@ $intel  = new WP_Query(
       <div class="hub-grid">
         <div class="hub-grid__primary whats-on" id="dates">
           <h2 class="section__title" id="dates-title">What&rsquo;s on</h2>
-          <p class="whats-on__intro">Officially published sales, tenders, reporting dates and events, checked against organiser and producer sources. Access requirements vary &mdash; confirm before acting.</p>
+          <p class="whats-on__intro">Track upcoming ODC Spot Auctions, De Beers Sights and regional diamond sales, with verified dates and details from primary producers and organisers.</p>
           <?php get_template_part( 'template-parts/events-table', null, array( 'events' => $events ) ); ?>
           <a class="button button--ghost hub-grid__more" href="<?php lejwana_the_url( 'the-southern-cut/events/' ); ?>" aria-label="Read more about events and dates">Read more</a>
           <p class="calendar-note">Dates can change. Confirm participation, customer registration, viewing rights and auction terms directly with the organiser before acting.</p>
@@ -52,7 +52,7 @@ $intel  = new WP_Query(
 
         <div class="hub-grid__secondary intel" id="intelligence" role="region" aria-labelledby="intelligence-title">
           <h2 class="section__title" id="intelligence-title">Latest intelligence</h2>
-          <p class="intel__intro">Short reads. Each links out to the full piece.</p>
+          <p class="intel__intro">Data-driven insights into Southern Africa’s diamond market, covering industry trends, policy changes and key developments shaping the region’s future.</p>
           <ul class="intel__list" id="intel-list">
             <?php while ( $intel->have_posts() ) : $intel->the_post(); ?>
               <?php get_template_part( 'template-parts/intel-item', null, array( 'heading' => 'h3' ) ); ?>
