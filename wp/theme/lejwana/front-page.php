@@ -225,11 +225,29 @@ get_header();
       </h2>
       <div class="capabilities__grid">
         <div class="capability">
-          <span class="capability__label">Sourcing</span>
+          <span class="capability__label">Provenance</span>
           <span class="capability__gem" aria-hidden="true"></span>
           <img
             class="capability__icon"
             src="<?php lejwana_the_asset( 'images/sourcing-icon.jpg' ); ?>"
+            width="300"
+            height="300"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="capability__benefit">
+              Every diamond has a Diamond Passport, accessed by QR code. It traces the stone from its rough source and Kimberley Process certificate through cutting and polishing, with photographs, video and its GIA grading report.
+          </p>
+        </div>
+
+        <div class="capability">
+          <span class="capability__label">Sourcing</span>
+          <span class="capability__gem" aria-hidden="true"></span>
+          <img
+            class="capability__icon"
+            src="<?php lejwana_the_asset( 'images/partnership-icon.jpg' ); ?>"
             width="300"
             height="300"
             alt=""
@@ -247,7 +265,7 @@ get_header();
           <span class="capability__gem" aria-hidden="true"></span>
           <img
             class="capability__icon"
-            src="<?php lejwana_the_asset( 'images/partnership-icon.jpg' ); ?>"
+            src="<?php lejwana_the_asset( 'images/provenance-icon.jpg' ); ?>"
             width="300"
             height="300"
             alt=""
@@ -259,24 +277,6 @@ get_header();
               We build long-term relationships through fair dealing, mutual benefit and trust. We are transparent where clarity matters, while remaining discreet where commercial confidence and trusted relationships matter.
           </p>
         </div>
-        <div class="capability">
-          <span class="capability__label">Provenance</span>
-          <span class="capability__gem" aria-hidden="true"></span>
-          <img
-            class="capability__icon"
-            src="<?php lejwana_the_asset( 'images/provenance-icon.jpg' ); ?>"
-            width="300"
-            height="300"
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-          />
-          <p class="capability__benefit">
-              Every diamond has a Diamond Passport, accessed by QR code. It traces the stone from its rough source and Kimberley Process certificate through cutting and polishing, with photographs, video and its GIA grading report.
-          </p>
-        </div>
-
       </div>
     </div>
   </section>

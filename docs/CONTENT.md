@@ -940,9 +940,9 @@ Body 2: Our traceability ecosystem helps you share the goods’ documented origi
 Buttons: Submit your specification; Explore provenance.
 Line below buttons: MEMBER OF THE LONDON DIAMOND BOURSE
 
-### Homepage capability cards - reordered 2026-11-14, client feedback
+### Homepage capability icons - swapped 2026-11-15, client feedback
 
-Order is now Sourcing, Partnership, Provenance (was Provenance, Sourcing, Partnership). Each icon moves with its card.
+Card order unchanged: Provenance, Sourcing, Partnership. Icons only swapped (Provenance gets the sourcing icon, Sourcing the partnership icon, Partnership the provenance icon). An earlier same-day reorder of the cards was a misreading and was reverted.
 
 ### Advisory hero - changed 2026-11-14, client feedback
 
