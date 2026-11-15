@@ -6,7 +6,7 @@ Newest entry first. Written by /wrap at the end of every session.
 
 **Done (static + theme, committed `b9ebf64`, `08b5d99`, `46aed94`, `ea5b754`, pushed to `origin/wp`):**
 homepage hero copy (heading "Southern African Diamond Sourcing", tagline, two paragraphs,
-Bourse line) and capability cards reordered Sourcing, Partnership, Provenance; advisory hero,
+Bourse line) and capability icons swapped (cards stay Provenance, Sourcing, Partnership; first tried a card reorder, a misreading, reverted in `f39c0f3`); advisory hero,
 title, meta and all five cards; Southern Cut hub, Insights and Events intros and meta. All new
 copy was supplied by the user and is recorded in `CONTENT.md`. Review script clean on each page.
 **Deployed to staging2 only:** theme uploaded, cache flushed, `/`, `/advisory/`, `/the-southern-cut/`
