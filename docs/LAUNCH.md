@@ -39,7 +39,7 @@ Do each step on **staging**, check it, then repeat on production or push staging
 
 - **Gaborone address:** placeholder `[CONFIRM: full Gaborone street address]` in the footer (`footer.php`) and the contact locations block.
 - **Cal.com link:** placeholder on the contact page.
-- **Newsletter handler:** The Southern Cut Brief form only validates; it sends nowhere. Pick a list provider.
+- **Newsletter (MailerLite):** the Brief form posts to `includes/brief.php`, which calls the MailerLite API. Before it works on a site, add to that site's `wp-config.php`: `define( 'LEJWANA_MAILERLITE_KEY', '<API token>' );` and `define( 'LEJWANA_MAILERLITE_GROUP', '<group ID>' );`. In MailerLite create the custom fields `company` and `role`. Without the key the form shows the failure message. The form carries a nonce, so exclude `/the-southern-cut/` from page caching. Failure messages and privacy wording are written (`CONTENT.md`).
 - **Explainers button:** held back until the explainers have a destination.
 - **Explainer fact-checks:** 10 `[CONFIRM]` comments inside the explainers (content, so the client sees them in the editor); resolve before publishing.
 - **Analytics:** none included.

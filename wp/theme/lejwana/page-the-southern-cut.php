@@ -198,8 +198,10 @@ $type_tabs = array( '' => 'All', 'result' => 'Results', 'tender' => 'Tenders', '
         <h2 class="section__title" id="brief-title">The Southern Cut Brief</h2>
         <p class="section__intro">A concise regional diamond-trade briefing, sent only when there is something worth knowing.</p>
       </div>
-      <!-- [CONFIRM: newsletter handler — front-end validation only; wire to a list provider before launch] -->
-      <form class="form brief-band__form" novalidate>
+      <form class="form brief-band__form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" novalidate>
+        <input type="hidden" name="action" value="lejwana_brief">
+        <?php wp_nonce_field( 'lejwana_brief' ); ?>
+        <div class="u-visually-hidden" aria-hidden="true"><label for="field-website">Leave this field empty</label><input type="text" id="field-website" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="form__field">
           <label class="form__label" for="field-email">Email address</label>
           <input class="form__input" type="email" id="field-email" name="email" autocomplete="email" required>
@@ -223,7 +225,13 @@ $type_tabs = array( '' => 'All', 'result' => 'Results', 'tender' => 'Tenders', '
         </div>
         <button class="button" type="submit">Subscribe</button>
         <p class="form__note">By subscribing, you agree to receive Lejwana&rsquo;s diamond-trade updates. Unsubscribe at any time.</p>
-        <p class="form__success" role="status">Thank you. You have subscribed to The Southern Cut Brief.</p>
+        <?php $brief_outcome = lejwana_get_brief_outcome(); ?>
+        <p class="form__success<?php echo 'sent' === $brief_outcome ? ' form__success--visible' : ''; ?>" role="status">Thank you. You have subscribed to The Southern Cut Brief.</p>
+        <?php if ( 'invalid' === $brief_outcome ) : ?>
+        <p class="form__failure" role="alert">Your subscription was not completed. Check each required field and subscribe again.</p>
+        <?php elseif ( 'failed' === $brief_outcome ) : ?>
+        <p class="form__failure" role="alert">Your subscription was not completed. Please try again shortly, or <a class="text-link" href="<?php lejwana_the_url( 'contact/' ); ?>">contact us</a> and we will add you to the list.</p>
+        <?php endif; ?>
       </form>
     </div>
   </section>

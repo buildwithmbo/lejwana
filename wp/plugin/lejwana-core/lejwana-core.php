@@ -14,3 +14,4 @@ require_once __DIR__ . '/includes/events.php';
 require_once __DIR__ . '/includes/calendar-feed.php';
 require_once __DIR__ . '/includes/articles.php';
 require_once __DIR__ . '/includes/contact.php';
+require_once __DIR__ . '/includes/brief.php';

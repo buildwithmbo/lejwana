@@ -77,6 +77,12 @@ function lejwana_get_enquiry_outcome() {
 	return in_array( $outcome, LEJWANA_ENQUIRY_OUTCOMES, true ) ? $outcome : '';
 }
 
+// The Brief handler redirects back with ?brief=sent|invalid|failed.
+function lejwana_get_brief_outcome() {
+	$outcome = isset( $_GET['brief'] ) ? sanitize_key( wp_unslash( $_GET['brief'] ) ) : '';
+	return in_array( $outcome, LEJWANA_BRIEF_OUTCOMES, true ) ? $outcome : '';
+}
+
 function lejwana_get_event_end( $event_id ) {
 	$end = get_post_meta( $event_id, 'lj_end_date', true );
 	return $end ? $end : get_post_meta( $event_id, 'lj_start_date', true );

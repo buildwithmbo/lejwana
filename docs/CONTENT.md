@@ -927,6 +927,12 @@ Buttons: Go to the homepage; Contact us.
 Meta description: The page you asked for could not be found. Return to the Lejwana homepage or contact us.
 Title: Page not found | Lejwana
 
+### The Southern Cut Brief form and privacy - written 2026-11-18, with the user's permission
+
+Invalid: Your subscription was not completed. Check each required field and subscribe again.
+Failed: Your subscription was not completed. Please try again shortly, or contact us and we will add you to the list.
+Privacy page, after the 4.1 list: The Southern Cut Brief is sent through MailerLite. If you subscribe, we pass your email address, first name, company and role to MailerLite, which sends the Brief on our behalf. Every email includes an unsubscribe link.
+
 ### Homepage hero heading - changed 2026-10-21 by the user
 
 Heading: Every Diamond Has a Story. (was: Make the invisible visible.)

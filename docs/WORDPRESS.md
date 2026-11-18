@@ -76,7 +76,8 @@ and quote only. An editor stylesheet makes the editing view match the front
 end.
 
 Open `[CONFIRM]`s carry over into the templates unchanged (Gaborone address,
-Cal.com link, newsletter handler, explainers button, explainer fact-checks).
+Cal.com link, explainers button, explainer fact-checks). The newsletter handler is now built
+(MailerLite, `includes/brief.php`); its setup is in `docs/LAUNCH.md`.
 
 ## 5. Contact form
 
