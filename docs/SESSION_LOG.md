@@ -2,6 +2,32 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (2) — Brief form connected to MailerLite, on staging2
+
+**Done (`17be380`, local, not pushed):** plan agreed first. New `wp/plugin/lejwana-core/includes/brief.php`: admin-post `lejwana_brief`, nonce, `website` honeypot,
+POST to MailerLite `/api/subscribers` (email, name, company, role, group), redirects `?brief=sent|invalid|failed#brief`. Hub template, `lejwana_get_brief_outcome()`.
+Key and group ID are `LEJWANA_MAILERLITE_KEY` / `_GROUP` in staging2 `wp-config.php` (user added; never in repo). User gave permission to write the Brief failure
+messages and the privacy paragraph naming MailerLite (recorded in `CONTENT.md`); "contact us" links to `/contact/`.
+**Deployed to staging2 only** (backup `~/backups/staging2-theme-plugin-before-brief-2026-11-18.tgz`). Valid, invalid email, missing name, bad nonce and honeypot
+all behaved; review script zero console errors at 1440 and 390. Hub excluded from SiteGround page cache (nonce); daily flush no longer needed for the hub.
+**Not checked:** success/invalid/failed messages on screen; test subscriber `staging-test-brief@example.com` still in MailerLite (delete; confirm name, company, role landed).
+Static `the-southern-cut.html` still the fake-success demo. Privacy wording does not cover MailerLite's storage or retention.
+**Open [CONFIRM]s:** Gaborone address; Cal.com link; Explainers button; 10 explainer fact-checks; analytics and fonts decisions. Newsletter no longer open.
+**Next:** user checks the test subscriber in MailerLite, then client copy review on staging2; production cut-over (DB backup first, add MailerLite keys and cache exclusion there) on the user's go-ahead.
+
+## 2026-11-18 — Test enquiry confirmed on staging2
+
+**Done:** read the log and LAUNCH.md; phase is QA / launch (phase 8). `images/about.jpg` now tracked (`ed378c4`, local, not pushed).
+Sent a test enquiry to staging2 `/contact/` by POST to `admin-post.php` (nonce from the page, enquiry type General, name and company
+"Staging Test", `staging-test@example.com`). Form redirected to `?enquiry=sent`; user confirmed the email reached `info@lejwana.com`.
+LAUNCH.md step 7 is therefore done on staging2. No code or copy changed, no deploy, production untouched.
+**State:** staging2 current as of 2026-11-15 build; awaiting client copy review and sign-off.
+**Open [CONFIRM]s:** Gaborone street address; Cal.com link; newsletter provider (Brief form sends nowhere); Explainers button destination;
+10 explainer fact-checks; analytics and self-hosted fonts decisions. Earlier count of 38 not recounted.
+**Other open:** Most read hidden until articles ticked; Lucara tagged Botswana?; hub empty message says 30 days;
+repeat De Beers Sights 8–10 type Sight on production; push `ed378c4`.
+**Next:** client reviews staging2 copy, adds a test event and ticks Most read; then production cut-over (DB backup first) on the user's go-ahead.
+
 ## 2026-11-15 (2) — The Southern Cut rebuilt, deployed to staging2
 
 **Done (`cbc91bb`, pushed to `origin/wp`):** from `BUILD-BRIEF.md` and the designer's screenshots. DESIGN.md §14 agreed first.
