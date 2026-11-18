@@ -2,6 +2,17 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (7) — Trade email changed to polishedtrade@lejwana.com
+
+**Done (`3c7805e`, pushed):** `polished@lejwana.com` replaced by `polishedtrade@lejwana.com` in 26 files (50 occurrences): all static pages, 13 articles, and theme `page-contact.php`, `footer.php`, `single.php`.
+None in `docs/`, the plugin or scripts. The contact form still sends to `info@lejwana.com`; not changed, not asked.
+**Deployed to staging2 and production:** theme only, backups `~/backups/{staging2,lejwana}-theme-before-email-2026-11-18.tgz`, caches flushed (`wp cache flush`, `wp sg purge`).
+`wp search-replace --dry-run` found 0 occurrences in either database, so no content change was needed.
+**Checked live:** 9 pages each on staging2 and lejwana.com return 200 with the new address and none with the old; `/contact/` zero console errors on both.
+**Not checked:** that the `polishedtrade@` mailbox exists; Cal.com profile, signatures and external listings may still show the old address.
+**Open:** unchanged from entry 6 (cache exclusions, form tests, Gaborone address, Explainers button, explainer fact-checks).
+**Next:** unchanged: user excludes `/contact/` and `/the-southern-cut/` from dynamic caching, then test enquiry, Brief signup and a Cal.com booking on lejwana.com (and confirm the new mailbox).
+
 ## 2026-11-18 (6) — Session wrap: lejwana.com is live on the new theme
 
 **Session in one line:** booking calendar finished (entry 3), old-site 301s added (4), production cut over (5). All pushed to `origin/wp` up to `7f49a9d`; staging2 and production match the repo.
