@@ -1,7 +1,7 @@
 <?php
 lejwana_set_page_meta(
-  'Contact | Reach Lejwana | polished@lejwana.com',
-  'Email polished@lejwana.com, book a 30-minute introduction, or send a trade enquiry. We reply within one working day.'
+  'Contact | Reach Lejwana | polishedtrade@lejwana.com',
+  'Email polishedtrade@lejwana.com, book a 30-minute introduction, or send a trade enquiry. We reply within one working day.'
 );
 get_header();
 ?>
@@ -22,8 +22,8 @@ get_header();
       <div class="contact-channels">
         <div class="channel">
           <h2 class="channel__title">Email</h2>
-          <p><a class="channel__email" href="mailto:polished@lejwana.com">polished@lejwana.com</a></p>
-          <button class="channel__copy-button" type="button" data-email="polished@lejwana.com">Copy email address</button>
+          <p><a class="channel__email" href="mailto:polishedtrade@lejwana.com">polishedtrade@lejwana.com</a></p>
+          <button class="channel__copy-button" type="button" data-email="polishedtrade@lejwana.com">Copy email address</button>
         </div>
         <div class="channel">
           <h2 class="channel__title">Book a call</h2>
@@ -219,7 +219,7 @@ get_header();
         <?php if ( 'invalid' === $enquiry_outcome ) : ?>
         <p class="form__failure" role="alert">Your enquiry was not sent. Check each required field and send it again.</p>
         <?php elseif ( 'failed' === $enquiry_outcome ) : ?>
-        <p class="form__failure" role="alert">Your enquiry was not sent. Email polished@lejwana.com and we will reply within one working day.</p>
+        <p class="form__failure" role="alert">Your enquiry was not sent. Email polishedtrade@lejwana.com and we will reply within one working day.</p>
         <?php endif; ?>
       </form>
     </div>

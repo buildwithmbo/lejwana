@@ -2,6 +2,16 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (6) — Session wrap: lejwana.com is live on the new theme
+
+**Session in one line:** booking calendar finished (entry 3), old-site 301s added (4), production cut over (5). All pushed to `origin/wp` up to `7f49a9d`; staging2 and production match the repo.
+**Decisions:** one 30-minute Cal.com call (`cal.com/lejwana/30min`); frame `54rem` / `62rem` from 1000px; old-site redirect defaults (press releases to the Southern Cut, junk Divi pages to `/`);
+user signed off and chose to go live with open items as-is; production content copied from staging2 by export and import, because `migrate-content.php` is stale since 2026-11-15.
+**Problems hit:** importer merged the two November ODC events into the October ones (repaired by hand); `maintenance` page's Divi template made `wp post update` exit non-zero; Playwright needed a 1.60.0 venv.
+**State:** production live and checked (16 pages 200, 15 redirects, zero console errors). Enquiry form, Brief form and Cal.com booking not tested on production. Cache exclusions not yet set.
+**Open [CONFIRM]s (live):** Gaborone street address (every page footer); Explainers button; newsletter note on static `the-southern-cut.html`; explainer fact-checks (Sights, KP wording, price per carat, yield ranges).
+**Next:** user excludes `/contact/` and `/the-southern-cut/` (and sub-pages) from dynamic caching in Site Tools, then test the enquiry form, Brief signup and a Cal.com booking on lejwana.com.
+
 ## 2026-11-18 (5) — Production cut-over: lejwana.com now runs the new theme
 
 **Done on production (user's go-ahead; signed off, open items live as-is):** backups in `~/backups/production-*-before-lejwana-2026-11-18` (DB dump, `.htaccess`, `wp-config.php`, content list).

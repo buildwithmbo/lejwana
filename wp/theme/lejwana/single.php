@@ -25,7 +25,7 @@ $related  = lejwana_get_related_posts( $article_id );
         <?php endif; ?>
         <?php the_content(); ?>
       </div>
-      <p class="article__closing">For questions on this, <a class="text-link" href="mailto:polished@lejwana.com">write to us</a>.</p>
+      <p class="article__closing">For questions on this, <a class="text-link" href="mailto:polishedtrade@lejwana.com">write to us</a>.</p>
       <?php if ( $related ) : ?>
         <div class="container related">
           <h2 class="related__title"><?php echo lejwana_is_explainer( $article_id ) ? 'Next explainers' : 'Related'; ?></h2>

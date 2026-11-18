@@ -23,7 +23,7 @@
       <div>
         <h2 class="site-footer__heading">Contact</h2>
         <ul class="site-footer__list">
-          <li><a class="site-footer__link" href="mailto:polished@lejwana.com">polished@lejwana.com</a></li>
+          <li><a class="site-footer__link" href="mailto:polishedtrade@lejwana.com">polishedtrade@lejwana.com</a></li>
           <li><a class="site-footer__link" href="<?php lejwana_the_url( 'contact/' ); ?>">Book a call</a></li>
           <li><a class="site-footer__link" href="<?php lejwana_the_url( 'privacy/' ); ?>">Privacy</a></li>
         </ul>
