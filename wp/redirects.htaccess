@@ -24,3 +24,9 @@ RedirectMatch 301 ^/what-we-do/(diamond-marketing-advisory|industrial-services-a
 RedirectMatch 301 ^/what-we-do/(cutting-and-polishing|jewellery-manufacturing|unique-buying-experience)/?$ /sourcing/
 RedirectMatch 301 ^/(privacy-policy|cookie-policy)/?$ /privacy/
 RedirectMatch 301 ^/(trends-and-innovations-in-diamond-valuation|unveiling-botswanas-safari-inspired-jewelry-collection|the-ethical-facets-of-diamond-sourcing)/?$ /the-southern-cut/insights/
+# Category archives and leftover Divi pages in the old site's sitemap (checked 2026-11-18).
+# Press releases have no equivalent section, so they go to the Southern Cut front page.
+RedirectMatch 301 ^/category/articles/?$ /the-southern-cut/insights/
+RedirectMatch 301 ^/category/events/?$ /the-southern-cut/events/
+RedirectMatch 301 ^/category/press-releases/?$ /the-southern-cut/
+RedirectMatch 301 ^/(sub-page|test|maintenance)/?$ /

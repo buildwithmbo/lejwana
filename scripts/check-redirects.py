@@ -39,6 +39,8 @@ paths += [
     "/what-we-do/jewellery-manufacturing/", "/what-we-do/unique-buying-experience/",
     "/privacy-policy/", "/cookie-policy/", "/trends-and-innovations-in-diamond-valuation/",
     "/unveiling-botswanas-safari-inspired-jewelry-collection/", "/the-ethical-facets-of-diamond-sourcing/",
+    "/category/articles/", "/category/events/", "/category/press-releases/",
+    "/sub-page/", "/test/", "/maintenance/",
 ]
 for path in paths:
     hits = [(rule, target) for rule, target in rules if rule.match(path)]

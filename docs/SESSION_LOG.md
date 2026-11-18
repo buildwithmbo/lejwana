@@ -2,6 +2,17 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (4) — 301 redirects from the old lejwana.com site
+
+**Done:** compared the live sitemap (`lejwana.com/wp-sitemap.xml`; `www` already 301s to the apex) with `wp/redirects.htaccess`. 15 of 22 URLs were covered; added 6 rules:
+`/category/articles/` to Insights, `/category/events/` to Events, `/category/press-releases/` to the Southern Cut front page, `/sub-page/`, `/test/`, `/maintenance/` to `/`.
+Same six paths added to `scripts/check-redirects.py`; it reports 49/49 resolving on staging2.
+**Deployed to staging2 only:** replaced the `# BEGIN/END Lejwana redirects` block in `.htaccess` (backup `~/backups/staging2-htaccess-before-redirects-2026-11-18.bak`), cache flushed.
+Tested 21 old URLs live: each one 301 to the right target, one hop, ends on 200; `/`, `/about/`, `/contact/`, `/the-southern-cut/` unaffected, no loops.
+**Decisions (defaults, user to confirm):** press releases go to the Southern Cut front page (no equivalent section); junk Divi pages go to `/`, not 404; the 3 old posts still go to the Insights index.
+**Not done:** production untouched. The old-site mapping is still unapproved by the client. `/lejwana-gem-works/` has a rule but is not in the live sitemap.
+**Next:** client approves the redirect map, then add the block to production `.htaccess` at cut-over (DB and `.htaccess` backups first) and run `scripts/check-redirects.py https://lejwana.com`.
+
 ## 2026-11-18 (3) — Booking calendar: one 30-minute call, real Cal.com link
 
 **Done (`6241b27`, `9100d81`, plus the 54rem change; pushed to `origin/wp`):** Contact "Book a call" now offers one 30-minute introduction (was 20- and 45-minute options). Embed points at
