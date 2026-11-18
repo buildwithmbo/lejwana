@@ -10,10 +10,11 @@ Key and group ID are `LEJWANA_MAILERLITE_KEY` / `_GROUP` in staging2 `wp-config.
 messages and the privacy paragraph naming MailerLite (recorded in `CONTENT.md`); "contact us" links to `/contact/`.
 **Deployed to staging2 only** (backup `~/backups/staging2-theme-plugin-before-brief-2026-11-18.tgz`). Valid, invalid email, missing name, bad nonce and honeypot
 all behaved; review script zero console errors at 1440 and 390. Hub excluded from SiteGround page cache (nonce); daily flush no longer needed for the hub.
-**Not checked:** success/invalid/failed messages on screen; test subscriber `staging-test-brief@example.com` still in MailerLite (delete; confirm name, company, role landed).
+**Confirmed by the user after wrap:** the MailerLite integration works on staging2.
+**Not checked:** success/invalid/failed messages on screen; test subscriber `staging-test-brief@example.com` deleted from MailerLite by the user.
 Static `the-southern-cut.html` still the fake-success demo. Privacy wording does not cover MailerLite's storage or retention.
 **Open [CONFIRM]s:** Gaborone address; Cal.com link; Explainers button; 10 explainer fact-checks; analytics and fonts decisions. Newsletter no longer open.
-**Next:** user checks the test subscriber in MailerLite, then client copy review on staging2; production cut-over (DB backup first, add MailerLite keys and cache exclusion there) on the user's go-ahead.
+**Next:** client copy review on staging2; production cut-over (DB backup first, add MailerLite keys and cache exclusion there) on the user's go-ahead.
 
 ## 2026-11-18 — Test enquiry confirmed on staging2
 
