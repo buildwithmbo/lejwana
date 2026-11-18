@@ -2,6 +2,16 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (8) — Production form and booking tests confirmed by the user
+
+**Reported by the user (not run by me):** on lejwana.com the contact form, the Brief form and the Cal.com booking calendar all work, and the mailbox `polishedtrade@lejwana.com` exists.
+Closes the entry 7 "not checked" mailbox item and the form and booking tests from entry 6. No code, deploy or content change.
+**Still open:** confirm `/contact/` and `/the-southern-cut/` (and sub-pages) are excluded from SiteGround dynamic caching; production sent `x-cache-enabled: True` for both when last checked,
+so a pass now may only be a fresh nonce. Cal.com profile, signatures and listings may still show the old address.
+**Remaining from LAUNCH.md:** Editor login and `docs/CLIENT_GUIDE.md`, HTTPS enforce, Search Console sitemap (`https://lejwana.com/wp-sitemap.xml`), retire static files, client acceptance.
+**Open [CONFIRM]s (live):** Gaborone street address; Explainers button; newsletter note on static `the-southern-cut.html`; explainer fact-checks.
+**Next:** check the cache exclusions took (header `x-cache-enabled` should read False on both paths), then create the client's Editor login.
+
 ## 2026-11-18 (7) — Trade email changed to polishedtrade@lejwana.com
 
 **Done (`3c7805e`, pushed):** `polished@lejwana.com` replaced by `polishedtrade@lejwana.com` in 26 files (50 occurrences): all static pages, 13 articles, and theme `page-contact.php`, `footer.php`, `single.php`.
