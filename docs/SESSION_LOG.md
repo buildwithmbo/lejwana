@@ -2,6 +2,23 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (5) — Production cut-over: lejwana.com now runs the new theme
+
+**Done on production (user's go-ahead; signed off, open items live as-is):** backups in `~/backups/production-*-before-lejwana-2026-11-18` (DB dump, `.htaccess`, `wp-config.php`, content list).
+Uploaded and activated `lejwana-core` and the theme (tars built with `COPYFILE_DISABLE=1`, which stops the `._*` files). 18 old pages and posts set to draft, old About page reused.
+Content copied **from staging2 with `wp export` and `wp import`** (importer installed, used, deleted), not `migrate-content.php`: since the 2026-11-15 rebuild that script reads static files that no
+longer hold the events or article list, so it made 6 articles and 0 events. The importer merged the two November ODC citizen-tender events into the October ones (same title and date);
+reset the meta on those two and recreated the two events by hand. Final fingerprint comparison: all 34 items match staging2.
+MailerLite key and group copied from staging2 `wp-config.php` without printing. Complianz off (as staging2), `sg-cachepress` on. Full redirect block in `.htaccess`.
+**Checked live:** 16 pages 200, no `noindex`, no Divi markup; 15 old URLs 301 in one hop; controls not redirected; zero console errors on 5 pages; `www` 301s to the apex.
+**Not tested on production:** the enquiry form and the Brief form (each sends a real email or adds a subscriber; needs the user's OK).
+**Needs the user (Site Tools):** exclude `/contact/` and `/the-southern-cut/` (and sub-pages) from dynamic caching; production sends `x-cache-enabled: True` for both, so the form nonces will go stale.
+The `wp sg` CLI cannot set exclusions.
+**Not changed:** timezone empty (runbook says Africa/Gaborone); admin email `info@lejwana.co.uk`; `sg-security` inactive.
+**Open [CONFIRM]s (live):** Gaborone street address; Explainers button; newsletter note on static `the-southern-cut.html`; explainer fact-checks.
+**Rollback:** restore the DB dump and the old `.htaccess` from `~/backups`. Still to do from LAUNCH.md: Editor login, Search Console sitemap, HTTPS enforce, retire static files, client acceptance.
+**Next:** the user excludes the two paths from the cache, then send a test enquiry and a test Brief signup on lejwana.com and check both arrive.
+
 ## 2026-11-18 (4) — 301 redirects from the old lejwana.com site
 
 **Done:** compared the live sitemap (`lejwana.com/wp-sitemap.xml`; `www` already 301s to the apex) with `wp/redirects.htaccess`. 15 of 22 URLs were covered; added 6 rules:
