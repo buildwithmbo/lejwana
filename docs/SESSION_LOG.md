@@ -2,6 +2,18 @@
 
 Newest entry first. Written by /wrap at the end of every session.
 
+## 2026-11-18 (3) — Booking calendar: one 30-minute call, real Cal.com link
+
+**Done (`6241b27`, `9100d81`, pushed to `origin/wp`):** Contact "Book a call" now offers one 30-minute introduction (was 20- and 45-minute options). Embed points at
+`https://cal.com/lejwana/30min`; `[CONFIRM: Cal.com link]` removed. Meta and OG descriptions reworded to match. Same change in `contact.html` and `page-contact.php`.
+Wording edited on the user's instruction, so `CONTENT.md` was not the source for it. Booking frame was 560px and scrolled inside the page; now `52rem`, and `62rem`
+from 1000px, matching Cal.com's tallest view (~830px stacked, ~990px two-column). The "blank gap" seen at 390px was a screenshot artefact (lazy iframe), not a bug.
+**Checked:** review script zero console errors at 1440 and 390; clicked through the embed at 390, 768, 1000, 1440. Playwright needed a throwaway venv (browser cache is build 1223, so playwright 1.60.0).
+**User changed in Cal.com** (not verified by me): account name and event title, replacing "Thoko" and "30 min meeting" (suggested: "Lejwana", "Introduction call with Lejwana").
+**State:** staging2 not redeployed with these changes. 701-999px frame can scroll inside itself by up to ~100px.
+**Open [CONFIRM]s:** Gaborone street address (footer, every page); Explainers button; newsletter handler on static `the-southern-cut.html`; explainer fact-checks (Sights, KP wording, price per carat, yield ranges).
+**Next:** deploy these two commits to staging2, then do one real test booking to confirm the Cal.com name, event title and confirmation email.
+
 ## 2026-11-18 (2) — Brief form connected to MailerLite, on staging2
 
 **Done (`17be380`, local, not pushed):** plan agreed first. New `wp/plugin/lejwana-core/includes/brief.php`: admin-post `lejwana_brief`, nonce, `website` honeypot,
