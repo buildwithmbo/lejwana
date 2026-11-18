@@ -1,7 +1,7 @@
 <?php
 lejwana_set_page_meta(
   'Contact | Reach Lejwana | polished@lejwana.com',
-  'Email polished@lejwana.com, book a 20-minute introduction or 45-minute working session, or send a trade enquiry. We reply within one working day.'
+  'Email polished@lejwana.com, book a 30-minute introduction, or send a trade enquiry. We reply within one working day.'
 );
 get_header();
 ?>
@@ -28,12 +28,10 @@ get_header();
         <div class="channel">
           <h2 class="channel__title">Book a call</h2>
           <ul class="channel__durations">
-            <li>20-minute introduction</li>
-            <li>45-minute working session</li>
+            <li>30-minute introduction</li>
           </ul>
-          <!-- Cal.com loads on request so the page stays fast.
-               [CONFIRM: Cal.com booking link — placeholder "lejwana/intro" used] -->
-          <button class="button" type="button" data-cal-link="lejwana/intro" data-cal-target="#cal-container">Open the booking calendar</button>
+          <!-- Cal.com loads on request so the page stays fast. -->
+          <button class="button" type="button" data-cal-link="lejwana/30min" data-cal-target="#cal-container">Open the booking calendar</button>
           <div class="cal-embed" id="cal-container"></div>
         </div>
       </div>
