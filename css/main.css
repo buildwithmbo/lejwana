@@ -3145,11 +3145,11 @@ a.pill {
   margin-top: var(--space-2);
 }
 
-/* Heights match Cal.com's tallest view (~830px stacked, ~990px beside the
+/* Heights match Cal.com's tallest view (~850px stacked, ~990px beside the
    email column) so the frame never scrolls inside the page. */
 .cal-embed__frame {
   width: 100%;
-  min-height: 52rem;
+  min-height: 54rem;
   border: 1px solid var(--colour-sky);
   background: var(--colour-alpine);
 }
